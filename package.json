@@ -49,5 +49,16 @@
     "redux-promise": "^0.5.3",
     "sequelize": "^4.13.5",
     "webpack": "^3.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-enzyme": "^0.8.0",
+    "chai-properties": "^1.2.1",
+    "chai-things": "^0.2.0",
+    "enzyme": "^3.1.0",
+    "mocha": "^4.0.0",
+    "sinon": "^4.0.1",
+    "sinon-chai": "^2.14.0",
+    "supertest": "^3.0.0"
   }
 }
