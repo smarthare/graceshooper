@@ -2,39 +2,31 @@ graceshopper
 
 
 root folder
-  |
-  webpack.config.js
-  package.json
-  README.md
-  seed.js
-  .gitignore
-  server.js
-  app.js
-  Procfile
+      webpack.config.js
+      package.json
+      README.md
+      seed.js
+      .gitignore
+      server.js
+      app.js
+      Procfile
 
-------
-      |
+
       assets--
               |
               images--------
                             |
                             image_1.jpeg
-------
-      |
       db-----
               | 
               db.js
               Model_1.js
               Model_2.js
               index.js
-------
-      |
       dist----
               | 
               bundle.js
               bundle.js.map
-------
-      |
       public--
               |
               favicon.ico
@@ -48,15 +40,11 @@ root folder
                       scss----------
                                     |
                                     custom.scss
-------
-      |
       routes--
               |
               api.js  (aggregates other routes...)
               route_1.js
               route_2.js
-------
-      |
       src---
             |
             index.js
