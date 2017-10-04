@@ -2,7 +2,9 @@ graceshopper
 
 
 
-
+.............
+Directory Structure
+............
 
 root folder
 
