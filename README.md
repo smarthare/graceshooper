@@ -1,7 +1,14 @@
 graceshopper
 
 
+
+
+
 root folder
+
+
+
+
       webpack.config.js
       package.json
       README.md
@@ -10,8 +17,7 @@ root folder
       server.js
       app.js
       Procfile
-
-
+      
       assets--
               |
               images--------
