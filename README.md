@@ -1,6 +1,6 @@
-# graceshopper
+graceshopper
 
-/*
+
 
 -----------------------------
 Overall directory structure
