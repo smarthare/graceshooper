@@ -1,0 +1,38 @@
+# Compiled JS
+dist/
+bundle.js
+bundle.js.map
+
+# NPM errors
+npm-debug.log
+
+# installed packages (better: `npm install` / `bower install`)
+node_modules/*
+bower_components
+env.json
+package-lock.json
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Vim swap files
+*.sw?
+
+# IDE files
+.idea
+.vscode
+
+# IntelliJ
+*.iml
+/.idea
+
