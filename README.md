@@ -1,8 +1,5 @@
 graceshopper
 
--------
-Overall directory structure
--------
 
 root folder
   |
@@ -83,6 +80,3 @@ root folder
             store---------
                           |
                           index.js
-
-
-
