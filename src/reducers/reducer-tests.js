@@ -8,9 +8,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GOT_NEW_DATA:
-      return Object.assign({}, state, { campuses: action.payload.tests });
+      return Object.assign({}, state, { tests: action.payload.tests });
     case GOT_SINGLE_TEST:
-      return Object.assign({}, state, { selectedCampus: action.payload });
+      return Object.assign({}, state, { selectedTest: action.payload });
     default:
       return state;
   }
