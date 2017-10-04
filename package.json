@@ -35,9 +35,11 @@
     "express": "^4.16.1",
     "http": "0.0.0",
     "morgan": "^1.9.0",
+    "node-sass": "^4.5.3",
     "path": "^0.12.7",
     "pg": "^7.3.0",
     "pg-native": "^2.2.0",
-    "sequelize": "^4.13.5"
+    "sequelize": "^4.13.5",
+    "webpack": "^3.6.0"
   }
 }
