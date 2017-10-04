@@ -1,10 +1,8 @@
 graceshopper
 
-
-
------------------------------
+-------
 Overall directory structure
------------------------------
+-------
 
 root folder
   |
