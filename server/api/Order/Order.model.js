@@ -1,7 +1,7 @@
 const
   conn = require('../../conn'),
-  Product = require('../Product/Product.model'),
-  LineItem = require('../LineItem/LineItem.model')
+  Product = require('../product/product.model'),
+  LineItem = require('./lineItem.model')
 
 const Order = conn.define('order', {
   isCart: {
@@ -12,10 +12,18 @@ const Order = conn.define('order', {
     type: conn.Sequelize.ENUM('Created', 'Processing', 'Cancelled', 'Completed')
   },
   shippingAddress: {
-
+    type: conn.Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   billingAddress: {
-
+    type: conn.Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   }
 })
 

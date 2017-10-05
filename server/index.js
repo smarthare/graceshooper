@@ -4,7 +4,7 @@ const
   path = require('path'),
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
-  routes = require('./routes/api'),
+  routes = require('./routes/api.router'),
   db = require('./db'),
   port = process.env.PORT || 2020
 

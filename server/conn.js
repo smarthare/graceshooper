@@ -1,11 +1,9 @@
 const
   Sequelize = require('sequelize'),
-  pkg = require('../../package.json'),
-  name = process.env.DATABASE_URL || pkg.name,
+  name = process.env.DATABASE_URL || require('../../package.json').name,
   connection = process.env.DATABASE_URL || `postgres://localhost/${name}`,
-  db = new Sequelize(connection, { logging: false }),
-  chalk = require('chalk')
+  db = new Sequelize(connection, { logging: false })
 
-console.log(chalk.yellow(`Opening database connection to ${connection}`))
+console.log(require('chalk').yellow(`Opening database connection to ${connection}`))
 
 module.exports = db

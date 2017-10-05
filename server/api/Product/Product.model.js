@@ -11,7 +11,6 @@ const Product = conn.define('product', {
   },
   description: {
     type: conn.Sequelize.TEXT,
-    allowNull: false,
     defaultValue: 'Awesome product!'
   },
   price: {
