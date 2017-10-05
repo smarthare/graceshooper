@@ -1,0 +1,64 @@
+{
+  "name": "graceshopper",
+  "version": "1.0.0",
+  "description": "graceshopper",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "npm run webpack",
+    "start": "node server.js",
+    "test": "mocha **/*.test.js *.test.js",
+    "webpack": "./node_modules/webpack/bin/webpack.js",
+    "build:css": "node-sass -w -r public/css/scss -o public/css",
+    "start:dev": "npm run webpack -- -w & nodemon --ignore src/ --ignore dist/ server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiAJVince/graceshopper.git"
+  },
+  "keywords": [],
+  "author": "Di_AJ_Vince",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DiAJVince/graceshopper/issues"
+  },
+  "homepage": "https://github.com/DiAJVince/graceshopper#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
+    "chalk": "^2.1.0",
+    "express": "^4.16.1",
+    "http": "0.0.0",
+    "morgan": "^1.9.0",
+    "node-sass": "^4.5.3",
+    "path": "^0.12.7",
+    "pg": "^7.3.0",
+    "pg-native": "^2.2.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.5.3",
+    "sequelize": "^4.13.5",
+    "webpack": "^3.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-enzyme": "^0.8.0",
+    "chai-properties": "^1.2.1",
+    "chai-things": "^0.2.0",
+    "enzyme": "^3.1.0",
+    "mocha": "^4.0.0",
+    "sinon": "^4.0.1",
+    "sinon-chai": "^2.14.0",
+    "supertest": "^3.0.0"
+  }
+}

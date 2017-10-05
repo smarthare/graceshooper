@@ -1,10 +1,4 @@
-
-
 graceshopper
-
-
-
-
 
 
 Directory Structure
