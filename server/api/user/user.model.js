@@ -18,6 +18,8 @@ const User = conn.define('user', {
   },
   email: {
     type: conn.Sequelize.STRING,
+    allowNull: false,
+    unique: true,
     validate: {
       isEmail: true
     }
