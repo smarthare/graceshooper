@@ -35,7 +35,7 @@ export function gotSingleTest(id) {
   })
 }
 
-export function updateCampus(test) {
+export function updateTest(test) {
   return axios.put(`/api/tests/${ test.id }`, test)
   .then(res => res.data)
   .then(_test => {
