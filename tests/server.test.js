@@ -1,6 +1,11 @@
-import db from '../server/db'
-const model = db.model
-import app from '../../server'
+// process.on('unhandledRejection', function (reason, promise) {
+//   console.log('==========\n\n', reason, '\n\n==========')
+//   console.log('==========\n\n', promise, '\n\n==========')
+// })
+
+import { db, models } from '../server/db'
+const { Product, Category, Order, LineItem, User, Review } = models
+import app from '../server'
 
 import fs from 'fs-extra'
 import chai from 'chai'
@@ -20,8 +25,8 @@ describe('==== Backend Tests ====', () => {
   describe('Sequelize Models', function () {
     describe('Product Model', () => {
       describe('definition', () => {
-        it('must have name, description, price, and inventory quantity', () => {
-          expect(Product.attributes.name).to.be.an('object')
+        it('must have title, description, price, and inventory quantity', () => {
+          expect(Product.attributes.title).to.be.an('object')
           expect(Product.attributes.description).to.be.an('object')
           expect(Product.attributes.price).to.be.an('object')
           expect(Product.attributes.inventory).to.be.an('object')
@@ -31,7 +36,17 @@ describe('==== Backend Tests ====', () => {
 
       describe('validations', () => {
         it('must belong to at least one category', () => {
-
+          const product = Product.build({ title: 'foo' })
+          return product.validate()
+            .then(() => { throw new Error('Promise should have rejected.') })
+            .catch(err => {
+              expect(err).to.exist
+              expect(err).to.be.an('error')
+              expect(err.errors).to.contain.a.thing.with.properties({
+                path: 'category',
+                type: 'notNull Violation'
+              })
+            })
         })
         it('must create a placeholder photom, if there is no photo', () => {
 
@@ -68,6 +83,13 @@ describe('==== Backend Tests ====', () => {
         })
 
         it('must have line items that capture price, product id, and quantity', () => {
+        })
+      })
+
+      describe('instance method', () => {
+        it('must be able to submit an order with correct info', () => {
+        })
+        it('must be able to submit an order for correct user', () => {
         })
       })
 

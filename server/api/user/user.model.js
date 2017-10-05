@@ -11,7 +11,7 @@ const User = conn.define('user', {
   password: conn.Sequelize.STRING,
   imgUrl: {
     type: conn.Sequelize.STRING,
-    defaultValue: '',
+    defaultValue: 'oops',
     validate: {
       isUrl: true
     }

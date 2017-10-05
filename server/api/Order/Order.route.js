@@ -1,6 +1,6 @@
 const
   router = require('express').Router(),
-  Order = require('./product.models')
+  Order = require('./order.model')
 
 // router
 //   .get('/', (req, res, next) => {

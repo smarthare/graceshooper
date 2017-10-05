@@ -4,7 +4,7 @@ const
   path = require('path'),
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
-  db = require('./db'),
+  db = require('./conn'),
   port = process.env.PORT || 2020,
   session = require('express-session')
 
@@ -23,7 +23,7 @@ app.use(session({
   saveUninitialized: false
 }))
 
-app.use('/api', require('./routes/api.router'))
+app.use('/api', require('./api/api.router'))
 
 app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'public/index.html')))
 
@@ -36,8 +36,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => res.status(err.status || 500).send(err))
 
 db.sync()
-.then(() => db.seed())
-.then(data => {
+.then(() => {
   console.log('db synced')
   app.listen(port, () => console.log((`listening on port ${port}`)))
 })

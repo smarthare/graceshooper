@@ -8,7 +8,7 @@ const Review = conn.define('review', {
   },
   body: {
     type: conn.Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
     validate: {
       len: [40, 4000]
     }

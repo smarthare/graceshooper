@@ -1,7 +1,7 @@
 const conn = require('../../conn')
 
 const Product = conn.define('product', {
-  name: {
+  title: {
     type: conn.Sequelize.STRING,
     allowNull: false,
     unique: true,

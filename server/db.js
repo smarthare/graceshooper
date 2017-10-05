@@ -1,43 +1,27 @@
 const
-  conn = require('./conn'),
-  Product = require('./product/product.model'),
-  Category = require('./category/category.model'),
-  Order = require('./order/order.model'),
-  LineItem = require('./order/lineItem.model'),
-  User = require('./user/user.model'),
-  Review = require('./review/review.model')
+  db = require('./conn'),
+  User = require('./api/user/user.model'),
+  Product = require('./api/product/product.model.js'),
+  Category = require('./api/category/category.model'),
+  Order = require('./api/order/order.model'),
+  LineItem = require('./api/order/lineItem.model'),
+  Review = require('./api/review/review.model')
 
 Product.hasMany(Category)
 Category.belongsTo(Product)
 
+Order.hasMany(LineItem)
 LineItem.belongsTo(Product)
 LineItem.belongsTo(Order)
-Order.hasMany(LineItem)
 
 User.hasMany(Order)
 Order.belongsTo(User)
 
-Review.belongsTo(Product)
-Review.belongsTo(User)
 Product.hasMany(Review)
-User.hasMany(Review)
-
-const sync = () => conn.sync({ force: true })
-const seed = () => {
-  // return sync()
-  //   .then(() => {
-  //     const promiseArr = [
-  //       Test.create({ name: 'AJ Frank' }),
-  //       Test.create({ name: 'Di Fan' }),
-  //       Test.create({ name: 'Vince Rios' })
-  //     ]
-  //     return Promise.all(promiseArr)
-  //   }
-  // )
-}
+Review.belongsTo(User)
+Review.belongsTo(Product)
 
 module.exports = {
-  seed,
-  sync,
-  models: { Product, Category, Order, LineItem, User }
+  db,
+  models: { Product, Category, Order, LineItem, User, Review }
 }

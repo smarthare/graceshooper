@@ -1,6 +1,6 @@
 const
   router = require('express').Router(),
-  Review = require('./review.models')
+  Review = require('./review.model')
 
 // I guess these routes should exist under products/:id/reviews
 
