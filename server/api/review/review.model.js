@@ -1,38 +1,23 @@
 const conn = require('../../conn')
 
-const Product = conn.define('product', {
-  name: {
+const Review = conn.define('review', {
+  title: {
     type: conn.Sequelize.STRING,
     allowNull: false,
-    unique: true,
-    validate: {
-      notEmpty: true
-    }
+    defaultValue: 'No Title'
   },
-  description: {
+  body: {
     type: conn.Sequelize.TEXT,
-    defaultValue: 'Awesome product!'
-  },
-  price: {
-    type: conn.Sequelize.FLOAT,
-    defaultValue: 0,
+    allowNull: false
     validate: {
-      min: 0
-    }
-  },
-  inventory: {
-    type: conn.Sequelize.INTEGER,
-    defaultValue: 0,
-    validate: {
-      min: 0
-    }
-  },
-  imgUrls: {
-    type: conn.Sequelize.ARRAY(conn.Sequelize.STRING),
-    validate: {
-      isUrl: true
+      len: [40, 4000]
     }
   }
 })
 
-module.exports = Product
+Review.prototype.truncateBody = function (len) {
+  this.subject = `${this.subject.slice(0, len)}...`
+  return this
+}
+
+module.exports = Review

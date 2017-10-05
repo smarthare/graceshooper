@@ -1,15 +1,11 @@
 
-const
-  router = require('express').Router(),
-  User = require('./user/user.model')
+const router = require('express').Router()
 
 router
-  .post('/login')
-  .post('/logout')
-
   .use('/orders', require('/order/order.route'))
   .use('/products', require('/product/product.route'))
   .use('/categories', require('/category/category.route'))
   .use('/users', require('/user/user.route'))
+  .use('/auth', require('/auth/auth.route'))
 
 module.exports = router
