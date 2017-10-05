@@ -4,9 +4,9 @@ const
   path = require('path'),
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
-  routes = require('./routes/api.router'),
   db = require('./db'),
-  port = process.env.PORT || 2020
+  port = process.env.PORT || 2020,
+  session = require('express-session')
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
 app.use('/dist', express.static(path.join(__dirname, 'dist')))
@@ -17,7 +17,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(morgan('dev'))
 
-app.use('/api', routes)
+app.use(session({
+  secret: 'beautifulworld',
+  resave: false,
+  saveUninitialized: false
+}))
+
+app.use('/api', require('./routes/api.router'))
 
 app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'public/index.html')))
 
@@ -27,9 +33,7 @@ app.use((req, res, next) => {
   next(error)
 })
 
-app.use((err, req, res, next) => {
-  res.status(err.status || 500).send(err)
-})
+app.use((err, req, res, next) => res.status(err.status || 500).send(err))
 
 db.sync()
 .then(() => db.seed())

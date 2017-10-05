@@ -59,6 +59,7 @@
     "chai-properties": "^1.2.1",
     "chai-things": "^0.2.0",
     "enzyme": "^3.1.0",
+    "express-session": "^1.15.6",
     "fs-extra": "^4.0.2",
     "mocha": "^4.0.0",
     "sinon": "^4.0.1",

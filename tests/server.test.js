@@ -19,7 +19,7 @@ describe('▒▒▒ Backend tests ▒▒▒', () => {
 
   describe('Sequelize models', function () {
     describe('Product Model', () => {
-      it('has the expected schema definition', () => {
+      it('must have name, description, price, and inventory quantity', () => {
         expect(Product.attributes.name).to.be.an('object')
         expect(Product.attributes.description).to.be.an('object')
         expect(Product.attributes.price).to.be.an('object')
@@ -28,23 +28,16 @@ describe('▒▒▒ Backend tests ▒▒▒', () => {
       })
 
       describe('validations', () => {
-        it('require email', () => {
-          const user = User.build()
-          return user.validate()
-                        .then(() => { throw new Error('Promise should have rejected') })
-                        .catch(err => {
-                          expect(err).to.exist
-                          expect(err).to.be.an('error')
-                          expect(err.errors).to.contain.a.thing.with.properties({
-                            path: 'email',
-                            type: 'notNull Violation'
-                          })
-                        })
+        it('must belong to at least one category', () => {
+
+        })
+        it('must create a placeholder photom, if there is no photo', () => {
+
         })
       })
     })
 
-    describe('Message Model', () => {
+    describe('User Model', () => {
       describe('definition', () => {
         it('has expected subject definition', () => {
           expect(Message.attributes.subject).to.be.an('object')
