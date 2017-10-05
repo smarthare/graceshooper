@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { gotSingleTest, updateTest } from '../actions';
 
@@ -82,20 +81,6 @@ class Test extends Component {
                     className="setWidth tabrightsm"
                     type="text">
                   </input>
-                </div>
-                <div className="margintop">
-                  <label>Phone: </label>
-                  <input
-                    name="phone"
-                    onChange={ this.handleInput }
-                    value={ this.state.phone }
-                    className="setWidth tabrightsm"
-                    type="text">
-                  </input>
-                </div>
-                <div className="margintop">
-                  <label>Photo (url):</label>
-                  <div className="tabrightsm">{ this.state.photo }</div>
                 </div>
                 <button className="btn btn-primary margintop marginbelow" type="submit">Update Campus</button>
                 <div className="center textRed marginbelow">{ this.state.errorAdd }</div>
