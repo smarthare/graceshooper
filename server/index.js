@@ -8,10 +8,10 @@ const
   port = process.env.PORT || 2020,
   session = require('express-session')
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')))
-app.use('/dist', express.static(path.join(__dirname, 'dist')))
-app.use('/public', express.static(path.join(__dirname, '/public')))
-app.use('/vendor', express.static(path.join(__dirname, 'node_modules')))
+app.use('/assets', express.static(path.join(__dirname, '../assets')))
+app.use('/dist', express.static(path.join(__dirname, '../dist')))
+app.use('/public', express.static(path.join(__dirname, '../public')))
+app.use('/vendor', express.static(path.join(__dirname, '../node_modules')))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -25,7 +25,8 @@ app.use(session({
 
 app.use('/api', require('./api/api.router'))
 
-app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'public/index.html')))
+const indexPath = path.join(__dirname, '..', 'public', 'index.html')
+app.get('/', (req, res, next) => res.sendFile(indexPath))
 
 app.use((req, res, next) => {
   const error = new Error('page not found')

@@ -4,6 +4,7 @@ const User = conn.define('user', {
   name: {
     type: conn.Sequelize.STRING,
     allowNull: false,
+    unique: true,
     validate: {
       notEmpty: true
     }
@@ -11,7 +12,7 @@ const User = conn.define('user', {
   password: conn.Sequelize.STRING,
   imgUrl: {
     type: conn.Sequelize.STRING,
-    defaultValue: 'oops',
+    defaultValue: 'http://oops.jpg',
     validate: {
       isUrl: true
     }

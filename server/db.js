@@ -1,5 +1,5 @@
 const
-  db = require('./conn'),
+  conn = require('./conn'),
   User = require('./api/user/user.model'),
   Product = require('./api/product/product.model.js'),
   Category = require('./api/category/category.model'),
@@ -21,7 +21,9 @@ Product.hasMany(Review)
 Review.belongsTo(User)
 Review.belongsTo(Product)
 
+const sync = () => conn.sync({ force: true })
+
 module.exports = {
-  db,
+  sync,
   models: { Product, Category, Order, LineItem, User, Review }
 }

@@ -32,9 +32,9 @@ const Order = conn.define('order', {
   }
 })
 
-Order.getCart = function () {
+Order.getCartByUserId = function (userId) {
   return Order.findOne({
-    where: {isCart: true},
+    where: {isCart: true, userId},
     include: [{ model: LineItem,
       include: [{ model: Product }]
     }]
@@ -42,27 +42,27 @@ Order.getCart = function () {
   .then(order => order || Order.create())
 }
 
-Order.getOrders = function () {
+Order.getOrdersByUserId = function (userId) {
   return Order.findAll({
     order: [['id', 'DESC']],
-    where: {isCart: false},
+    where: {isCart: true, userId},
     include: [{ model: LineItem,
       include: [{ model: Product }]
     }]
   })
 }
 
-Order.submitCart = function () {
-  Order.getCart()
+Order.submitCartByUserId = function (userId) {
+  Order.getCartByUserId(userId)
   .then(cart => {
     cart.status = 'Processing'
     return cart.save()
   })
 }
 
-Order.addToCart = function (productId, quantity) {
+Order.addToCartOfUser = function (userId, productId, quantity) {
   quantity = quantity || 1
-  return Order.getCart()
+  return Order.getCart(userId)
     .then(cart => {
       let lineItem = cart.lineItems.find(el => el.productId === productId)
       if (lineItem) {
