@@ -7,6 +7,6 @@ router
   .use('/categories', require('./category/category.route'))
   .use('/users', require('./user/user.route'))
   .use('/auth', require('./auth/auth.route'))
-  .use('/review', require('./review/review.route'))
+  .use('/reviews', require('./review/review.route'))
 
 module.exports = router;
