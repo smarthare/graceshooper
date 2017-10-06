@@ -21,6 +21,9 @@ Product.hasMany(Review)
 Review.belongsTo(User)
 Review.belongsTo(Product)
 
+// Need to address the interdependence of the models
+// They create a problem when we try to drop them ( during sync )
+
 const sync = () => conn.sync({ force: true })
 
 module.exports = {

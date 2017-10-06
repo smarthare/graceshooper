@@ -5,7 +5,7 @@ const
 
 const Order = conn.define('order', {
   status: {
-    type: conn.Sequelize.ENUM('Created', 'Processing', 'Cancelled', 'Completed'),
+    type: conn.Sequelize.STRING,
     defaultValue: 'Created'
   },
   billingAddress: {
