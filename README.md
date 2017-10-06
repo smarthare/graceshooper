@@ -1,4 +1,4 @@
-graceshopper
+# graceshopper
 
 
 Directory Structure
@@ -17,20 +17,20 @@ root folder
       server.js
       app.js
       Procfile
-      
+
       assets--
               |
               images--------
                             |
                             image_1.jpeg
       db-----
-              | 
+              |
               db.js
               Model_1.js
               Model_2.js
               index.js
       dist----
-              | 
+              |
               bundle.js
               bundle.js.map
       public--
@@ -39,7 +39,7 @@ root folder
               index.html
               |
               css-----
-                      | 
+                      |
                       main.css
                       custom.css (auto built by script file)
                       |
@@ -54,7 +54,7 @@ root folder
       src---
             |
             index.js
-            | 
+            |
             actions-------
                           |
                           index.js
