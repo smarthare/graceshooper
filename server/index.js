@@ -6,7 +6,7 @@ const
   morgan = require('morgan'),
   db = require('./conn'),
   port = process.env.PORT || 2020,
-  session = require('express-session')
+  session = require('express-session');
 
 app.use('/assets', express.static(path.join(__dirname, '../assets')))
 app.use('/dist', express.static(path.join(__dirname, '../dist')))
