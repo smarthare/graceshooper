@@ -1,6 +1,6 @@
 const conn = require('../../conn')
 
-const Product = conn.define('product', {
+const defineAttr = {
   title: {
     type: conn.Sequelize.STRING,
     allowNull: false,
@@ -33,6 +33,36 @@ const Product = conn.define('product', {
       isUrl: true
     }
   }
-})
+};
+
+const defineOptions = {};
+
+const Product = conn.define('product', defineAttr, defineOptions);
+
+Product.getAll = function() {
+  return this.findAll({
+    order: ['title']
+  })
+};
+
+Product.getProdByID = function(id) {
+  id = id * 1;
+  return this.findById(id);
+};
+
+Product.addProduct = function(product){
+    return this.create({
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      inventory: product.inventory,
+      imgUrls: product.imgUrls
+    });
+};
+
+Product.deleteProd = function(id) {
+  id = id * 1;
+  return this.destroy({ where: { id } })
+};
 
 module.exports = Product

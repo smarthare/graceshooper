@@ -3,12 +3,14 @@ const
   User = require('./api/user/user.model'),
   Product = require('./api/product/product.model.js'),
   Category = require('./api/category/category.model'),
+  CategoryProduct = require('./api/category_product/category_product.model'),
   Order = require('./api/order/order.model'),
   LineItem = require('./api/order/lineItem.model'),
   Review = require('./api/review/review.model')
 
-Product.hasMany(Category)
-Category.belongsTo(Product)
+//Need a join table for Many-to-Many relationships
+Product.belongsToMany(Category, { through: CategoryProduct })
+Category.belongsToMany(Product, { through: CategoryProduct })
 
 Order.hasMany(LineItem)
 LineItem.belongsTo(Product)
