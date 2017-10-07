@@ -21,7 +21,7 @@ export function fetchOrdersById(id) {
 
 //reducer
 
-export default function users(orders = [], action) {
+export default function users(orders = [{}], action) {
   switch (action.type) {
     case GET_ORDERS_BY_ID:
       return action.orders;

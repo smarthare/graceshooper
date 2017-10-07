@@ -4,10 +4,20 @@ import { connect } from "react-redux";
 import store from "../store";
 
 function User(props) {
-  const { users } = props;
-  const user = users[0];
-  console.log(user);
+  //will need to make this dynamic
+  const userId = 1;
+
+  const user = props.users.find(u => {
+    return u.id === userId;
+  });
+
+  //will need to pull this in from props
+  // const orders = props.orders
+  const orders = [];
+
+  //loading state
   if (!user) return <h1>Loading...</h1>;
+
   return (
     <div>
       <h1>User Information</h1>
@@ -44,7 +54,7 @@ function User(props) {
 }
 
 const mapStateToProps = state => {
-  return { users: state.users };
+  return { users: state.users, orders: state.orders };
 };
 
 const mapDispatchToProps = dispatch => {
