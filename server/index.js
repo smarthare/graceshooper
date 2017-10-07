@@ -1,12 +1,13 @@
 const
-  express = require('express'),
+  express = require( 'express' ),
   app = express(),
-  path = require('path'),
-  bodyParser = require('body-parser'),
-  morgan = require('morgan'),
-  db = require('./conn'),
+  path = require( 'path' ),
+  bodyParser = require( 'body-parser' ),
+  morgan = require( 'morgan' ),
+  db = require( './conn' ),
   port = process.env.PORT || 2020,
-  session = require('express-session');
+  seed = require( '../seed.js' ),
+  session = require( 'express-session' );
 
 app.use('/assets', express.static(path.join(__dirname, '../assets')))
 app.use('/dist', express.static(path.join(__dirname, '../dist')))
@@ -37,8 +38,9 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => res.status(err.status || 500).send(err))
 
 db.sync()
+.then(() => seed())
 .then(() => {
-  console.log('db synced')
+  console.log('db synced & seeded')
   app.listen(port, () => console.log((`listening on port ${port}`)))
 })
 

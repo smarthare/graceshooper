@@ -30,5 +30,5 @@ const sync = () => conn.sync({ force: true })
 
 module.exports = {
   sync,
-  models: { Product, Category, Order, LineItem, User, Review }
+  models: { Product, Category, CategoryProduct, Order, LineItem, User, Review }
 }
