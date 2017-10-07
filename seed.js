@@ -28,12 +28,10 @@ const seed = () => {
         name: 'Taylor T5z Pro Acoustic-Electric Guitar', price: 2699.00, inventory: 7, imgURLs: ['Taylor_T5z_Pro_Acoustic-Electric_Guitar_1', 'Taylor_T5z_Pro_Acoustic-Electric_Guitar_2', 'Taylor_T5z_Pro_Acoustic-Electric_Guitar_3', 'Taylor_T5z_Pro_Acoustic-Electric_Guitar_4', 'Taylor_T5z_Pro_Acoustic-Electric_Guitar_5', 'Taylor_T5z_Pro_Acoustic-Electric_Guitar_6'] }),
         models.Product.create({ description: 'The Korg Kronos is the flagship keyboard of Korgs synthesizer line. It is available in three configurations, each with the same phenomenal performance, production and synthesis capacity. The only difference between the three models is the key bed. This is the full 88-key version, equipped with Korgs RH-3 (Real Weighted Hammer Action 3) keyboard, one of the professional keyboard industrys best-loved piano touches. It is the same keyboard used on Korgs upper-end piano models and on the Korg SV-1. The hammer weighting is graded, providing a heavier feel in the lower register and a lighter feel in the upper register, just as on a grand piano, offering superb playability.',
         name: 'Korg New Kronos 88-Key Music Workstation', price: 3699.00, inventory: 3, imgURLs: ['Korg_New_Kronos_88_1', 'Korg_New_Kronos_88_2', 'Korg_New_Kronos_88_3', 'Korg_New_Kronos_88_4', 'Korg_New_Kronos_88_5', 'Korg_New_Kronos_88_6'] }),
-
-        models.Product.create({ description: '',
-        name: '', price: 0, inventory: 0, imgURLs: ['', '', '', '', ''] }),
-
-        models.Product.create({ description: '',
-        name: '', price: 0, inventory: 0, imgURLs: ['', '', '', '', ''] })
+        models.Product.create({ description: 'Rolands JUNO synths are known everywhere for their great sound, ease of use, and exceptional value. Beginning in the 70s with some of the earliest mass-produced analog synthesizers, the Juno lines new releases are always hotly anticipated. The JUNO-DS88 takes the iconic series to a new level of performance, adding many powerful enhancements while still keeping operation streamlined and simple. Equipped with 88 weighted-action keys for a premium feel, the versatile, intuitive JUNO-DS88 puts you in creative command, making it easy to produce exceptional music everywhere you play.',
+        name: 'Roland JUNO-DS88 Synthesizer', price: 99.99, inventory: 6, imgURLs: ['Roland_JUNO-DS88_1', 'Roland_JUNO-DS88_2', 'Roland_JUNO-DS88_3', 'Roland_JUNO-DS88_4', 'Roland_JUNO-DS88_5'] }),
+        models.Product.create({ description: 'With the size of a combo, but sporting two 12" 60-watt Celestion Vintage 30 speakers, this compact-sized PPC212-OB speaker cabinet from the Orange PPC series features an open-back design and is the same size as the Rockerverb 50C and AD30TC. The Orange speaker cab features a power handling of 120 watts, producing sizzling guitar tone that is unmistakably Orange. ',
+        name: 'Orange Amplifiers PPC Series PPC212OB 120W 2x12 Open Back Guitar Speaker Cab', price: 599.00, inventory: 10, imgURLs: ['Orange_Amplifiers_PPC212OB_1', 'Orange_Amplifiers_PPC212OB_2'] })
 
         // models.Product.create({ description: '',
         // name: '', price: 0, inventory: 0, imgURLs: ['', '', '', '', ''] })
