@@ -4,7 +4,7 @@ const
   path = require( 'path' ),
   bodyParser = require( 'body-parser' ),
   morgan = require( 'morgan' ),
-  db = require( './conn' ),
+  db = require( './db' ),
   port = process.env.PORT || 2020,
   seed = require( '../seed.js' ),
   session = require( 'express-session' );

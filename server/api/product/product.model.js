@@ -1,7 +1,7 @@
 const conn = require('../../conn')
 
 const defineAttr = {
-  title: {
+  name: {
     type: conn.Sequelize.STRING,
     allowNull: false,
     unique: true,
@@ -41,7 +41,7 @@ const Product = conn.define('product', defineAttr, defineOptions);
 
 Product.getAll = function() {
   return this.findAll({
-    order: ['title']
+    order: ['name']
   })
 };
 
@@ -52,7 +52,7 @@ Product.getProdByID = function(id) {
 
 Product.addProduct = function(product){
     return this.create({
-      title: product.title,
+      name: product.name,
       description: product.description,
       price: product.price,
       inventory: product.inventory,
