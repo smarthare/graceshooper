@@ -1,8 +1,11 @@
-const
-  router = require('express').Router(),
-  Order = require('./order.model')
+const router = require("express").Router(),
+  Order = require("./order.model");
 
-// router
+router.get("/:id", (req, res, next) => {
+  Order.getOrdersByUserId(req.params.id)
+    .then(response => res.send(response))
+    .catch(next);
+});
 //   .get('/', (req, res, next) => {
 //     Product.findAll({ order: ['id'] })
 //     .then(res.json)
@@ -29,4 +32,4 @@ const
 //     .catch(next)
 //   })
 
-module.exports = router
+module.exports = router;
