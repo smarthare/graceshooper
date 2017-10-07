@@ -8,6 +8,10 @@ const Order = conn.define('order', {
     type: conn.Sequelize.STRING,
     defaultValue: 'Created'
   },
+  guestId: {
+    type: conn.Sequelize.STRING,
+    defaultValue: 'none'
+  },
   billingAddress: {
     type: conn.Sequelize.STRING,
     allowNull: false,

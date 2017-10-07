@@ -12,10 +12,7 @@ const User = conn.define('user', {
   password: conn.Sequelize.STRING,
   imgUrl: {
     type: conn.Sequelize.STRING,
-    defaultValue: 'http://oops.jpg',
-    validate: {
-      isUrl: true
-    }
+    defaultValue: 'default-photo.jpg'
   },
   email: {
     type: conn.Sequelize.STRING,
@@ -28,6 +25,21 @@ const User = conn.define('user', {
   isAdmin: {
     type: conn.Sequelize.STRING,
     defaultValue: false
+  },
+  shipAddress: {
+    type: conn.Sequelize.STRING,
+  },
+  shipCity: {
+    type: conn.Sequelize.STRING,
+  },
+  shipState: {
+    type: conn.Sequelize.STRING,
+  },
+  shipZip: {
+    type: conn.Sequelize.STRING,
+  },
+  phone: {
+    type: conn.Sequelize.STRING,
   }
 })
 

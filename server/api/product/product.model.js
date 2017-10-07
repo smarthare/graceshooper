@@ -29,9 +29,7 @@ const defineAttr = {
   },
   imgUrls: {
     type: conn.Sequelize.ARRAY(conn.Sequelize.STRING),
-    validate: {
-      isUrl: true
-    }
+    defaultValue: ['Penguins.jpg']
   }
 };
 
@@ -64,5 +62,13 @@ Product.deleteProd = function(id) {
   id = id * 1;
   return this.destroy({ where: { id } })
 };
+
+Product.searchProd = function(str) {
+  return this.findAll({
+    where: { name: { $like: `%${str}%`, inventory: { $gt: 0 } },
+    order: ['name']
+    }
+  })
+}
 
 module.exports = Product
