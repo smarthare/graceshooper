@@ -10,14 +10,17 @@ const Order = conn.define('order', {
   },
   billingAddress: {
     type: conn.Sequelize.STRING,
-    allowNull: false,
+    // Removing allowNull for test, addresses are not strictly required druing build
+    // Validation should be peformed before order submission
+    // allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   shippingAddress: {
     type: conn.Sequelize.STRING,
-    allowNull: false,
+    // See comment above
+    // allowNull: false,
     validate: {
       notEmpty: true
     }
@@ -39,7 +42,7 @@ Order.getCartByUserId = function (userId) {
       include: [{ model: Product }]
     }]
   })
-  .then(order => order || Order.create())
+  .then(order => order || Order.create({userId}))
 }
 
 Order.getOrdersByUserId = function (userId) {
@@ -49,14 +52,6 @@ Order.getOrdersByUserId = function (userId) {
     include: [{ model: LineItem,
       include: [{ model: Product }]
     }]
-  })
-}
-
-Order.submitCartByUserId = function (userId) {
-  Order.getCartByUserId(userId)
-  .then(cart => {
-    cart.status = 'Processing'
-    return cart.save()
   })
 }
 
@@ -80,6 +75,13 @@ Order.addToCartOfUser = function (userId, productId, quantity) {
 Order.destroyLineItem = function (OrderId, LineId) {
   return LineItem.find({where: {id: LineId}})
     .then(lineItem => lineItem.destroy())
+}
+
+Order.prototype.submit = function () {
+  if (this.status !== 'Created') throw new Error('Only cart can be submitted')
+  // This might be a good place to validate address
+  this.status = 'Processing'
+  return this.save()
 }
 
 Order.prototype.cancel = function () {

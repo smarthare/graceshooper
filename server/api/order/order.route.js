@@ -16,7 +16,8 @@ router
 
   .put("/", (req, res, next) => {
     // Order submission
-    Order.submitCartByUserId(req.session.userId)
+    Order.getCartByUserId(req.session.userId)
+      .then(cart => cart.submit())
       .then(order => res.send(order))
       .catch(next);
   })
@@ -48,7 +49,5 @@ router
       .then(result => res.send(result))
       .catch(next);
   })
-
-
 
 module.exports = router;
