@@ -40,10 +40,10 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => res.status(err.status || 500).send(err));
 
 db
-  .sync({ force: true })
-  .then(() => {
-    seed();
-  })
+  .sync()
+  // .then(() => {
+  //   seed();
+  // })
   .then(() => {
     console.log("db synced");
     app.listen(port, () => console.log(`listening on port ${port}`));
