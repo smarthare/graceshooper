@@ -1,13 +1,15 @@
 import React from "react";
-import Categories from "./Categories";
 import { connect } from "react-redux";
 import store from "../store";
+import Categories from "./Categories";
+import Users from "./Users";
 
 function Admin(props) {
   return (
     <div>
       <h1>Admin</h1>
       <Categories />
+      <Users />
     </div>
   );
 }

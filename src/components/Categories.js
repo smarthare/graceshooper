@@ -1,8 +1,8 @@
 import React from "react";
-import CategoryForm from "./CategoryForm";
 import { connect } from "react-redux";
-import { deleteCategory } from "../reducers/categories";
 import store from "../store";
+import CategoryForm from "./CategoryForm";
+import { deleteCategory } from "../reducers/categories";
 
 class Categories extends React.Component {
   constructor(props) {
