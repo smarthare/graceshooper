@@ -33,7 +33,7 @@ class SearchBar extends Component {
       console.log('hitting submit')
       this.clearState();
     } else {
-      this.setState({ errorMsg: ' Required-Field' });
+      this.setState({ errorMsg: 'Required-Field' });
     }
   }
 
@@ -60,6 +60,7 @@ class SearchBar extends Component {
     const selectCat = _categories.map(category => {
       return <option key={ category.id } value={ category.id }>{ category.name }</option>
     })
+    const errorMsg = (this.state.errorMsg) ? <strong className="textBlk"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>{ this.state.errorMsg }</strong> : null;
     //-------------------------------
     return (
       <div className="container">
@@ -84,7 +85,7 @@ class SearchBar extends Component {
                 <button className="backTan" type="submit">
                 <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
                 </button>
-                <strong className="textBlk">{ this.state.errorMsg }</strong>
+                { errorMsg }
               </form>
             </div>
             <div className="col-md-6 col-md-offset-5 search-bar marginbelowsm">
