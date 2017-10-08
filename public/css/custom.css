@@ -106,8 +106,7 @@
     height: 2px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #dddddd;
-    color: #dddddd; }
+    background-color: #BF9A56; }
   
   .backWhite {
     background-color: #fff; }
@@ -117,6 +116,9 @@
 
   .backTan {
     background-color: #F2E2C4; }
+
+  .backBronzw {
+    background-color: #BF9A56; }
 
   .backDeepGrey {
     background-color: #2F3B40; }

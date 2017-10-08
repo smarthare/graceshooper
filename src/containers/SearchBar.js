@@ -69,7 +69,7 @@ class SearchBar extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-sm-12 panel panel-default backTan">
+          <div className="col-sm-12 panel panel-default backBronzw">
             <h4 className="col-sm-3 textBlk margintop marginbelowsm">Grace Shopper</h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <select>
