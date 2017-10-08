@@ -84,7 +84,7 @@ class SearchBar extends Component {
                 <button className="backTan" type="submit">
                 <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
                 </button>
-                <strong className="textMidRed">{ this.state.errorMsg }</strong>
+                <strong className="textBlk">{ this.state.errorMsg }</strong>
               </form>
             </div>
             <div className="col-md-6 col-md-offset-5 search-bar marginbelowsm">
