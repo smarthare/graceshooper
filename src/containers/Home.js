@@ -22,10 +22,10 @@ class Home extends Component {
   }
 
   render() {
-    console.log('***SearchBar component:......', this.props)
-    const categories = this.props.shop.categories;
-    const searchProducts = this.props.shop.searchProducts;
-    const searchTerm = this.props.shop.searchTerm;
+    console.log('***Home component:......', this.props)
+    const categories = this.props.state.shop.categories;
+    const searchProducts = this.props.state.shop.searchProducts;
+    const searchTerm = this.props.state.shop.searchTerm;
     if (!categories.length) return <div></div>;
     // Determine what is rendering: categories or searchProducts
     let renderingProd = false;
@@ -37,9 +37,8 @@ class Home extends Component {
 
     } else {
       renderContainer = categories.map(category => {
-        return (<Link to={  }><div
-          className="col-sm-12"
-          key={ category.id }>
+        return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
+          className="col-sm-12">
           <h5>{ category.name }</h5></div></Link>)
       })
     }
@@ -52,7 +51,7 @@ class Home extends Component {
             <div className="col-sm-12 marginbelow">
               { (renderingProd) ?
                 <h6>{ searchProducts.length } results for { searchTerm }</h6> :
-                <h6>Select a category or search term above</h6>
+                <h6>Select a category (below) or enter search term (above)</h6>
               }
             </div>
             <div className="col-sm-12 marginbelow">
@@ -65,8 +64,8 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return state;
+function mapStateToProps (state, { router }) {
+  return { state, router };
 }
 
 function mapDispatchToProps (dispatch) {

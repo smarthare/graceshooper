@@ -8,9 +8,11 @@ export default function AppContainer() {
   return (
     <div className="container">
       <Switch>
+        <Route path="/category/:id" render={ (router) => <SearchBar router={ router } /> } />
         <Route path="/" component={ SearchBar } />
       </Switch>
       <Switch>
+      <Route path="/category/:id" render={ (router) => <Home router={ router } /> } />      
         <Route path="/" component={ Home } />
       </Switch>
     </div>

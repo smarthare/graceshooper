@@ -55,7 +55,7 @@ class SearchBar extends Component {
 
   render() {
     console.log('***SearchBar component:......', this.props)
-    const categories = this.props.shop.categories;
+    const categories = this.props.state.shop.categories;
     if (!categories.length) return <div></div>;
     //Develop category select control
     const _categories = [{ id: 0, name: 'All Categories' }].concat(categories);
@@ -72,24 +72,24 @@ class SearchBar extends Component {
           <div className="col-sm-12 panel panel-default backBronzw nomarginBot">
             <h4 className="col-sm-3 textBlk margintop marginbelowsm">Grace Shopper</h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
-              <select>
+              <select className="backTan">
                 { selectCat }
               </select>
               <input
                 className="colWidth55"
                 value ={ this.state.term }
                 onChange={ this.onInputChange } />
-              <button>
-              <span className="glyphicon glyphicon-search" aria-hidden="true" />
+              <button className="backTan">
+              <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
               </button>
             </div>
 
             <div className="col-md-6 col-md-offset-5 search-bar marginbelowsm">
-              <button>Admin Portal</button>
-              <button className="moverightsm">sign-in</button>
-              <button className="moverightsm">Account</button>
-              <button className="moverightsm">Orders</button>
-              <button className="moverightsm margintopsm">Cart (0)</button>
+              <button className="backTan">Admin Portal</button>
+              <button className="moverightsm backTan">sign-in</button>
+              <button className="moverightsm backTan">Account</button>
+              <button className="moverightsm backTan">Orders</button>
+              <button className="moverightsm backTan margintopsm">Cart (0)</button>
             </div>
           </div>
         </div>
@@ -98,8 +98,8 @@ class SearchBar extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return state;
+function mapStateToProps (state, { router }) {
+  return { state, router };
 }
 
 function mapDispatchToProps (dispatch) {
