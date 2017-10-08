@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchCategories } from '../actions';
+import { fetchCategories, fetchProductsForCat } from '../actions';
 
 class SearchBar extends Component {
   constructor() {
     super();
-    this.state = { term: '', selectCategory: '0', errorMsg: '' };
+    this.state = { term: '', selectCategory: '0' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -15,26 +15,19 @@ class SearchBar extends Component {
   }
 
   clearState() {
-    this.setState({ term: '', selectCategory: '0', errorMsg: '' })
+    this.setState({ term: '', selectCategory: '0' })
   }
 
   componentDidMount() {
-    this.clearState();
-    this.props.fetchCategories();
-  }
-
-  componentWillReceiveProps() {
-    this.clearState();
+    if (!this.props.router) {
+      this.clearState();
+      this.props.fetchCategories();
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.term) {
       console.log('hitting submit')
       this.clearState();
-    } else {
-      this.setState({ errorMsg: 'Required-Field' });
-    }
   }
 
   handleInput(event) {
@@ -60,13 +53,12 @@ class SearchBar extends Component {
     const selectCat = _categories.map(category => {
       return <option key={ category.id } value={ category.id }>{ category.name }</option>
     })
-    const errorMsg = (this.state.errorMsg) ? <strong className="textBlk"><span className="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>{ this.state.errorMsg }</strong> : null;
     //-------------------------------
     return (
       <div className="container">
         <div className="row">
           <div className="col-sm-12 panel panel-default backBronzw nomarginBot">
-            <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h4>
+            <h3 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h3>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <form onSubmit={ this.handleSubmit }>
                 <select
@@ -85,7 +77,6 @@ class SearchBar extends Component {
                 <button className="backTan" type="submit">
                 <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
                 </button>
-                { errorMsg }
               </form>
             </div>
             <div className="col-md-6 col-md-offset-5 search-bar marginbelowsm">
@@ -107,7 +98,7 @@ function mapStateToProps (state, { router }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchCategories }, dispatch);
+  return bindActionCreators({ fetchCategories, fetchProductsForCat }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

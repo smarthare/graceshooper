@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { } from '../actions';
+import { fetchProductsForCat } from '../actions';
 
 class Home extends Component {
   constructor() {
     super();
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    if (this.props.router) {
+      const id = this.props.router.match.params.id;
+      this.props.fetchProductsForCat(id)
+    }
   }
 
   handleSubmit(event) {
@@ -69,7 +76,7 @@ function mapStateToProps (state, { router }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ }, dispatch);
+  return bindActionCreators({ fetchProductsForCat }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
