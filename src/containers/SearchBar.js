@@ -54,9 +54,18 @@ class SearchBar extends Component {
   }
 
   render() {
-    const props = this.props;
-    console.log('***SearchBar component:......', props)
-    if (!props.shop.categories.length) return <div></div>;
+    console.log('***SearchBar component:......', this.props)
+    const categories = this.props.shop.categories;
+    if (!categories.length) return <div></div>;
+    //Develop category select control
+    const _categories = [{ id: 0, name: 'All Categories' }].concat(categories);
+    const selectCat = _categories.map(category => {
+      return (<option
+          className="textBlk"
+          key={ category.id }
+          value={ category.id }>{ category.name }</option>)
+    })
+    //-------------------------------
     return (
       <div className="container">
         <div className="row">
@@ -64,7 +73,7 @@ class SearchBar extends Component {
             <h4 className="col-sm-3 textBlk margintop marginbelowsm">Grace Shopper</h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <select>
-                <option className="textBlk ">All Categories</option>
+                { selectCat }
               </select>
               <input
                 className="colWidth55"
