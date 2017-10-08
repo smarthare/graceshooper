@@ -7,9 +7,12 @@ router
       .then(response => res.send(response))
       .catch(next);
   })
-  .post("/", (req, res, next) => {
-    Category.create(req.body)
-      .then(res.status(201).json)
+  .post("/:name", (req, res, next) => {
+    console.log(req.params.name);
+    Category.create({
+      name: req.params.name
+    })
+      .then(response => res.send(response))
       .catch(next);
   })
   .put("/:id", (req, res, next) => {
@@ -19,9 +22,10 @@ router
       .catch(next);
   })
   .delete("/:id", (req, res, next) => {
+    console.log("category id", req.params.id);
     Category.findById(req.params.id)
       .then(category => category.destroy())
-      .then(res.status(204).end)
+      .then(response => res.send(response))
       .catch(next);
   });
 

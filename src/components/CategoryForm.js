@@ -1,27 +1,42 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createCategory } from "../reducers/categories";
 import store from "../store";
 
-function CategoryForm(props) {
-  return (
-    <div>
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3>Add Category</h3>
-        </div>
-        <div className="panel-body">
-          <div>
-            <form>
-              <input />
-              <button className="btn btn-primary pull-right clearfix">
-                Add
-              </button>
-            </form>
+class CategoryForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    store.dispatch(this.props.createCategory(e.target.name.value));
+    e.target.name.value = "";
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3>Add Category</h3>
+          </div>
+          <div className="panel-body">
+            <div>
+              <form onSubmit={this.handleSubmit}>
+                <input type="text" name="name" />
+                <button className="btn btn-primary pull-right clearfix">
+                  Add
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const mapStateToProps = state => {
@@ -29,7 +44,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return { createCategory };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryForm);
