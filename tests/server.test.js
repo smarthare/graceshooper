@@ -1,7 +1,7 @@
-process.on('unhandledRejection', function (reason, promise) {
-  console.log('==========\n\n', reason, '\n\n==========')
-  console.log('==========\n\n', promise, '\n\n==========')
-})
+// process.on('unhandledRejection', function (reason, promise) {
+//   console.log('==========\n\n', reason, '\n\n==========')
+//   console.log('==========\n\n', promise, '\n\n==========')
+// })
 
 import db from '../server/db'
 const { Product, Category, Order, LineItem, User, Review } = db.models
@@ -36,20 +36,58 @@ describe('==== Backend Tests ====', () => {
 
       describe('validations', () => {
         it('must belong to at least one category', () => {
-          const product = Product.build({ title: 'foo' })
-          return product.validate()
-            .then(() => { throw new Error('Promise should have rejected.') })
+          return Product.create({ title: 'foo' })
             .catch(err => {
               expect(err).to.exist
               expect(err).to.be.an('error')
               expect(err.errors).to.contain.a.thing.with.properties({
-                path: 'categoryId',
-                type: 'notNull Violation'
+                path: 'hasCategory',
+                type: 'Validation error'
+              })
+            })
+        })
+        it('can have multiple categories', () => {
+          const product = Product.build({
+            id: 1,
+            title: 'Chair',
+            categories: [ { name: 'foo'}, { name: 'bar'} ]
+          }, {
+            include: [ Category ]
+          })
+          return product.validate()
+            .then(result => result)
+            .catch(err => {
+              expect(err).to.not.exist
+            })
+        })
+        it('throws an error when the only category of a product is removed', () => {
+          let category
+          return Category.create({ name: 'zii' })
+            .then(_category => {
+              category = _category
+              return Product.create({
+                title: 'zpp', categories: [ category ]
+              })
+            })
+            .then(product => product.removeCategory(category))
+            .catch(err => {
+              expect(err).to.exist
+              expect(err).to.be.an('error')
+              expect(err.errors).to.contain.a.thing.with.properties({
+                path: 'hasCategory',
+                type: 'Validation error'
               })
             })
         })
         it('must create a placeholder photo, if there is no photo', () => {
-          expect(null).to.be.ok
+          const product = Product.build({
+            title: 'Chair',
+            categories: [ { name: 'foo'}, { name: 'bar'} ]
+          }, {
+            include: [ Category ]
+          })
+          return product.validate()
+            .then(product => expect(product.imgUrls.length > 0).to.be.true)
         })
       })
     })
@@ -66,20 +104,30 @@ describe('==== Backend Tests ====', () => {
 
       describe('validations', () => {
         it('must have a valid email address', () => {
-          expect(null).to.be.ok
-        })
-
-        it('must have a unique email address', () => {
-          const user1 = User.create({ name: 'foo', email: 'foo@123.com' })
-          const user2 = User.build({ name: 'fooz', email: 'foo@123.com' })
-          return user2.validate()
-            .then(() => { throw new Error('Promise should have rejected.') })
+          return User
+            .create({ name: 'foo', email: 'foo@gg' })
             .catch(err => {
               expect(err).to.exist
               expect(err).to.be.an('error')
               expect(err.errors).to.contain.a.thing.with.properties({
                 path: 'email',
-                type: 'notNull Violation'
+                type: 'Validation error'
+              })
+            })
+        })
+
+        it('must have a unique email address', () => {
+          return User
+            .create({ name: 'foo', email: 'foo@123.com' })
+            .then(user1 =>
+              User.create({ name: 'fooz', email: 'foo@123.com' })
+            )
+            .catch(err => {
+              expect(err).to.exist
+              expect(err).to.be.an('error')
+              expect(err.errors).to.contain.a.thing.with.properties({
+                path: 'email',
+                type: 'unique violation'
               })
             })
         })

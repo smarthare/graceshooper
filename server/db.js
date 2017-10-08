@@ -7,8 +7,8 @@ const
   LineItem = require('./api/order/lineItem.model'),
   Review = require('./api/review/review.model')
 
-Product.hasMany(Category)
-Category.belongsTo(Product)
+Category.belongsToMany(Product, { through: 'categoryProduct' })
+Product.belongsToMany(Category, { through: 'categoryProduct' })
 
 Order.hasMany(LineItem)
 LineItem.belongsTo(Product)

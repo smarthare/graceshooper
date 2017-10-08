@@ -29,8 +29,14 @@ const Product = conn.define('product', {
   },
   imgUrls: {
     type: conn.Sequelize.ARRAY(conn.Sequelize.STRING),
-    validate: {
-      isUrl: true
+    defaultValue: ['/assets/images/missingImg.png']
+  }
+}, {
+  validate: {
+    hasCategory () {
+      if (!this.categories || this.categories.length < 1) {
+        throw new Error('Product must have at least one category.')
+      }
     }
   }
 })
