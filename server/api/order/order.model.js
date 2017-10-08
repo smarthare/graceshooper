@@ -62,7 +62,7 @@ Order.submitCartByUserId = function (userId) {
 
 Order.addToCartOfUser = function (userId, productId, quantity) {
   quantity = quantity || 1
-  return Order.getCart(userId)
+  return Order.getCartByUserId(userId)
     .then(cart => {
       let lineItem = cart.lineItems.find(el => el.productId === productId)
       if (lineItem) {
@@ -79,7 +79,7 @@ Order.addToCartOfUser = function (userId, productId, quantity) {
 
 Order.destroyLineItem = function (OrderId, LineId) {
   return LineItem.find({where: {id: LineId}})
-  .then(lineItem => lineItem.destroy())
+    .then(lineItem => lineItem.destroy())
 }
 
 Order.prototype.cancel = function () {
