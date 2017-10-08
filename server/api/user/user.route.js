@@ -21,7 +21,7 @@ router
   .delete("/:id", (req, res, next) => {
     User.findById(req.params.id)
       .then(user => user.destroy())
-      .then(res.json)
+      .then(response => res.send(response))
       .catch(next);
   });
 

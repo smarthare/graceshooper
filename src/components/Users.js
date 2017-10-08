@@ -1,11 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import store from "../store";
+import { deleteUser } from "../reducers/users";
 
 class Users extends React.Component {
   constructor(props) {
     super(props);
+    this.handleDelete = this.handleDelete.bind(this);
   }
+
+  handleDelete(e) {
+    const { deleteUser } = this.props;
+    store.dispatch(deleteUser(e.target.value));
+  }
+
+  toggleAdmin() {}
 
   render() {
     const { users } = this.props;
@@ -22,11 +31,15 @@ class Users extends React.Component {
                   <strong>{user.name}</strong>
                   <br />
                   <div className="btn-group">
-                    <button className="btn btn-warning btn-sm" value={user.id}>
+                    <button
+                      className="btn btn-warning btn-sm"
+                      value={user.id}
+                      onClick={this.handleDelete}
+                    >
                       Delete
                     </button>
                     <button className="btn btn-primary btn-sm" value={user.id}>
-                      Make Admin
+                      {user.isAdmin ? "Remove Admin" : "Make Admin"}
                     </button>
                     <button className="btn btn-default btn-sm" value={user.id}>
                       Reset PW
@@ -47,7 +60,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return { deleteUser };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

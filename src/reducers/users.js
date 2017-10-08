@@ -9,12 +9,26 @@ export function getUsers(users) {
   return { type: GET_USERS, users };
 }
 
+//helper function
+function fetchAllUsers(dispatch) {
+  return axios
+    .get("/api/users")
+    .then(res => dispatch(getUsers(res.data)))
+    .catch(err => console.error(err));
+}
+
 //thunk creators
 export function fetchUsers() {
   return function thunk(dispatch) {
+    return fetchAllUsers(dispatch);
+  };
+}
+
+export function deleteUser(id) {
+  return function thunk(dispatch) {
     return axios
-      .get("/api/users")
-      .then(res => dispatch(getUsers(res.data)))
+      .delete(`/api/users/${id}`)
+      .then(() => fetchAllUsers(dispatch))
       .catch(err => console.error(err));
   };
 }
