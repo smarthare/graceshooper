@@ -65,7 +65,7 @@ class SearchBar extends Component {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 panel panel-default backBronzw nomarginBot">
-            <h4 className="col-sm-3 textBlk margintop marginbelowsm">Grace Shopper</h4>
+            <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <form onSubmit={ this.handleSubmit }>
                 <select
@@ -88,11 +88,11 @@ class SearchBar extends Component {
               </form>
             </div>
             <div className="col-md-6 col-md-offset-5 search-bar marginbelowsm">
-              <button className="backTan">Admin Portal</button>
-              <button className="moverightsm backTan">sign-in</button>
-              <button className="moverightsm backTan">Account</button>
-              <button className="moverightsm backTan">Orders</button>
-              <button className="moverightsm backTan margintopsm">Cart (0)</button>
+              <Link to={ `/admin` }><button className="backTan">Admin Portal</button></Link>
+              <Link to={ `/signin` }><button className="moverightsm backTan">sign-in</button></Link>
+              <Link to={ `/account` }><button className="moverightsm backTan">Account</button></Link>
+              <Link to={ `/orders` }><button className="moverightsm backTan">Orders</button></Link>
+              <Link to={ `/cart` }><button className="moverightsm backTan margintopsm">Cart (0)</button></Link>
             </div>
           </div>
         </div>
