@@ -6,7 +6,7 @@ import Home from '../containers/Home';
 
 export default function AppContainer() {
   return (
-    <div className="container-fluid">
+    <div className="container">
       <Switch>
         <Route path="/" component={ SearchBar } />
       </Switch>

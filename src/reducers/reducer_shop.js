@@ -2,6 +2,7 @@ import { GOT_CATEGORIES } from '../actions';
 
 const initialState = {
   categories: [],
+  searchTerm: '',
   searchProducts: [],
   selectedProduct: {},
   ratingsProduct: []

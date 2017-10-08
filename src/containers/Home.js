@@ -7,33 +7,8 @@ import { } from '../actions';
 class Home extends Component {
   constructor() {
     super();
-    this.state = { searchTerm: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
-    this.clearState = this.clearState.bind(this);
-  }
-
-  clearState() {
-    this.setState({ searchTerm: '' })
-  }
-
-  componentDidMount() {
-    this.clearState();
-  }
-
-  componentWillReceiveProps() {
-    this.clearState();
-  }
-
-  handleRemove(event) {
-    event.preventDefault();
-    if (this.state.selectTest) {
-      this.props.removeTest(this.state.selectTest);
-    } else {
-      this.setState({ errorRemove: 'Test Selecting is required for Remove', errorAdd: '' });
-    }
   }
 
   handleSubmit(event) {
@@ -46,89 +21,42 @@ class Home extends Component {
     }
   }
 
-  handleInput(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    switch (name) {
-      case 'name':
-        this.setState({ name: value });
-        break;
-      case 'phone':
-        this.setState({ phone: value });
-        break;
-      case 'selectTest':
-        this.setState({ selectTest: value })
-        break;
-    }
-  }
-
   render() {
-    const state = this.props.state;
-    let tests = [];
-    if (!tests.length) return <div></div>;
-    const none = [{ id: '0', name: '--none--' }];
-    let testsSelect = none.concat(tests);
+    console.log('***SearchBar component:......', this.props)
+    const categories = this.props.shop.categories;
+    const searchProducts = this.props.shop.searchProducts;
+    const searchTerm = this.props.shop.searchTerm;
+    if (!categories.length) return <div></div>;
+    // Determine what is rendering: categories or searchProducts
+    let renderingProd = false;
+    let renderContainer;
+    if (searchProducts.length) {
+      renderProd = true;
+
+      //need some code here....
+
+    } else {
+      renderContainer = categories.map(category => {
+        return (<Link to={  }><div
+          className="col-sm-12"
+          key={ category.id }>
+          <h5>{ category.name }</h5></div></Link>)
+      })
+    }
+
+    //-------------------------------
     return (
-      <div className="container-fluid">
-        <h6 className="nomarginTop text-muted">page: /tests</h6>
-        <h4>Overall Test Maintenance</h4>
-        <div className="col-sm-4 margintop">
-          <div className="row">
-            {
-              tests.map(test => {
-                return (
-                  <div className="col-sm-12" key={ test.id }>
-                    <Link to={ `/tests/${ test.id }` }>
-                      <h5>{ test.name }</h5>
-                    </Link>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
-        <div className="col-sm-4 margintop">
-          <div className="row">
-            <div className="col-sm-10 panel panel-default">
-              <h5 className="center panel-heading">Add Test</h5>
-              <form onSubmit={ this.handleSubmit }>
-                <div className="margintop">
-                  <label>Name: </label>
-                  <input
-                    name="name"
-                    value={ this.state.name }
-                    onChange={ this.handleInput }
-                    className="setWidth tabrightsm"
-                    type="text">
-                  </input>
-                </div>
-                <button className="btn btn-primary margintop marginbelow" type="submit">Add Test</button>
-                <div className="center textRed marginbelow">{ this.state.errorAdd }</div>
-              </form>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12 panel panel-default backTan">
+            <div className="col-sm-12 marginbelow">
+              { (renderingProd) ?
+                <h6>{ searchProducts.length } results for { searchTerm }</h6> :
+                <h6>Select a category or search term above</h6>
+              }
             </div>
-            <div className="col-sm-10 panel panel-default">
-              <h5 className="center panel-heading">Remove Test</h5>
-              <form onSubmit={ this.handleRemove }>
-                <label className="margintop">Select a Test</label>
-                <select
-                  className="form-control margintop"
-                  value={ this.state.selectTest }
-                  onChange={ this.handleInput }
-                  name="selectTest"
-                >
-                  {
-                    testsSelect.map(test => {
-                      return (
-                        <option key={ test.id } value={ test.id  }>
-                          {test.name}
-                        </option>
-                      )
-                    })
-                  }
-                </select>
-                <button className="btn btn-danger margintop marginbelow" >Remove Test</button>
-                <div className="center textRed marginbelow">{ this.state.errorRemove }</div>
-              </form>
+            <div className="col-sm-12 marginbelow">
+              { renderContainer }
             </div>
           </div>
         </div>
@@ -138,7 +66,6 @@ class Home extends Component {
 }
 
 function mapStateToProps (state) {
-  console.log('***Home component:.......', state)
   return state;
 }
 
