@@ -7,15 +7,15 @@ import { fetchCategories } from '../actions';
 class SearchBar extends Component {
   constructor() {
     super();
-    this.state = { term: '' };
+    this.state = { term: '', selectCategory: '0', errorMsg: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     this.clearState = this.clearState.bind(this);
   }
 
   clearState() {
-    this.setState({ searchTerm: '' })
+    this.setState({ term: '', selectCategory: '0', errorMsg: '' })
   }
 
   componentDidMount() {
@@ -29,41 +29,36 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.name) {
-      this.props.addTest(this.state)
+    if (this.state.term) {
+      console.log('hitting submit')
       this.clearState();
     } else {
-      this.setState({ errorAdd: 'The name field is required', errorRemove: '' });
+      this.setState({ errorMsg: ' Required-Field' });
     }
   }
 
-  onInputChange(event) {
+  handleInput(event) {
     const name = event.target.name;
     const value = event.target.value;
     switch (name) {
-      case 'name':
-        this.setState({ name: value });
+      case 'term':
+        this.setState({ term: value });
         break;
-      case 'phone':
-        this.setState({ phone: value });
-        break;
-      case 'selectTest':
-        this.setState({ selectTest: value })
+      case 'selectCategory':
+        this.setState({ selectCategory: value })
         break;
     }
   }
 
   render() {
     console.log('***SearchBar component:......', this.props)
-    const categories = this.props.state.shop.categories;
+    const state = this.props.state;
+    const categories = state.shop.categories;
     if (!categories.length) return <div></div>;
     //Develop category select control
     const _categories = [{ id: 0, name: 'All Categories' }].concat(categories);
     const selectCat = _categories.map(category => {
-      return (<option
-          className="textBlk"
-          key={ category.id }
-          value={ category.id }>{ category.name }</option>)
+      return <option key={ category.id } value={ category.id }>{ category.name }</option>
     })
     //-------------------------------
     return (
@@ -72,18 +67,26 @@ class SearchBar extends Component {
           <div className="col-sm-12 panel panel-default backBronzw nomarginBot">
             <h4 className="col-sm-3 textBlk margintop marginbelowsm">Grace Shopper</h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
-              <select className="backTan">
-                { selectCat }
-              </select>
-              <input
-                className="colWidth55"
-                value ={ this.state.term }
-                onChange={ this.onInputChange } />
-              <button className="backTan">
-              <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
-              </button>
+              <form onSubmit={ this.handleSubmit }>
+                <select
+                  onChange={ this.handleInput }
+                  value={ this.state.selectCategory }
+                  className="backTan"
+                  name="selectCategory"
+                  type="text">
+                  { selectCat }
+                </select>
+                <input
+                  value ={ this.state.term }
+                  onChange={ this.handleInput }
+                  className="colWidth55"
+                  name="term" />
+                <button className="backTan" type="submit">
+                <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
+                </button>
+                <strong className="textMidRed">{ this.state.errorMsg }</strong>
+              </form>
             </div>
-
             <div className="col-md-6 col-md-offset-5 search-bar marginbelowsm">
               <button className="backTan">Admin Portal</button>
               <button className="moverightsm backTan">sign-in</button>
