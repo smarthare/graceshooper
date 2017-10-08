@@ -23,9 +23,7 @@ const defineOptions = {};
 const Category = conn.define('category', defineAttr, defineOptions);
 
 Category.getAll = function() {
-  return this.findAll({
-    order: ['name']
-  });
+  return this.findAll({ order: ['name'] });
 };
 
 Category.getCatByID = function(id) {

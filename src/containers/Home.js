@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { addTest, removeTest, fetchData } from '../actions';
+import { } from '../actions';
 
-class Tests extends Component {
+class Home extends Component {
   constructor() {
     super();
-    this.state = { name: '', selectTest: 0, errorAdd: '', errorRemove: '' };
+    this.state = { searchTerm: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -16,17 +16,11 @@ class Tests extends Component {
   }
 
   clearState() {
-    this.setState({
-      name: '',
-      selectTest: 0,
-      errorAdd: '',
-      errorRemove: '',
-    })
+    this.setState({ searchTerm: '' })
   }
 
   componentDidMount() {
     this.clearState();
-    this.props.fetchData();
   }
 
   componentWillReceiveProps() {
@@ -69,8 +63,8 @@ class Tests extends Component {
   }
 
   render() {
-    const tests = this.props.tests.tests;
-    
+    const state = this.props.state;
+    let tests = [];
     if (!tests.length) return <div></div>;
     const none = [{ id: '0', name: '--none--' }];
     let testsSelect = none.concat(tests);
@@ -144,12 +138,12 @@ class Tests extends Component {
 }
 
 function mapStateToProps (state) {
-  const { tests } = state;
-  return { tests };
+  console.log('***Home component:.......', state)
+  return state;
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ addTest, removeTest, fetchData }, dispatch);
+  return bindActionCreators({ }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tests);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

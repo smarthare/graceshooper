@@ -1,22 +1,18 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Navbar from '../containers/NavBar';
-import Tests from '../containers/Tests';
-import Test from '../containers/Test';
+import SearchBar from '../containers/SearchBar';
+import Home from '../containers/Home';
 
 export default function AppContainer() {
   return (
     <div className="container-fluid">
-      <h3>Welcome to Grace-Shopper</h3>
-      <Route render={ (router) => <Navbar router={ router } /> } />
       <Switch>
-      <Route
-        path="/tests/:id" render={ (router) => <Test router={ router } /> }
-      />
-      <Route
-        path="/" component={ Tests } />
-    </Switch>
+        <Route path="/" component={ SearchBar } />
+      </Switch>
+      <Switch>
+        <Route path="/" component={ Home } />
+      </Switch>
     </div>
   )
 }

@@ -4,8 +4,8 @@ const
 
 router
   .get('/', (req, res, next) => {
-    Category.findAll({ order: ['id'] })
-    .then(res.json)
+    Category.getAll()
+    .then(categories => res.send(categories))
     .catch(next)
   })
 

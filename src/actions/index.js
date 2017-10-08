@@ -2,10 +2,24 @@ import axios from 'axios';
 
 // ***** ACTION TYPES *****
 
+export const GOT_CATEGORIES = 'GOT_CATEGORIES';
 export const GOT_NEW_DATA = 'GOT_NEW_DATA';
 export const GOT_SINGLE_TEST = 'GOT_SINGLE_TEST';
 
 // ***** ACTION CREATORS *****
+
+export function fetchCategories() {
+  return axios.get('/api/categories')
+    .then(res => res.data)
+    .then(categories => {
+      return { type: GOT_CATEGORIES, payload: categories };
+    })
+}
+
+//..........
+//..........
+//..........
+//..........
 
 export function removeTest(id) {
   // return axios.delete(`/api/tests/${ id }`)
@@ -15,16 +29,6 @@ export function removeTest(id) {
 export function addTest(test) {
   // return axios.post('/api/tests', test)
   // .then(() => fetchData())
-}
-
-export function fetchData() {
-  return Promise.all([
-    axios.get('/api/tests')
-  ])
-  .then(results => {
-    const tests = results[0].data;
-    return { type: GOT_NEW_DATA, payload: { tests } };
-  })
 }
 
 export function gotSingleTest(id) {
