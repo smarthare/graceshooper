@@ -60,7 +60,7 @@ class SearchBar extends Component {
     const selectCat = _categories.map(category => {
       return <option key={ category.id } value={ category.id }>{ category.name }</option>
     })
-    const errorMsg = (this.state.errorMsg) ? <strong className="textBlk"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>{ this.state.errorMsg }</strong> : null;
+    const errorMsg = (this.state.errorMsg) ? <strong className="textBlk"><span className="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>{ this.state.errorMsg }</strong> : null;
     //-------------------------------
     return (
       <div className="container">

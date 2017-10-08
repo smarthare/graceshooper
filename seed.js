@@ -39,7 +39,21 @@ const seed = () => {
       return Promise.all(promiseArr)
     })
     .then(products => {
-      categories[0].addProducts(products[0])
+      categories[0].addProducts(products[0]);
+      categories[1].addProducts(products[0]);
+      categories[0].addProducts(products[1]);
+      categories[1].addProducts(products[1]);
+      categories[0].addProducts(products[2]);
+      categories[1].addProducts(products[2]);
+      categories[0].addProducts(products[3]);
+      categories[1].addProducts(products[3]);
+      categories[0].addProducts(products[4]);
+      categories[1].addProducts(products[4]);
+      categories[3].addProducts(products[5]);
+      categories[4].addProducts(products[5]);
+      categories[3].addProducts(products[6]);
+      categories[4].addProducts(products[6]);
+      categories[2].addProducts(products[7]);
     })
 }
 

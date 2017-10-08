@@ -1,5 +1,6 @@
 const conn = require('../../conn');
 const Product = require( '../product/product.model' );
+const CategoryProduct = require( '../category_product/category_product.model' );
 
 const defineAttr = {
   name: {
@@ -26,12 +27,14 @@ Category.getAll = function() {
   return this.findAll({ order: ['name'] });
 };
 
-Category.getCatByID = function(id) {
+Category.getCatById = function(id) {
   id = id * 1;
-  return this.findById(id, {
-    include: [{ model: Product }]
-  });
+  return this.findById(id,
+    { include: [{ model: Product }] }
+  );
 };
+
+
 
 Category.addCategory = function(name) {
   return this.create({ name });

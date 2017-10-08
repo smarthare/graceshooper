@@ -3,6 +3,7 @@ import axios from 'axios';
 // ***** ACTION TYPES *****
 
 export const GOT_CATEGORIES = 'GOT_CATEGORIES';
+export const PRODUCTS_FOR_CATEGORY = 'PRODUCTS_FOR_CATEGORY';
 export const GOT_NEW_DATA = 'GOT_NEW_DATA';
 export const GOT_SINGLE_TEST = 'GOT_SINGLE_TEST';
 
@@ -13,6 +14,14 @@ export function fetchCategories() {
     .then(res => res.data)
     .then(categories => {
       return { type: GOT_CATEGORIES, payload: categories };
+    })
+}
+
+export function fetchProductsForCat(id) {
+  return axios.get(`/api/categories/${ id }`)
+    .then(res => res.data)
+    .then(category => {
+      return { type: PRODUCTS_FOR_CATEGORY, payload: category };
     })
 }
 
@@ -29,15 +38,6 @@ export function removeTest(id) {
 export function addTest(test) {
   // return axios.post('/api/tests', test)
   // .then(() => fetchData())
-}
-
-export function gotSingleTest(id) {
-  return { type: GOT_SINGLE_TEST, payload: { id: 3, name: 'Vince Rios' } };
-  // return axios.get(`/api/tests/${ id }`)
-  // .then(res => res.data)
-  // .then(selectedTest => {
-  //   return { type: GOT_SINGLE_TEST, payload: selectedTest };
-  // })
 }
 
 export function updateTest(test) {

@@ -9,6 +9,14 @@ router
     .catch(next)
   })
 
+  .get('/:id', (req, res, next) => {
+    Category.getCatById(req.params.id)
+    .then(category => res.send(category))
+    .catch(next)
+  })
+
+  //-------- using routes above this line --------------
+
   .post('/', (req, res, next) => {
     Category.create(req.body)
     .then(res.status(201).json)
