@@ -34,12 +34,13 @@ router
   })
 
   .post("/:id/lineItems", (req, res, next) => {
+    // Note how this method returns a lineItem instead of the order
     Order.addToCartOfUser(
       req.session.userId,
       req.body.productId,
       req.body.quantity
     )
-      .then(order => res.send(order))
+      .then(lineItem => res.send(lineItem))
       .catch(next);
   })
 
