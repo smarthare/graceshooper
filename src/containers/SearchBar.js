@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { fetchCategories, writeSearchTerm } from '../actions';
 
@@ -27,12 +27,19 @@ class SearchBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const endValue = (nextProps.router) ? nextProps.router.location.pathname.indexOf('/', 7) : 0
-    const routePath = (nextProps.router) ? nextProps.router.location.pathname.slice(0, endValue) : '/';
+    const routePath = (nextProps.router) ? nextProps.router.location.pathname.slice(0, 9) : '/';
+    const idLast = (this.props.router) ? this.props.router.match.params.id : null;
     const idNext = (nextProps.router) ? nextProps.router.match.params.id : null;
-    if (idNext && routePath === '/category') {
-      this.setState({ searchCategory: idNext });
+    if (idNext && routePath === '/category' && idNext !== idLast) {
+      console.log('-------------in thunk....')
+      this.props.writeSearchTerm('', idNext);
     } else {
+      console.log('--------------in setState......')
+      if (nextProps.router) {
+        const idMatch = nextProps.router.match.params.id;
+        const idState = nextProps.state.shop.searchCategory;
+        if (idState !== idMatch) this.props.router.history.push('/');
+      }
       this.setState({
         searchTerm: nextProps.state.shop.searchTerm,
         searchCategory: nextProps.state.shop.searchCategory
@@ -42,7 +49,6 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.router.history.push('/');
     this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory);
   }
 
@@ -60,6 +66,7 @@ class SearchBar extends Component {
   }
 
   render() {
+    console.log('***Search component:......', this.props)
     const state = this.props.state;
     const categories = state.shop.categories;
     if (!categories.length) return <div></div>;
@@ -72,14 +79,13 @@ class SearchBar extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-sm-12 panel panel-default backBronzw nomarginBot">
+          <div className="col-sm-12 panel panel-default nomarginBot">
             <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <form onSubmit={ this.handleSubmit }>
                 <select
                   onChange={ this.handleInput }
                   value={ this.state.searchCategory }
-                  className="backTan"
                   name="searchCategory"
                   type="text">
                   { selectCat }
@@ -87,19 +93,19 @@ class SearchBar extends Component {
                 <input
                   value ={ this.state.searchTerm }
                   onChange={ this.handleInput }
-                  className="colWidth55"
+                  className="colWidth60"
                   name="searchTerm" />
-                <button className="backTan" type="submit">
-                <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
+                <button type="submit">
+                <span className="glyphicon glyphicon-search" aria-hidden="true" />
                 </button>
               </form>
             </div>
-            <div className="col-md-6 col-md-offset-5 search-bar marginbelowsm">
-              <Link to={ `/admin` }><button className="backTan">Admin Portal</button></Link>
-              <Link to={ `/signin` }><button className="moverightsm backTan">sign-in</button></Link>
-              <Link to={ `/account` }><button className="moverightsm backTan">Account</button></Link>
-              <Link to={ `/orders` }><button className="moverightsm backTan">Orders</button></Link>
-              <Link to={ `/cart` }><button className="moverightsm backTan margintopsm">Cart (0)</button></Link>
+            <div className="col-md-6 col-md-offset-6 search-bar marginbelowsm">
+              <Link to={ `/admin` }><button>Admin Portal</button></Link>
+              <Link to={ `/signin` }><button className="moverightsm">sign-in</button></Link>
+              <Link to={ `/account` }><button className="moverightsm">Account</button></Link>
+              <Link to={ `/orders` }><button className="moverightsm">Orders</button></Link>
+              <Link to={ `/cart` }><button className="moverightsm margintopsm">Cart (0)</button></Link>
             </div>
           </div>
         </div>
@@ -116,4 +122,4 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({ fetchCategories, writeSearchTerm }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));

@@ -54,7 +54,7 @@ class Home extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-sm-12 panel panel-default backTan">
+          <div className="col-sm-12 panel panel-default">
             <div className="col-sm-12 marginbelow">
               { (renderingProd) ?
                 <h6>{ searchProducts.length } results for { searchTerm }</h6> :

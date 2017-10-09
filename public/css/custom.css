@@ -69,11 +69,38 @@
 .tabrightsm {
   margin-left: 15px; }
 
+.hr {
+  width: 75%;
+  height: 2px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.backWhite {
+  background-color: #fff; }
+
+.backRed {
+  background-color: red; }
+
+.textBlue {
+  color: Blue;
+  font-weight: bold; }
+
+.textRed {
+  color: #DF0D0D;
+  font-weight: bold; }
+
+.textBlk {
+  color: #000;
+  font-weight: normal; }
+
 .colWidth95 {
   width: 95%; }
 
 .colWidth55 {
   width: 55%; }
+
+.colWidth60 {
+  width: 60%; }
 
 .colWidth20 {
   width: 20%; }
@@ -100,60 +127,3 @@
 
 .setWidth {
   width: 85%; }
-
-  .hr {
-    width: 75%;
-    height: 2px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #BF9A56; }
-  
-  .backWhite {
-    background-color: #fff; }
-  
-  .backRed {
-    background-color: red; }
-
-  .backTan {
-    background-color: #F2E2C4; }
-
-  .backBronzw {
-    background-color: #BF9A56; }
-
-  .backDeepGrey {
-    background-color: #2F3B40; }
-
-  .textWhite {
-    color: #FFFFFF;}
-
-  .textBlue {
-    color: Blue;
-    font-weight: bold; }
-  
-  .textBlk {
-    color: #000000;
-    font-weight: normal; }
-  
-  .textDeepGrey {
-    color: #2F3B40;
-  }
-
-  .textTan {
-    color: #F2E2C4;
-  }
-
-  .textBronzw {
-    color: #BF9A56;
-  }
-
-  .textSoftRed {
-    color: #D9564A;
-  }
-
-  .textMidRed {
-    color: #D93E30;
-  }
-
-  .textBoldRed {
-    color: #DF0D0D;
-    font-weight: bold; }
