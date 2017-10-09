@@ -15,7 +15,6 @@ class SearchBar extends Component {
   }
 
   clearState() {
-    console.log('====================', this.props)
     this.setState({
       searchTerm: this.props.state.shop.searchTerm,
       searchCategory: this.props.state.shop.searchCategory
@@ -23,13 +22,11 @@ class SearchBar extends Component {
   }
 
   componentDidMount() {
-    console.log('*******in did mount...search*******')
       this.clearState();
       this.props.fetchCategories();
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('*******in will receive props...search*******', nextProps)
     const endValue = (nextProps.router) ? nextProps.router.location.pathname.indexOf('/', 7) : 0
     const routePath = (nextProps.router) ? nextProps.router.location.pathname.slice(0, endValue) : '/';
     const idNext = (nextProps.router) ? nextProps.router.match.params.id : null;
@@ -45,7 +42,6 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('hitting submit')
     this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory);
   }
 
@@ -63,7 +59,6 @@ class SearchBar extends Component {
   }
 
   render() {
-    console.log('***SearchBar component:......', this.props)
     const state = this.props.state;
     const categories = state.shop.categories;
     if (!categories.length) return <div></div>;
