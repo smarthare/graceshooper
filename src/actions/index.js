@@ -3,9 +3,10 @@ import axios from 'axios';
 // ***** ACTION TYPES *****
 
 export const GOT_CATEGORIES = 'GOT_CATEGORIES';
+export const WRITE_SEARCH_TERM = 'WRITE_SEARCH_TERM';
 export const PRODUCTS_FOR_CATEGORY = 'PRODUCTS_FOR_CATEGORY';
-export const GOT_NEW_DATA = 'GOT_NEW_DATA';
-export const GOT_SINGLE_TEST = 'GOT_SINGLE_TEST';
+
+
 
 // ***** ACTION CREATORS *****
 
@@ -23,6 +24,10 @@ export function fetchProductsForCat(id) {
     .then(category => {
       return { type: PRODUCTS_FOR_CATEGORY, payload: category };
     })
+}
+
+export function writeSearchTerm(term, searchCat) {
+  return { type: WRITE_SEARCH_TERM, payload: { term, searchCat } }
 }
 
 //..........

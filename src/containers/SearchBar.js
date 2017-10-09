@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchCategories } from '../actions';
+import { fetchCategories, writeSearchTerm } from '../actions';
 
 class SearchBar extends Component {
-  constructor() {
-    super();
-    this.state = { term: '', selectCategory: '0' };
+  constructor(props) {
+    super(props);
+    this.state = { searchTerm: '', searchCategory: '0' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -15,7 +15,11 @@ class SearchBar extends Component {
   }
 
   clearState() {
-    this.setState({ term: '', selectCategory: '0' })
+    console.log('====================', this.props)
+    this.setState({
+      searchTerm: this.props.state.shop.searchTerm,
+      searchCategory: this.props.state.shop.searchCategory
+    })
   }
 
   componentDidMount() {
@@ -25,31 +29,35 @@ class SearchBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('*******in will receive props...search*******')
-    this.clearState();
+    console.log('*******in will receive props...search*******', nextProps)
     const endValue = (nextProps.router) ? nextProps.router.location.pathname.indexOf('/', 7) : 0
     const routePath = (nextProps.router) ? nextProps.router.location.pathname.slice(0, endValue) : '/';
     const idNext = (nextProps.router) ? nextProps.router.match.params.id : null;
     if (idNext && routePath === '/category') {
-      this.setState({ selectCategory: idNext });
+      this.setState({ searchCategory: idNext });
+    } else {
+      this.setState({
+        searchTerm: nextProps.state.shop.searchTerm,
+        searchCategory: nextProps.state.shop.searchCategory
+      })
     }
   }
 
   handleSubmit(event) {
     event.preventDefault();
     console.log('hitting submit')
-    this.clearState();
+    this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory);
   }
 
   handleInput(event) {
     const name = event.target.name;
     const value = event.target.value;
     switch (name) {
-      case 'term':
-        this.setState({ term: value });
+      case 'searchTerm':
+        this.setState({ searchTerm: value });
         break;
-      case 'selectCategory':
-        this.setState({ selectCategory: value })
+      case 'searchCategory':
+        this.setState({ searchCategory: value })
         break;
     }
   }
@@ -74,17 +82,17 @@ class SearchBar extends Component {
               <form onSubmit={ this.handleSubmit }>
                 <select
                   onChange={ this.handleInput }
-                  value={ this.state.selectCategory }
+                  value={ this.state.searchCategory }
                   className="backTan"
-                  name="selectCategory"
+                  name="searchCategory"
                   type="text">
                   { selectCat }
                 </select>
                 <input
-                  value ={ this.state.term }
+                  value ={ this.state.searchTerm }
                   onChange={ this.handleInput }
                   className="colWidth55"
-                  name="term" />
+                  name="searchTerm" />
                 <button className="backTan" type="submit">
                 <span className="glyphicon glyphicon-search backTan" aria-hidden="true" />
                 </button>
@@ -109,7 +117,7 @@ function mapStateToProps (state, { router }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchCategories }, dispatch);
+  return bindActionCreators({ fetchCategories, writeSearchTerm }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
