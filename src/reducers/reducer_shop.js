@@ -3,7 +3,7 @@ import { GOT_CATEGORIES, PRODUCTS_FOR_CATEGORY, WRITE_SEARCH_TERM } from '../act
 const initialState = {
   categories: [],
   searchTerm: '',
-  searchCategory: 0,
+  searchCategory: '0',
   selectedCategory: {},
   searchProducts: [],
   selectedProduct: {},
@@ -23,8 +23,8 @@ export default (state = initialState, action) => {
       });
     case WRITE_SEARCH_TERM:
       return Object.assign({}, state, {
-        searchTerm: action.payload.term,
-        searchCategory: action.payload.searchCat });
+        searchTerm: action.payload.searchTerm,
+        searchCategory: action.payload.searchCategory });
     default:
       return state;
   }

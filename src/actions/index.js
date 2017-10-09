@@ -26,8 +26,8 @@ export function fetchProductsForCat(id) {
     })
 }
 
-export function writeSearchTerm(term, searchCat) {
-  return { type: WRITE_SEARCH_TERM, payload: { term, searchCat } }
+export function writeSearchTerm(searchTerm, searchCategory) {
+  return { type: WRITE_SEARCH_TERM, payload: { searchTerm, searchCategory } }
 }
 
 //..........
