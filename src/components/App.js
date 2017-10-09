@@ -7,6 +7,7 @@ import Admin from '../containers/Admin';
 import Cart from '../containers/Cart';
 import Home from '../containers/Home';
 import Orders from '../containers/Orders';
+import ProductsList from '../containers/ProductsList';
 import UserSignIn from '../containers/User_SignIn';
 
 export default function AppContainer() {
@@ -22,7 +23,7 @@ export default function AppContainer() {
         <Route path="/cart" component={ Cart } />
         <Route path="/orders" component={ Orders } />
         <Route path="/signin" component={ UserSignIn } />
-        <Route path="/category/:id" render={ (router) => <Home router={ router } /> } />
+        <Route path="/category/:id" render={ (router) => <ProductsList router={ router } /> } />
         <Route path="/" component={ Home } />
       </Switch>
     </div>

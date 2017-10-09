@@ -38,7 +38,7 @@ class SearchBar extends Component {
       if (nextProps.router) {
         const idMatch = nextProps.router.match.params.id;
         const idState = nextProps.state.shop.searchCategory;
-        if (idState !== idMatch) this.props.router.history.push('/');
+        if (idState !== idMatch) this.props.router.history.push(`/category/${ idState }`);
       }
       this.setState({
         searchTerm: nextProps.state.shop.searchTerm,
@@ -49,7 +49,7 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.router.history.push('/admin');
+    if (this.props.router) this.props.router.history.push(`/category/${ this.state.searchCategory }`);
     this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory);
   }
 
