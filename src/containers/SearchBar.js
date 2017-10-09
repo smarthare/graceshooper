@@ -42,6 +42,7 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.router.history.push('/');
     this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory);
   }
 
