@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchCategories, fetchProductsForCat } from '../actions';
+import { fetchCategories } from '../actions';
 
 class SearchBar extends Component {
   constructor() {
@@ -19,15 +19,26 @@ class SearchBar extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.router) {
+    console.log('*******in did mount...search*******')
       this.clearState();
       this.props.fetchCategories();
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('*******in will receive props...search*******')
+    this.clearState();
+    const endValue = (nextProps.router) ? nextProps.router.location.pathname.indexOf('/', 7) : 0
+    const routePath = (nextProps.router) ? nextProps.router.location.pathname.slice(0, endValue) : '/';
+    const idNext = (nextProps.router) ? nextProps.router.match.params.id : null;
+    if (idNext && routePath === '/category') {
+      this.setState({ selectCategory: idNext });
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-      console.log('hitting submit')
-      this.clearState();
+    console.log('hitting submit')
+    this.clearState();
   }
 
   handleInput(event) {
@@ -58,7 +69,7 @@ class SearchBar extends Component {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 panel panel-default backBronzw nomarginBot">
-            <h3 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h3>
+            <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <form onSubmit={ this.handleSubmit }>
                 <select
@@ -98,7 +109,7 @@ function mapStateToProps (state, { router }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchCategories, fetchProductsForCat }, dispatch);
+  return bindActionCreators({ fetchCategories }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
