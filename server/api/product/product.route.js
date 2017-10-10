@@ -4,7 +4,7 @@ const
 
 router
   .get('/', (req, res, next) => {
-    Product.findAll({ order: ['id'] })
+    Product.findAll({ order: ['name'] })
     .then(res.json)
     .catch(next)
   })

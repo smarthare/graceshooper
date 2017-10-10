@@ -1,6 +1,6 @@
 const conn = require('../../conn')
 
-const defineAttr = {
+const Product = conn.define('product', {
   name: {
     type: conn.Sequelize.STRING,
     allowNull: false,
@@ -29,41 +29,19 @@ const defineAttr = {
   },
   imgUrls: {
     type: conn.Sequelize.ARRAY(conn.Sequelize.STRING),
-    defaultValue: ['Penguins.jpg']
+    defaultValue: ['/assets/images/missingImg.png']
+  }
+}, {
+  validate: {
+    hasCategory () {
+      if (!this.categories || this.categories.length < 1) {
+        throw new Error('Product must have at least one category.')
+      }
+    }
   }
 };
 
-const defineOptions = {};
-
-const Product = conn.define('product', defineAttr, defineOptions);
-
-Product.getAll = function() {
-  return this.findAll({
-    order: ['name']
-  })
-};
-
-Product.getProdByID = function(id) {
-  id = id * 1;
-  return this.findById(id);
-};
-
-Product.addProduct = function(product){
-    return this.create({
-      name: product.name,
-      description: product.description,
-      price: product.price,
-      inventory: product.inventory,
-      imgUrls: product.imgUrls
-    });
-};
-
-Product.deleteProd = function(id) {
-  id = id * 1;
-  return this.destroy({ where: { id } })
-};
-
-Product.searchProd = function(str) {
+Product.search = function (str) {
   return this.findAll({
     where: { name: { $like: `%${str}%`, inventory: { $gt: 0 } },
     order: ['name']
