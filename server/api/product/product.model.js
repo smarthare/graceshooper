@@ -1,7 +1,9 @@
-const conn = require('../../conn')
+const
+  conn = require('../../conn'),
+  Category = require('../category/category.model.js')
 
-const defineAttr = {
-  name: {
+const Product = conn.define('product', {
+  title: {
     type: conn.Sequelize.STRING,
     allowNull: false,
     unique: true,
@@ -29,40 +31,32 @@ const defineAttr = {
   },
   imgUrls: {
     type: conn.Sequelize.ARRAY(conn.Sequelize.STRING),
-    defaultValue: ['Penguins.jpg']
+    defaultValue: ['/assets/images/missingImg.png']
   }
-};
+}, {
+  // The default scope below does not work.
+  // I hoped that with this I can avoid include Category everywhere
+  // defaultScope: {
+  //   include: [ Category ]
+  // },
 
-const defineOptions = {};
+  // This validation needs to be realized somewhere esle. Stupidest thing ever
 
-const Product = conn.define('product', defineAttr, defineOptions);
+  // validate: {
+  //   hasCategory () {
+  //     if (!this.categories || this.categories.length < 1) {
+  //       throw new Error('Product must have at least one category.')
+  //     }
+  //   }
+  // }
+});
 
-Product.getAll = function() {
+Product.search = function (str) {
   return this.findAll({
+    where: { name: { $like: `%${str}%`, inventory: { $gt: 0 } },
     order: ['name']
+    }
   })
-};
-
-Product.getProdByID = function(id) {
-  id = id * 1;
-  return this.findById(id);
-};
-
-  //-------- using methods above this line --------------
-
-Product.addProduct = function(product){
-    return this.create({
-      name: product.name,
-      description: product.description,
-      price: product.price,
-      inventory: product.inventory,
-      imgUrls: product.imgUrls
-    });
-};
-
-Product.deleteProd = function(id) {
-  id = id * 1;
-  return this.destroy({ where: { id } })
-};
+}
 
 module.exports = Product

@@ -1,40 +1,33 @@
-const
-  router = require('express').Router(),
-  Category = require('./category.model')
+const router = require("express").Router(),
+  Category = require("./category.model");
 
 router
-  .get('/', (req, res, next) => {
-    Category.getAll()
-    .then(categories => res.send(categories))
-    .catch(next)
+  // Only get route needed:
+  // Product should include its cat, and get Cat's product should be done at store
+  .get("/", (req, res, next) => {
+    Category.findAll({ order: ["name"] })
+      .then(categories => res.send(categories))
+      .catch(next);
   })
 
-  .get('/:id', (req, res, next) => {
-    Category.getCatById(req.params.id)
-    .then(category => res.send(category))
-    .catch(next)
-  })
-
-  //-------- using routes above this line --------------
-
-  .post('/', (req, res, next) => {
+  .post("/", (req, res, next) => {
     Category.create(req.body)
-    .then(res.status(201).json)
-    .catch(next)
+      .then(category => res.send(category))
+      .catch(next);
   })
 
-  .put('/:id', (req, res, next) => {
+  .put("/:id", (req, res, next) => {
     Category.findById(req.params.id)
-    .then(category => category.update(req.body))
-    .then(res.json)
-    .catch(next)
+      .then(category => category.update(req.body))
+      .then(category => res.send(category))
+      .catch(next);
   })
 
-  .delete('/:id', (req, res, next) => {
+  .delete("/:id", (req, res, next) => {
     Category.findById(req.params.id)
-    .then(category => category.destroy())
-    .then(res.status(204).end)
-    .catch(next)
-  })
+      .then(category => category.destroy())
+      .then(result => res.send(result))
+      .catch(next);
+  });
 
-module.exports = router
+module.exports = router;

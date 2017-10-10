@@ -1,13 +1,14 @@
 const conn = require('../../conn')
 
-const LineItem = conn.define('lineitem', {
+const LineItem = conn.define('lineItem', {
   quantity: {
     type: conn.Sequelize.INTEGER,
     defaultValue: 1
   },
   price: {
-    type: conn.Sequelize.FLOAT,
-  },
+    // Price to be submitted with order
+    type: conn.Sequelize.FLOAT
+  }
 })
 
 module.exports = LineItem
