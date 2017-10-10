@@ -4,10 +4,18 @@ const
 
 router
   .get('/', (req, res, next) => {
-    Product.findAll({ order: ['id'] })
-    .then(res.json)
+    Product.getAll()
+    .then(products => res.send(products))
     .catch(next)
   })
+
+  .get('/:term', (req, res, next) => {
+    Product.searchProd(req.params.term)
+    .then(products => res.send(products))
+    .catch(next)
+  })
+
+    //-------- using routes above this line --------------
 
   .post('/', (req, res, next) => {
     Product.create(req.body)

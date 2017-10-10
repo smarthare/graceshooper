@@ -61,8 +61,7 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory)
-    //this.props.router.history.push(`/category/${ this.state.searchCategory }`);
+    this.props.fetchProductsForCat(this.state.searchCategory, this.state.searchTerm)
   }
 
   handleInput(event) {

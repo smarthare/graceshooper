@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
       });
     case PRODUCTS_FOR_CATEGORY:
       return Object.assign({}, state, {
-        searchTerm: '',
+        searchTerm: action.payload.searchTerm,
         searchCategory: action.payload.id,
         selectedCategory: action.payload,
         searchProducts: action.payload.products,

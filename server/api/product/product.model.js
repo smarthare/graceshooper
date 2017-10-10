@@ -43,6 +43,15 @@ Product.getAll = function() {
   })
 };
 
+Product.searchProd = function(str) {
+  return this.findAll({
+    where: { name: { $like: `%${str}%`, inventory: { $gt: 0 } } },
+    order: ['name']
+  })
+}
+
+  //-------- using methods above this line --------------
+
 Product.getProdByID = function(id) {
   id = id * 1;
   return this.findById(id);
@@ -62,13 +71,5 @@ Product.deleteProd = function(id) {
   id = id * 1;
   return this.destroy({ where: { id } })
 };
-
-Product.searchProd = function(str) {
-  return this.findAll({
-    where: { name: { $like: `%${str}%`, inventory: { $gt: 0 } },
-    order: ['name']
-    }
-  })
-}
 
 module.exports = Product

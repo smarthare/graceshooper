@@ -15,6 +15,12 @@ router
     .catch(next)
   })
 
+  .get('/:id/:term', (req, res, next) => {
+    Category.getCatByIdTerm(req.params.id, req.params.term)
+    .then(category => res.send(category))
+    .catch(next)
+  })
+
   //-------- using routes above this line --------------
 
   .post('/', (req, res, next) => {

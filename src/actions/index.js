@@ -18,13 +18,36 @@ export function fetchCategories() {
     })
 }
 
-export function fetchProductsForCat(id) {
-  console.log('........in ProductsForCat: ', id)
-  return axios.get(`/api/categories/${ id }`)
+export function fetchProductsForCat(id, searchTerm) {
+  if (id && !searchTerm) {
+    return axios.get(`/api/categories/${ id }`)
     .then(res => res.data)
     .then(category => {
+      category.searchTerm = (category.searchTerm) ? category.searchTerm : '';
       return { type: PRODUCTS_FOR_CATEGORY, payload: category };
     })
+  } else if (!id && !searchTerm) {
+    return axios.get(`/api/products/`)
+    .then(res => res.data)
+    .then(products => {
+      const category = { id: 0, searchTerm: '', name: 'all categories', products };
+      return { type: PRODUCTS_FOR_CATEGORY, payload: category };
+    })
+  } else if (!id && searchTerm) {
+      return axios.get(`/api/products/${searchTerm}`)
+      .then(res => res.data)
+      .then(products => {
+        const category = { id: 0, searchTerm, name: 'all categories', products };
+        return { type: PRODUCTS_FOR_CATEGORY, payload: category };
+    })
+  } else {
+      return axios.get(`/api/categories/${ id }/${ searchTerm }`)
+      .then(res => res.data)
+      .then(category => {
+        category.searchTerm = (category.searchTerm) ? category.searchTerm : '';
+        return { type: PRODUCTS_FOR_CATEGORY, payload: category };
+      })
+  }
 }
 
 export function writeSearchTerm(searchTerm, searchCategory) {
