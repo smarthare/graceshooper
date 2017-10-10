@@ -19,6 +19,7 @@ export function fetchCategories() {
 }
 
 export function fetchProductsForCat(id) {
+  console.log('........in ProductsForCat: ', id)
   return axios.get(`/api/categories/${ id }`)
     .then(res => res.data)
     .then(category => {

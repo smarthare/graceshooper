@@ -13,11 +13,21 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GOT_CATEGORIES:
-      return Object.assign({}, state, { categories: action.payload });
+      return Object.assign({}, state, {
+        categories: action.payload,
+        searchTerm: '',
+        searchCategory: '0',
+        selectedCategory: {},
+        searchProducts: [],
+        selectedProduct: {},
+        reviewsProduct: []
+      });
     case PRODUCTS_FOR_CATEGORY:
       return Object.assign({}, state, {
+        searchTerm: '',
+        searchCategory: action.payload.id,
         selectedCategory: action.payload,
-        searchedProducts: action.payload.products,
+        searchProducts: action.payload.products,
         selectedProduct: {},
         reviewsProduct: []
       });

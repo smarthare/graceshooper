@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchCategories, writeSearchTerm } from '../actions';
+import { fetchCategories, writeSearchTerm, fetchProductsForCat } from '../actions';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -33,16 +33,18 @@ class SearchBar extends Component {
     const idLast = this.props.router.match.params.id;
     const idNext = nextProps.router.match.params.id;
     const catLenLast = this.props.state.shop.categories.length;
-
     if (!idLast && !idNext && routePath === '/' && !catLenLast) {
       console.log('****** Starting the App ******')
       // *****       Starting the App      *****
-      // ***** Just start, do nothing else ***** */
+      // ***** Just start, do nothing else *****
     } else if (idNext && routePath === '/category' && idNext !== idLast) {
       console.log('****** Select Categories from Home Display List *********')
-      // ***** Select Categories from Home Display List *****
-      // need to fetch categories and display on ProductList component........(TODO)
-      this.props.writeSearchTerm('', idNext);
+      // *****      Select Categories from Home Display List       *****
+      // ***** fetch categories & display on ProductList component *****
+      this.props.fetchProductsForCat(idNext)
+      this.setState({
+        searchCategory: idNext
+      })
     } else if (!idNext && routePath === '/' && idNext !== idLast && !idLast) {
       console.log('first if.....................')
       this.props.writeSearchTerm('', '0');
@@ -130,7 +132,7 @@ function mapStateToProps (state, { router }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchCategories, writeSearchTerm }, dispatch);
+  return bindActionCreators({ fetchCategories, writeSearchTerm, fetchProductsForCat }, dispatch);
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));
