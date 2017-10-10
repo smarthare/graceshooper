@@ -32,6 +32,8 @@ export default class App extends React.Component {
   // There should be a generic products route / search result page that
   // is not restrainted to a category
   // Let's use /account instead of User. Sounds more realistic
+          // <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
+                    // Let's do one single search result for now
   render() {
     return (
       <div className="container-fluid">
@@ -39,29 +41,23 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/category/:id" render={ (router) => <SearchBar router={ router } /> } />
           <Route path="/" render={ (router) => <SearchBar router={ router } /> } />
-        // <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
           <Route path="/product/:id" render={ (router) => <SearchBar router={ router } /> } />
       </Switch>
-        </Switch>
-    
 
-        <Switch>
-          <Route path="/account" component={ Account } />
-          <Route path="/admin" component={ Admin } />
-          <Route path="/cart" component={ Cart } />
-          <Route path="/orders" component={ Orders } />
-          <Route path="/signin" component={ UserSignIn } />
-          <Route path="/products" component={ProductList} />
-          // Let's do one single search result for now
-          <Route path="/category/:id/:term" render={ (router) => <ProductList router={ router } /> } />
-          <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
-          <Route path="/product/:id" render={ (router) => <Product router={ router } /> } />
-          <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
-          <Route path="/" render={ (router) => <Home router={ router } /> } />
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/" exact render={ (router) => <Home router={ router } /> } />
+        <Route path="/account" component={ Account } />
+        <Route path="/admin" component={ Admin } />
+        <Route path="/cart" component={ Cart } />
+        <Route path="/orders" component={ Orders } />
+        <Route path="/signin" component={ UserSignIn } />
+        <Route path="/products" component={ProductList} />
+        <Route path="/category/:id/:term" render={ (router) => <ProductList router={ router } /> } />
+        <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
+        <Route path="/product/:id" render={ (router) => <Product router={ router } /> } />
+        <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
+      </Switch>
+    </div>
   )
-
-    );
   }
 }

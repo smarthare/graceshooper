@@ -11,7 +11,6 @@ const
 // Don't think seed needs to be called everytime once it's actually seeded
 // const seed = require("../seed");
 
-
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
 app.use("/dist", express.static(path.join(__dirname, "../dist")));
 app.use("/public", express.static(path.join(__dirname, "../public")));
@@ -19,7 +18,8 @@ app.use("/vendor", express.static(path.join(__dirname, "../node_modules")));
 
 app.use(
   session({
-    secret: process.env.SECRET,
+    // secret: process.env.SECRET,
+    secret: 'foo',
     resave: false,
     saveUninitialized: false
   })
