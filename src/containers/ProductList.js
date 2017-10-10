@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class ProductList extends Component {
   render() {
-    console.log('***ProductList component:......', this.props)
+    console.log('..........  ProductList component:  ..........', this.props)
     const categories = this.props.state.shop.categories;
     if (!categories.length) return <div></div>;
     const renderContainer = categories.map(category => {

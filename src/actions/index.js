@@ -23,14 +23,13 @@ export function fetchProductsForCat(id, searchTerm) {
     return axios.get(`/api/categories/${ id }`)
     .then(res => res.data)
     .then(category => {
-      category.searchTerm = (category.searchTerm) ? category.searchTerm : '';
       return { type: PRODUCTS_FOR_CATEGORY, payload: category };
     })
   } else if (!id && !searchTerm) {
     return axios.get(`/api/products/`)
     .then(res => res.data)
     .then(products => {
-      const category = { id: 0, searchTerm: '', name: 'all categories', products };
+      const category = { id: 0, name: 'all categories', products };
       return { type: PRODUCTS_FOR_CATEGORY, payload: category };
     })
   } else if (!id && searchTerm) {

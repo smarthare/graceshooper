@@ -7,7 +7,7 @@ import { fetchCategories, writeSearchTerm, fetchProductsForCat } from '../action
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchTerm: '', searchCategory: '0' };
+    this.state = { searchTerm: '', searchCategory: 0 };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -45,10 +45,10 @@ class SearchBar extends Component {
       this.setState({
         searchCategory: idNext
       })
-    } else if (!idNext && routePath === '/' && idNext !== idLast && !idLast) {
-      console.log('first if.....................')
-      this.props.writeSearchTerm('', '0');
-      this.props.router.history.push(`/`);
+    } else if (!idNext && routePath === '/') {
+      console.log('****** //// Need to see what this does //// ******')
+      // this.props.writeSearchTerm('', '0');
+      // this.props.router.history.push(`/`);
     // } else {
     //   console.log('****** Starting & Continuing The App *********')
     //   // ***** Starting & Continuing The App *****
@@ -61,7 +61,7 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.fetchProductsForCat(this.state.searchCategory, this.state.searchTerm)
+    this.props.router.history.push(`/category/${ this.props.state.shop.searchCategory }/${ this.props.state.shop.searchTerm }`);
   }
 
   handleInput(event) {
@@ -78,7 +78,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    console.log('***Search component:......', this.props)
+    console.log('..........  Search component: ..........', this.props)
     const state = this.props.state;
     const categories = state.shop.categories;
     if (!categories.length) return <div></div>;
