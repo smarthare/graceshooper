@@ -18,7 +18,7 @@ describe('==== Sequelize Models ====', function () {
   after('Synchronize and clear database', () => db.sync())
   describe('Product Model', () => {
     describe('definition', () => {
-      xit('must have title, description, price, and inventory quantity', () => {
+      it('must have title, description, price, and inventory quantity', () => {
         expect(Product.attributes.title).to.be.an('object')
         expect(Product.attributes.description).to.be.an('object')
         expect(Product.attributes.price).to.be.an('object')
@@ -247,5 +247,3 @@ describe('==== Sequelize Models ====', function () {
     })
   })
 })
-
-

@@ -53,7 +53,7 @@ function generateUsers () {
   var users = doTimes(numUsers, randUser)
   users.push(models.User.build({
     name: 'AJ Frank',
-    password: faker.internet.password(),
+    password: 'password',
     imgUrl: 'https://sendgrid.com/wp-content/uploads/2017/07/Headshot-178x178.jpg',
     email: 'alexanderjfrank@gmail.com',
     isAdmin: true
@@ -61,7 +61,7 @@ function generateUsers () {
 
   users.push(models.User.build({
     name: 'Vince Rios',
-    password: faker.internet.password(),
+    password: 'password',
     imgUrl: faker.internet.avatar(),
     email: 'vincr@graceshopper.com',
     isAdmin: true
@@ -69,7 +69,7 @@ function generateUsers () {
 
   users.push(models.User.build({
     name: 'D Fan',
-    password: faker.internet.password(),
+    password: 'password',
     imgUrl: faker.internet.avatar(),
     email: 'dfan@graceshopper.com',
     isAdmin: true

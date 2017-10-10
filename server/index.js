@@ -17,17 +17,17 @@ app.use("/dist", express.static(path.join(__dirname, "../dist")));
 app.use("/public", express.static(path.join(__dirname, "../public")));
 app.use("/vendor", express.static(path.join(__dirname, "../node_modules")));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(morgan("dev"));
-
 app.use(
   session({
-    secret: "beautifulworld",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
   })
 );
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(morgan("dev"));
 
 app.use("/api", require("./api/api.router"));
 
@@ -40,7 +40,12 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((err, req, res, next) => res.status(err.status || 500).send(err));
+app.use((err, req, res, next) => {
+  if (req.headers['content-type'] === 'application/json') {
+    return res.status(err.status).send({error: {message: err.message}})
+  }
+  return res.status(err.status || 500).send(err)
+});
 
 db.sync()
   // .then(() => seed())

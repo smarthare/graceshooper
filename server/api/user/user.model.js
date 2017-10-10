@@ -51,17 +51,17 @@ const generateError = message => {
 };
 
 User.findBySessionId = function(userId) {
-  if (!userId) throw generateError("No user found");
+  if (!userId) throw generateError("no user found");
   return this.findById(userId);
 };
 
 User.login = function(credentials) {
   if (!credentials.email || !credentials.password) {
-    throw generateError("No credentials");
+    throw generateError("no credentials");
   }
 
   return this.findOne({ where: credentials }).then(user => {
-    if (!user) throw generateError("Bad credentials");
+    if (!user) throw generateError("bad credentials");
     return user;
   });
 };
