@@ -3,7 +3,7 @@ const router = require("express").Router(),
 
 router
   .get("/", (req, res, next) => {
-    User.findAll({ order: ["id"] })
+    User.findAll({ order: ["name"] })
       .then(result => res.send(result))
       .catch(next);
   })

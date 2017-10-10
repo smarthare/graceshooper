@@ -1,7 +1,7 @@
 const conn = require('../../conn')
 
 const Product = conn.define('product', {
-  title: {
+  name: {
     type: conn.Sequelize.STRING,
     allowNull: false,
     unique: true,
@@ -39,6 +39,14 @@ const Product = conn.define('product', {
       }
     }
   }
-})
+};
+
+Product.search = function (str) {
+  return this.findAll({
+    where: { name: { $like: `%${str}%`, inventory: { $gt: 0 } },
+    order: ['name']
+    }
+  })
+}
 
 module.exports = Product

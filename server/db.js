@@ -1,11 +1,15 @@
-const conn = require("./conn"),
+const
+  conn = require("./conn"),
   User = require("./api/user/user.model"),
-  Product = require("./api/product/product.model.js"),
+  Product = require("./api/product/product.model"),
   Category = require("./api/category/category.model"),
   Order = require("./api/order/order.model"),
   LineItem = require("./api/order/lineItem.model"),
   Review = require("./api/review/review.model");
 
+// Table categoryProduct will be created automatically.
+// Since we are not adding any attribute to the join table, it doesn't need to be
+// defined
 Category.belongsToMany(Product, { through: "categoryProduct" });
 Product.belongsToMany(Category, { through: "categoryProduct" });
 

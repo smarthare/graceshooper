@@ -1,4 +1,5 @@
-const express = require("express"),
+const
+  express = require("express"),
   app = express(),
   path = require("path"),
   bodyParser = require("body-parser"),
@@ -41,9 +42,7 @@ app.use((err, req, res, next) => res.status(err.status || 500).send(err));
 
 db
   .sync()
-  // .then(() => {
-  //   seed();
-  // })
+  // .then(() => seed())
   .then(() => {
     console.log("db synced");
     app.listen(port, () => console.log(`listening on port ${port}`));

@@ -1,7 +1,11 @@
 import { GOT_NEW_DATA, GOT_SINGLE_TEST } from '../actions';
 
 const initialState = {
-  tests: [],
+  tests: [
+    { id: 1, name: 'AJ Frank' },
+    { id: 2, name: 'Di Fan' },
+    { id: 3, name: 'Vince Rios' }
+  ],
   selectedTest: {}
 }
 

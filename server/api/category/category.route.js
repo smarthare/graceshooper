@@ -2,27 +2,28 @@ const router = require("express").Router(),
   Category = require("./category.model");
 
 router
+  // Only get route needed:
+  // Product should include its cat, and get Cat's product should be done at store
   .get("/", (req, res, next) => {
-    Category.findAll({ order: ["id"] })
+    Category.findAll({ order: ["name"] })
       .then(categories => res.send(categories))
       .catch(next);
   })
-  .post("/:name", (req, res, next) => {
-    console.log(req.params.name);
-    Category.create({
-      name: req.params.name
-    })
+
+  .post("/", (req, res, next) => {
+    Category.create(req.body)
       .then(category => res.send(category))
       .catch(next);
   })
+
   .put("/:id", (req, res, next) => {
     Category.findById(req.params.id)
       .then(category => category.update(req.body))
-      .then(res.json)
+      .then(category => res.send(category))
       .catch(next);
   })
+
   .delete("/:id", (req, res, next) => {
-    console.log("category id", req.params.id);
     Category.findById(req.params.id)
       .then(category => category.destroy())
       .then(result => res.send(result))

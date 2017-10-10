@@ -46,6 +46,9 @@
 .moveright {
   margin-left: 20px; }
 
+.moverightsm {
+  margin-left: 10px; }
+
 .moveleft {
   margin-right: 7px; }
 
@@ -70,9 +73,7 @@
   width: 75%;
   height: 2px;
   margin-left: auto;
-  margin-right: auto;
-  background-color: #dddddd;
-  color: #dddddd; }
+  margin-right: auto; }
 
 .backWhite {
   background-color: #fff; }
@@ -94,6 +95,12 @@
 
 .colWidth95 {
   width: 95%; }
+
+.colWidth55 {
+  width: 55%; }
+
+.colWidth60 {
+  width: 60%; }
 
 .colWidth20 {
   width: 20%; }
