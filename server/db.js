@@ -17,8 +17,10 @@ Order.hasMany(LineItem);
 LineItem.belongsTo(Product);
 LineItem.belongsTo(Order);
 
-User.hasMany(Order);
-Order.belongsTo(User);
+// Associate below allows null foreign key, i.e. order without a user
+// This works fine here to deal with guest checkout
+User.hasMany(Order)
+Order.belongsTo(User)
 
 Product.hasMany(Review);
 Review.belongsTo(User);

@@ -6,8 +6,9 @@ const LineItem = conn.define('lineItem', {
     defaultValue: 1
   },
   price: {
-    type: conn.Sequelize.FLOAT,
-  },
+    // Price to be submitted with order
+    type: conn.Sequelize.FLOAT
+  }
 })
 
 module.exports = LineItem

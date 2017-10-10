@@ -1,4 +1,6 @@
-const conn = require('../../conn')
+const
+  conn = require('../../conn'),
+  Category = require('../category/category.model.js')
 
 const Product = conn.define('product', {
   name: {
@@ -32,6 +34,11 @@ const Product = conn.define('product', {
     defaultValue: ['/assets/images/missingImg.png']
   }
 }, {
+  // The default scope below does not work.
+  // I hoped that with this I can avoid include Category everywhere
+  // defaultScope: {
+  //   include: [ Category ]
+  // },
   validate: {
     hasCategory () {
       if (!this.categories || this.categories.length < 1) {

@@ -8,6 +8,7 @@ const
   port = process.env.PORT || 2020,
   session = require("express-session");
 
+// Don't think seed needs to be called everytime once it's actually seeded
 const seed = require("../seed");
 
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
@@ -40,8 +41,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => res.status(err.status || 500).send(err));
 
-db
-  .sync()
+db.sync()
   // .then(() => seed())
   .then(() => {
     console.log("db synced");
