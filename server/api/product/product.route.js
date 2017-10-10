@@ -7,9 +7,17 @@ const
 router
   .get('/', (req, res, next) => {
     Product.findAll({ order: ['name'], include: [ Category, Review ] })
-    .then(res.json)
+    .then(products => res.send(products))
     .catch(next)
   })
+
+  .get('/:id', (req, res, next) => {
+    Product.getProdByID(req.params.id)
+    .then(product => res.send(product))
+    .catch(next)
+  })
+
+    //-------- using routes above this line --------------
 
   .post('/', (req, res, next) => {
     Product.create(req.body, { include: [ Category ] })

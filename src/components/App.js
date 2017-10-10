@@ -12,6 +12,7 @@ import Cart from '../containers/Cart';
 import Home from '../containers/Home';
 import Orders from '../containers/Orders';
 import ProductList from '../containers/ProductList';
+import Product from '../containers/Product';
 import UserSignIn from '../containers/User_SignIn';
 
 import store from "../store";
@@ -38,7 +39,11 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/category/:id" render={ (router) => <SearchBar router={ router } /> } />
           <Route path="/" render={ (router) => <SearchBar router={ router } /> } />
+        // <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
+          <Route path="/product/:id" render={ (router) => <SearchBar router={ router } /> } />
+      </Switch>
         </Switch>
+    
 
         <Switch>
           <Route path="/account" component={ Account } />
@@ -47,11 +52,15 @@ export default class App extends React.Component {
           <Route path="/orders" component={ Orders } />
           <Route path="/signin" component={ UserSignIn } />
           <Route path="/products" component={ProductList} />
+          // Let's do one single search result for now
+          <Route path="/category/:id/:term" render={ (router) => <ProductList router={ router } /> } />
+          <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
+          <Route path="/product/:id" render={ (router) => <Product router={ router } /> } />
           <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
           <Route path="/" render={ (router) => <Home router={ router } /> } />
         </Switch>
       </div>
-
+  )
 
     );
   }
