@@ -3,25 +3,28 @@ const router = require("express").Router(),
 
 router
   .get("/", (req, res, next) => {
-    User.findAll({ order: ["name"] })
-      .then(result => res.send(result))
+    User.findAll({ order: ["name"], attributes: { exclude: ['password'] } })
+      .then(users => res.send(users))
       .catch(next);
   })
+
   .post("/", (req, res, next) => {
     User.create(req.body)
-      .then(result => res.send(result))
+      .then(user => res.send(user))
       .catch(next);
   })
+
   .put("/:id", (req, res, next) => {
     User.findById(req.params.id)
       .then(user => user.update(req.body))
-      .then(res.json)
+      .then(user => res.send(user))
       .catch(next);
   })
+
   .delete("/:id", (req, res, next) => {
     User.findById(req.params.id)
       .then(user => user.destroy())
-      .then(response => res.send(response))
+      .then(result => res.send(result))
       .catch(next);
   });
 
