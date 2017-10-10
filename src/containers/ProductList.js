@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-class Home extends Component {
+class ProductList extends Component {
   render() {
-    console.log('***orig home---------------')
-    const categories = this.props.shop.categories;
+    console.log('***ProductList component:......', this.props)
+    const categories = this.props.state.shop.categories;
     if (!categories.length) return <div></div>;
     const renderContainer = categories.map(category => {
         return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
@@ -17,10 +17,10 @@ class Home extends Component {
         <div className="row">
           <div className="col-sm-12 panel panel-default backTan">
             <div className="col-sm-12 marginbelow">
-              <h6>Select a category (below) or enter search term (above)</h6>
+              <h6>result - products....</h6>
             </div>
             <div className="col-sm-12 marginbelow">
-              { renderContainer }
+              ProductList
             </div>
           </div>
         </div>
@@ -29,8 +29,8 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return state;
+function mapStateToProps (state, { router }) {
+  return { state, router };
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(ProductList);

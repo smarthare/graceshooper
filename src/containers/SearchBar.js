@@ -27,30 +27,40 @@ class SearchBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const routePath = (nextProps.router) ? nextProps.router.location.pathname.slice(0, 9) : '/';
-    const idLast = (this.props.router) ? this.props.router.match.params.id : null;
-    const idNext = (nextProps.router) ? nextProps.router.match.params.id : null;
-    if (idNext && routePath === '/category' && idNext !== idLast) {
-      console.log('-------------in thunk....')
+    console.log('.......Search this.props: ', this.props)
+    console.log('.......Search nextPops: ', nextProps)
+    const routePath = nextProps.router.location.pathname.slice(0, 9);
+    const idLast = this.props.router.match.params.id;
+    const idNext = nextProps.router.match.params.id;
+    const catLenLast = this.props.state.shop.categories.length;
+
+    if (!idLast && !idNext && routePath === '/' && !catLenLast) {
+      console.log('****** Starting the App ******')
+      // *****       Starting the App      *****
+      // ***** Just start, do nothing else ***** */
+    } else if (idNext && routePath === '/category' && idNext !== idLast) {
+      console.log('****** Select Categories from Home Display List *********')
+      // ***** Select Categories from Home Display List *****
+      // need to fetch categories and display on ProductList component........(TODO)
       this.props.writeSearchTerm('', idNext);
-    } else {
-      console.log('--------------in setState......')
-      if (nextProps.router) {
-        const idMatch = nextProps.router.match.params.id;
-        const idState = nextProps.state.shop.searchCategory;
-        if (idState !== idMatch) this.props.router.history.push(`/category/${ idState }`);
-      }
-      this.setState({
-        searchTerm: nextProps.state.shop.searchTerm,
-        searchCategory: nextProps.state.shop.searchCategory
-      })
+    } else if (!idNext && routePath === '/' && idNext !== idLast && !idLast) {
+      console.log('first if.....................')
+      this.props.writeSearchTerm('', '0');
+      this.props.router.history.push(`/`);
+    // } else {
+    //   console.log('****** Starting & Continuing The App *********')
+    //   // ***** Starting & Continuing The App *****
+    //   this.setState({
+    //     searchTerm: nextProps.state.shop.searchTerm,
+    //     searchCategory: nextProps.state.shop.searchCategory
+    //   })
     }
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.props.router) this.props.router.history.push(`/category/${ this.state.searchCategory }`);
-    this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory);
+    this.props.writeSearchTerm(this.state.searchTerm, this.state.searchCategory)
+    //this.props.router.history.push(`/category/${ this.state.searchCategory }`);
   }
 
   handleInput(event) {
