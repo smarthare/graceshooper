@@ -19,6 +19,7 @@ export function fetchCategories() {
 }
 
 export function fetchProductsForCat(id, searchTerm) {
+  console.log('>>>>>>>>>> in fetchProductsForCat: ', id, searchTerm)
   if (id && !searchTerm) {
     return axios.get(`/api/categories/${ id }`)
     .then(res => res.data)
@@ -37,11 +38,12 @@ export function fetchProductsForCat(id, searchTerm) {
       .then(res => res.data)
       .then(products => {
         // got products, need to filter them:
-        const _products = productsFilter(products, searchTerm)
-        const category = { id: 0, searchTerm, name: 'all categories', _products };
+        if (searchTerm) products = productsFilter(products, searchTerm)
+        const category = { id: 0, searchTerm, name: 'all categories', products };
         return { type: PRODUCTS_FOR_CATEGORY, payload: category };
     })
   } else {
+      // ***** have an id and a searchTerm *****
       return axios.get(`/api/categories/${ id }/`)
       .then(res => res.data)
       .then(category => {
@@ -57,12 +59,13 @@ function productsFilter(products, searchTerm) {
     // searchTerm (caps, noCaps), (included in name)
     const _products = products.filter(product => {
       let searchUpper = searchTerm.slice(0, 1).toUpperCase() + searchTerm.slice(1).toLowerCase();
-      let searchLower = searchTerm.slice(0).toLowerCase();
+      let searchLower = searchTerm.toLowerCase();
       let name = product.name;
+      console.log('>>>>>>>>>> filtering function: ', searchUpper, searchLower, name);
       return product.name === name.includes(searchLower) || name.includes(searchUpper);
     })
     for (let i = 0; i < _products.length; i++) {
-      console.log(_products[1].name)
+      console.log('>>>>>>>>>>', _products[i].name)
     }
     return _products;
 }

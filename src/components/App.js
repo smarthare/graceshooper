@@ -14,6 +14,7 @@ export default function AppContainer() {
   return (
     <div className="container">
       <Switch>
+        <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
         <Route path="/category/:id" render={ (router) => <SearchBar router={ router } /> } />
         <Route path="/" render={ (router) => <SearchBar router={ router } /> } />
       </Switch>
@@ -23,6 +24,7 @@ export default function AppContainer() {
         <Route path="/cart" component={ Cart } />
         <Route path="/orders" component={ Orders } />
         <Route path="/signin" component={ UserSignIn } />
+        <Route path="/category/:id/:term" render={ (router) => <ProductList router={ router } /> } />
         <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
         <Route path="/" render={ (router) => <Home router={ router } /> } />
       </Switch>

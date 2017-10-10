@@ -37,17 +37,6 @@ Category.getCatById = function(id) {
   });
 };
 
-Category.getCatByIdTerm = function(id, term) {
-  id = id * 1;
-  return this.findById(id, {
-    include: [{
-      model: Product,
-      where: { name: { $like: `%${ term }%`, inventory: { $gt: 0 } } },
-      include: [Review]
-    }]
-  });
-};
-
   //-------- using methods above this line --------------
 
 Category.addCategory = function(name) {

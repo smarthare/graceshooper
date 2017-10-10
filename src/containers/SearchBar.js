@@ -30,14 +30,15 @@ class SearchBar extends Component {
     console.log('.......Search this.props: ', this.props)
     console.log('.......Search nextPops: ', nextProps)
     const routePath = nextProps.router.location.pathname.slice(0, 9);
-    const idLast = this.props.router.match.params.id;
-    const idNext = nextProps.router.match.params.id;
+    const idLast = this.props.router.match.params.id * 1;
+    const idNext = nextProps.router.match.params.id * 1;
+    console.log('>>>>>>>>>>>>> in Receive Props: ', routePath, idLast, idNext)
     const catLenLast = this.props.state.shop.categories.length;
     if (!idLast && !idNext && routePath === '/' && !catLenLast) {
       console.log('****** Starting the App ******')
       // *****       Starting the App      *****
       // ***** Just start, do nothing else *****
-    } else if (idNext && routePath === '/category' && idNext !== idLast) {
+    } else if (routePath === '/category') {
       console.log('****** Select Categories from Home Display List *********')
       // *****      Select Categories from Home Display List       *****
       // ***** fetch categories & display on ProductList component *****
@@ -46,22 +47,18 @@ class SearchBar extends Component {
         searchCategory: idNext
       })
     } else if (!idNext && routePath === '/') {
-      console.log('****** //// Need to see what this does //// ******')
-      // this.props.writeSearchTerm('', '0');
-      // this.props.router.history.push(`/`);
-    // } else {
-    //   console.log('****** Starting & Continuing The App *********')
-    //   // ***** Starting & Continuing The App *****
-    //   this.setState({
-    //     searchTerm: nextProps.state.shop.searchTerm,
-    //     searchCategory: nextProps.state.shop.searchCategory
-    //   })
+      console.log('****** //// Hitting the Grace Hopper link //// ******')
     }
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.router.history.push(`/category/${ this.props.state.shop.searchCategory }/${ this.props.state.shop.searchTerm }`);
+    console.log('>>>>>>>>>> in submit: ', this.state.searchTerm)
+    if (this.state.searchTerm) {
+      this.props.router.history.push(`/category/${ this.state.searchCategory }/${ this.state.searchTerm }`);
+    } else {
+      this.props.router.history.push(`/category/${ this.state.searchCategory }`);
+    }
   }
 
   handleInput(event) {
