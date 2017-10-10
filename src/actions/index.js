@@ -19,7 +19,6 @@ export function fetchCategories() {
 }
 
 export function fetchProductsForCat(id, searchTerm) {
-  console.log('>>>>>>>>>> in fetchProductsForCat: ', id, searchTerm)
   if (id && !searchTerm) {
     return axios.get(`/api/categories/${ id }`)
     .then(res => res.data)
@@ -61,11 +60,9 @@ function productsFilter(products, searchTerm) {
       let searchUpper = searchTerm.slice(0, 1).toUpperCase() + searchTerm.slice(1).toLowerCase();
       let searchLower = searchTerm.toLowerCase();
       let name = product.name;
-      console.log('>>>>>>>>>> filtering function: ', searchUpper, searchLower, name);
       return product.name === name.includes(searchLower) || name.includes(searchUpper);
     })
     for (let i = 0; i < _products.length; i++) {
-      console.log('>>>>>>>>>>', _products[i].name)
     }
     return _products;
 }

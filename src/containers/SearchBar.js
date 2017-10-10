@@ -32,20 +32,18 @@ class SearchBar extends Component {
     const routePath = nextProps.router.location.pathname.slice(0, 9);
     const idLast = this.props.router.match.params.id * 1;
     const idNext = nextProps.router.match.params.id * 1;
-    console.log('>>>>>>>>>>>>> in Receive Props: ', routePath, idLast, idNext)
+    const termLast = this.props.router.match.params.term;
+    const termNext = nextProps.router.match.params.term;
     const catLenLast = this.props.state.shop.categories.length;
     if (!idLast && !idNext && routePath === '/' && !catLenLast) {
       console.log('****** Starting the App ******')
       // *****       Starting the App      *****
       // ***** Just start, do nothing else *****
-    } else if (routePath === '/category') {
+    } else if (routePath === '/category' && (idNext !== idLast || termNext !== termLast)) {
       console.log('****** Select Categories from Home Display List *********')
       // *****      Select Categories from Home Display List       *****
       // ***** fetch categories & display on ProductList component *****
-      this.props.fetchProductsForCat(idNext)
-      this.setState({
-        searchCategory: idNext
-      })
+      this.props.fetchProductsForCat(idNext, termNext)
     } else if (!idNext && routePath === '/') {
       console.log('****** //// Hitting the Grace Hopper link //// ******')
     }
@@ -53,7 +51,6 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('>>>>>>>>>> in submit: ', this.state.searchTerm)
     if (this.state.searchTerm) {
       this.props.router.history.push(`/category/${ this.state.searchCategory }/${ this.state.searchTerm }`);
     } else {
@@ -75,7 +72,6 @@ class SearchBar extends Component {
   }
 
   render() {
-    console.log('..........  Search component: ..........', this.props)
     const state = this.props.state;
     const categories = state.shop.categories;
     if (!categories.length) return <div></div>;
