@@ -9,9 +9,9 @@ router
     .catch(next)
   })
 
-  .get('/:term', (req, res, next) => {
-    Product.searchProd(req.params.term)
-    .then(products => res.send(products))
+  .get('/:id', (req, res, next) => {
+    Product.getProdByID(req.params.id)
+    .then(product => res.send(product))
     .catch(next)
   })
 

@@ -8,6 +8,7 @@ import Cart from '../containers/Cart';
 import Home from '../containers/Home';
 import Orders from '../containers/Orders';
 import ProductList from '../containers/ProductList';
+import Product from '../containers/Product';
 import UserSignIn from '../containers/User_SignIn';
 
 export default function AppContainer() {
@@ -16,6 +17,7 @@ export default function AppContainer() {
       <Switch>
         <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
         <Route path="/category/:id" render={ (router) => <SearchBar router={ router } /> } />
+        <Route path="/product/:id" render={ (router) => <SearchBar router={ router } /> } />
         <Route path="/" render={ (router) => <SearchBar router={ router } /> } />
       </Switch>
       <Switch>
@@ -26,6 +28,7 @@ export default function AppContainer() {
         <Route path="/signin" component={ UserSignIn } />
         <Route path="/category/:id/:term" render={ (router) => <ProductList router={ router } /> } />
         <Route path="/category/:id" render={ (router) => <ProductList router={ router } /> } />
+        <Route path="/product/:id" render={ (router) => <Product router={ router } /> } />
         <Route path="/" render={ (router) => <Home router={ router } /> } />
       </Switch>
     </div>
