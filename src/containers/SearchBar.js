@@ -39,7 +39,7 @@ class SearchBar extends Component {
       console.log('****** Starting the App ******')
       // *****       Starting the App      *****
       // ***** Just start, do nothing else *****
-    } else if (routePath === '/category' && (idNext !== idLast || termNext !== termLast)) {
+    } else if (routePath === '/category' && (idNext !== idLast || (termNext !== termLast))) {
       console.log('****** Select Categories from Home Display List *********')
       // *****      Select Categories from Home Display List       *****
       // ***** fetch categories & display on ProductList component *****
@@ -73,6 +73,7 @@ class SearchBar extends Component {
 
   render() {
     const state = this.props.state;
+    console.log(state)
     const categories = state.shop.categories;
     if (!categories.length) return <div></div>;
     //Develop category select control
