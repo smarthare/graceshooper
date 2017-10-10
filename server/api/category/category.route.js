@@ -4,7 +4,7 @@ const router = require("express").Router(),
 router
   .get("/", (req, res, next) => {
     Category.findAll({ order: ["id"] })
-      .then(response => res.send(response))
+      .then(categories => res.send(categories))
       .catch(next);
   })
   .post("/:name", (req, res, next) => {
@@ -12,7 +12,7 @@ router
     Category.create({
       name: req.params.name
     })
-      .then(response => res.send(response))
+      .then(category => res.send(category))
       .catch(next);
   })
   .put("/:id", (req, res, next) => {
@@ -25,7 +25,7 @@ router
     console.log("category id", req.params.id);
     Category.findById(req.params.id)
       .then(category => category.destroy())
-      .then(response => res.send(response))
+      .then(result => res.send(result))
       .catch(next);
   });
 
