@@ -4,6 +4,8 @@ import store from "../store";
 import Categories from "./Categories";
 import Users from "./Users";
 
+//to do - build product form so we can display and adjust products
+
 function Admin(props) {
   return (
     <div>
