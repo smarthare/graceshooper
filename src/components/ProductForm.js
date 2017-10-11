@@ -8,9 +8,16 @@ class ProductForm extends React.Component {
   }
 
   render() {
+    console.log("my props", this.props);
+    const { product } = this.props;
     return (
-      <div>
-        <h3>Product</h3>
+      <div className="col-xs-2">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h4>{product.title}</h4>
+          </div>
+          <div className="panel-body">{product.description}</div>
+        </div>
       </div>
     );
   }
