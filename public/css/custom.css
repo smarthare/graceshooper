@@ -133,3 +133,10 @@
 
 .setWidth {
   width: 85%; }
+
+.responsive-image {
+  height: auto;
+  width: 100%; }
+
+.border {
+  border: 1px; }

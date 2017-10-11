@@ -6,8 +6,6 @@ import SearchBar from "../containers/SearchBar";
 import Cart from "../containers/Cart";
 import Home from "../containers/Home";
 import Orders from "../containers/Orders";
-import ProductList from "../containers/ProductList";
-import Product from "../containers/Product";
 import UserSignIn from "../containers/User_SignIn";
 import User from "../components/User";
 
@@ -29,9 +27,17 @@ export default class App extends React.Component {
 
     Let's use /account instead of User. Sounds more realistic
 
-    <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
-    <Route path="/category/:id" render={router => <SearchBar router={router} />} />
-    <Route path="/product/:id" render={router => <SearchBar router={router} />} />
+    First Switch:
+      <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
+      <Route path="/category/:id" render={router => <SearchBar router={router} />} />
+      <Route path="/product/:id" render={router => <SearchBar router={router} />} />
+
+    Second Switch:
+      <Route path="/product/:id" render={router => <Product router={router} />} />
+      <Route path="/products" component={ProductList} />
+      <Route path="/category/:id/:term" render={router => <ProductList router={router} />} />
+      <Route path="/category/:id" render={router => <ProductList router={router} />} />
+      <Route path="/category/:id" render={router => <ProductList router={router} />} />
 
     Let's do one single search result for now
   */
@@ -44,29 +50,12 @@ export default class App extends React.Component {
         </Switch>
 
         <Switch>
-          <Route path="/" exact render={router => <Home router={router} />} />
           <Route path="/account" component={User} />
           <Route path="/admin" component={Admin} />
           <Route path="/cart" component={Cart} />
           <Route path="/orders" component={Orders} />
           <Route path="/signin" component={UserSignIn} />
-          <Route path="/products" component={ProductList} />
-          <Route
-            path="/category/:id/:term"
-            render={router => <ProductList router={router} />}
-          />
-          <Route
-            path="/category/:id"
-            render={router => <ProductList router={router} />}
-          />
-          <Route
-            path="/product/:id"
-            render={router => <Product router={router} />}
-          />
-          <Route
-            path="/category/:id"
-            render={router => <ProductList router={router} />}
-          />
+          <Route path="/" render={router => <Home router={router} />} />
         </Switch>
       </div>
     );
