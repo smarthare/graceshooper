@@ -133,11 +133,11 @@ const guitars = () => {
           price: 1799.0,
           inventory: 3,
           imgUrls: [
-            "Gibson_ES-339_1.png",
-            "Gibson_ES-339_2.png",
-            "Gibson_ES-339_3.png",
-            "Gibson_ES-339_4.png",
-            "Gibson_ES-339_5.png"
+            "Gibson_2016_ES-339_1",
+            "Gibson_2016_ES-339_2",
+            "Gibson_2016_ES-339_3",
+            "Gibson_2016_ES-339_4",
+            "Gibson_2016_ES-339_5"
           ]
         }),
         models.Product.create({
@@ -163,13 +163,13 @@ const guitars = () => {
           price: 6499.0,
           inventory: 1,
           imgUrls: [
-            "Gibson_L-4_CES_Mahogany_1",
-            "Gibson_L-4_CES_Mahogany_2",
-            "Gibson_L-4_CES_Mahogany_3",
-            "Gibson_L-4_CES_Mahogany_4",
-            "Gibson_L-4_CES_Mahogany_5",
-            "Gibson_L-4_CES_Mahogany_6",
-            "Gibson_L-4_CES_Mahogany_7"
+            "Gibson_L-4_CES_M_1",
+            "Gibson_L-4_CES_M_2",
+            "Gibson_L-4_CES_M_3",
+            "Gibson_L-4_CES_M_4",
+            "Gibson_L-4_CES_M_5",
+            "Gibson_L-4_CES_M_6",
+            "Gibson_L-4_CES_M_7"
           ]
         }),
         models.Product.create({

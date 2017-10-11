@@ -33,30 +33,7 @@ const Product = conn.define('product', {
     type: conn.Sequelize.ARRAY(conn.Sequelize.STRING),
     defaultValue: ['/assets/images/missingImg.png']
   }
-}, {
-  // The default scope below does not work.
-  // I hoped that with this I can avoid include Category everywhere
-  // defaultScope: {
-  //   include: [ Category ]
-  // },
-
-  // This validation needs to be realized somewhere esle. Stupidest thing ever
-
-  // validate: {
-  //   hasCategory () {
-  //     if (!this.categories || this.categories.length < 1) {
-  //       throw new Error('Product must have at least one category.')
-  //     }
-  //   }
-  // }
 });
 
-Product.search = function (str) {
-  return this.findAll({
-    where: { name: { $like: `%${str}%`, inventory: { $gt: 0 } },
-    order: ['name']
-    }
-  })
-}
 
 module.exports = Product
