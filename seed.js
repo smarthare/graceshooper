@@ -276,7 +276,7 @@ const seed = () =>
 
 console.log("Syncing database");
 
-db
+module.exports = () => db
   .sync({ force: true })
   .then(() => {
     console.log("Seeding database");

@@ -4,7 +4,8 @@ const
   path = require("path"),
   bodyParser = require("body-parser"),
   morgan = require("morgan"),
-  db = require("./conn"),
+  db = require("./db"),
+  seed = require("../seed")
   port = process.env.PORT || 2020,
   session = require("express-session");
 
@@ -48,7 +49,7 @@ app.use((err, req, res, next) => {
 });
 
 db.sync()
-  // .then(() => seed())
+  .then(() => seed())
   .then(() => {
     console.log("db synced");
     app.listen(port, () => console.log(`listening on port ${port}`));
