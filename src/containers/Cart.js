@@ -12,7 +12,7 @@ class Cart extends Component {
 
   render() {
     console.log('***Cart component:......', this.props)
-    const categories = this.props.state.shop.categories;
+    const categories = this.props.state.categories;
     if (!categories.length) return <div></div>;
 
     return (
