@@ -1,13 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-// Let's settle on a list of component names
-// import ProductList from "./ProductList";
-// import User from "./User";
 import Admin from "./Admin";
 import SearchBar from "../containers/SearchBar";
-import Account from "../containers/Account";
-// import Admin from '../containers/Admin';
 import Cart from "../containers/Cart";
 import Home from "../containers/Home";
 import Orders from "../containers/Orders";
@@ -38,10 +33,8 @@ export default class App extends React.Component {
   // <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
   // Let's do one single search result for now
   render() {
-    console.log('do I get renderred')
     return (
       <div className="container-fluid">
-        <h3>Welcome to Grace-Shopper</h3>
         <Switch>
           <Route
             path="/category/:id"
