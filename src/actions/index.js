@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // ***** ACTION TYPES *****
 
-export const GOT_CATEGORIES = 'GOT_CATEGORIES';
+// export const GOT_CATEGORIES = 'GOT_CATEGORIES';
 export const WRITE_SEARCH_TERM = 'WRITE_SEARCH_TERM';
 export const PRODUCTS_FOR_CATEGORY = 'PRODUCTS_FOR_CATEGORY';
 export const SELECTED_PRODUCT = 'SELECTED_PRODUCT'
@@ -11,13 +11,13 @@ export const SELECTED_PRODUCT = 'SELECTED_PRODUCT'
 
 // ***** ACTION CREATORS *****
 
-export function fetchCategories() {
-  return axios.get('/api/categories')
-    .then(res => res.data)
-    .then(categories => {
-      return { type: GOT_CATEGORIES, payload: categories };
-    })
-}
+// export function fetchCategories() {
+//   return axios.get('/api/categories')
+//     .then(res => res.data)
+//     .then(categories => {
+//       return { type: GOT_CATEGORIES, payload: categories };
+//     })
+// }
 
 export function fetchProductsForCat(id, searchTerm) {
   if (id && !searchTerm) {

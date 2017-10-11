@@ -24,24 +24,23 @@ export default class App extends React.Component {
     store.dispatch(fetchProducts());
   }
 
-  // There should be a generic products route / search result page that
-  // is not restrainted to a category
-  // Let's use /account instead of User. Sounds more realistic
-  // <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
-  // Let's do one single search result for now
+  /*
+    There should be a generic products route / search result page that is not restrained to a category
+
+    Let's use /account instead of User. Sounds more realistic
+
+    <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
+    <Route path="/category/:id" render={router => <SearchBar router={router} />} />
+    <Route path="/product/:id" render={router => <SearchBar router={router} />} />
+
+    Let's do one single search result for now
+  */
+
   render() {
     return (
       <div className="container-fluid">
         <Switch>
-          <Route
-            path="/category/:id"
-            render={router => <SearchBar router={router} />}
-          />
           <Route path="/" render={router => <SearchBar router={router} />} />
-          <Route
-            path="/product/:id"
-            render={router => <SearchBar router={router} />}
-          />
         </Switch>
 
         <Switch>
