@@ -17,9 +17,6 @@ import { fetchCategories } from "../reducers/categories";
 import { fetchProducts } from "../reducers/reducer_products";
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     store.dispatch(fetchCategories());

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Home extends Component {
   render() {
-    const categories = this.props.categories;
+    const categories = this.props.shop.categories;
     // if (!categories.length) return <div></div>;
     const renderContainer = categories.map(category => {
         return (<Link to={ `/category/${ category.id }` } key={ category.id }><div

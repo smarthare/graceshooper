@@ -7,7 +7,9 @@ import { fetchCategories, writeSearchTerm, fetchProductsForCat } from '../action
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchTerm: '', searchCategory: 0 };
+    this.state = {
+      searchTerm: this.props.state.shop.searchTerm,
+      searchCategory: this.props.state.shop.searchCategory };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -74,7 +76,7 @@ class SearchBar extends Component {
   render() {
     const state = this.props.state;
     console.log(state)
-    const categories = state.categories;
+    const categories = state.shop.categories;
     if (!categories.length) return <div></div>;
     //Develop category select control
     const _categories = [{ id: 0, name: 'All Categories' }].concat(categories);
