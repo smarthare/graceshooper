@@ -19,6 +19,7 @@ import User from "../components/User";
 import store from "../store";
 import { fetchUsers } from "../reducers/users";
 import { fetchCategories } from "../reducers/categories";
+import { fetchProducts } from "../reducers/reducer_products";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ export default class App extends React.Component {
   componentDidMount() {
     store.dispatch(fetchCategories());
     store.dispatch(fetchUsers());
+    store.dispatch(fetchProducts());
   }
 
   // There should be a generic products route / search result page that
