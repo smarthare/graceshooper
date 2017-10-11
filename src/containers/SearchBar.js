@@ -34,7 +34,7 @@ class SearchBar extends Component {
     const idNext = nextProps.router.match.params.id * 1;
     const termLast = this.props.router.match.params.term;
     const termNext = nextProps.router.match.params.term;
-    const catLenLast = this.props.state.shop.categories.length;
+    const catLenLast = this.props.state.categories.length;
     if (!idLast && !idNext && routePath === '/' && !catLenLast) {
       console.log('****** Starting the App ******')
       // *****       Starting the App      *****
@@ -74,7 +74,7 @@ class SearchBar extends Component {
   render() {
     const state = this.props.state;
     console.log(state)
-    const categories = state.shop.categories;
+    const categories = state.categories;
     if (!categories.length) return <div></div>;
     //Develop category select control
     const _categories = [{ id: 0, name: 'All Categories' }].concat(categories);
