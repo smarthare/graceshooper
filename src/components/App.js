@@ -35,6 +35,7 @@ export default class App extends React.Component {
           // <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
                     // Let's do one single search result for now
   render() {
+    console.log('do I get renderred')
     return (
       <div className="container-fluid">
         <h3>Welcome to Grace-Shopper</h3>

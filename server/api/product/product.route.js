@@ -6,7 +6,8 @@ const
 
 router
   .get('/', (req, res, next) => {
-    Product.findAll({ order: ['name'], include: [ Category, Review ] })
+    Product.findAll({ order: ['name'] })
+    //, include: [ [Category, Review] ]
     .then(products => res.send(products))
     .catch(next)
   })
