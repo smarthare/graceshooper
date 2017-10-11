@@ -27,19 +27,13 @@ export default class App extends React.Component {
 
     Let's use /account instead of User. Sounds more realistic
 
-    First Switch:
-      <Route path="/category/:id/:term" render={ (router) => <SearchBar router={ router } /> } />
-      <Route path="/category/:id" render={router => <SearchBar router={router} />} />
-      <Route path="/product/:id" render={router => <SearchBar router={router} />} />
-
-    Second Switch:
-      <Route path="/product/:id" render={router => <Product router={router} />} />
-      <Route path="/products" component={ProductList} />
-      <Route path="/category/:id/:term" render={router => <ProductList router={router} />} />
-      <Route path="/category/:id" render={router => <ProductList router={router} />} />
-      <Route path="/category/:id" render={router => <ProductList router={router} />} />
-
     Let's do one single search result for now
+
+    ***********
+    Vince wrote:  Do not change my Home routes.
+                  I need to get the params in order to render properly
+    2017-10-11
+    ***********
   */
 
   render() {
@@ -55,6 +49,8 @@ export default class App extends React.Component {
           <Route path="/cart" component={Cart} />
           <Route path="/orders" component={Orders} />
           <Route path="/signin" component={UserSignIn} />
+          <Route path="/category/:id/:term" render={router => <Home router={router} />} />
+          <Route path="/category/:id" render={router => <Home router={router} />} />
           <Route path="/" render={router => <Home router={router} />} />
         </Switch>
       </div>

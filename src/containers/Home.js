@@ -3,6 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Home extends Component {
+  constructor() {
+    super();
+    this.state = {}
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('>>>>>>>>>receiving Props:');
+    console.log('>>>This Props:', this.props);
+    console.log('>>>Next Props:', nextProps);
+    
+  }
+
   render() {
     console.log('********** HOME - this.props: ', this.props)
     const categories = this.props.categories;
