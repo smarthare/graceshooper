@@ -7,13 +7,11 @@ router
       .then(orders => res.send(orders))
       .catch(next);
   })
-
   .get("/cart", (req, res, next) => {
     Order.getCartByUserId(req.session.userId)
       .then(cart => res.send(cart))
       .catch(next);
   })
-
   .put("/", (req, res, next) => {
     // Order submission
     Order.getCartByUserId(req.session.userId)
@@ -21,7 +19,6 @@ router
       .then(order => res.send(order))
       .catch(next);
   })
-
   .post("/", (req, res, next) => {
     // To create a cart from request body
     // i.e. when a guest signup
@@ -32,7 +29,6 @@ router
       .then(order => res.send(order))
       .catch(next);
   })
-
   .post("/:id/lineItems", (req, res, next) => {
     // Note how this method returns a lineItem instead of the order
     Order.addToCartOfUser(
@@ -43,12 +39,11 @@ router
       .then(lineItem => res.send(lineItem))
       .catch(next);
   })
-
   .delete("/:orderId/lineItems/:id", (req, res, next) => {
     Order.destroyLineItem(req.params.orderId, req.params.id)
       // Expect nothing from response here
       .then(result => res.send(result))
       .catch(next);
-  })
+  });
 
 module.exports = router;
