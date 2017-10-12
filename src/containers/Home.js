@@ -3,23 +3,68 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Home extends Component {
-  constructor() {
-    super();
-    this.state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      pathname: '/',
+      categoryId: 0,
+      term: '',
+      filter: false
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    /*********************************************/
+    // console.log - delete at some point
     console.log('>>>>>>>>>receiving Props:');
     console.log('>>>This Props:', this.props);
     console.log('>>>Next Props:', nextProps);
-    
+    /*********************************************/
+    // get nextProps variables
+    const pathnameLast = this.state.pathname;
+    const pathname = nextProps.router.location.pathname;
+    const categoryId = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0;
+    const term = (nextProps.router.match.params.term) ? nextProps.router.match.params.term : '';
+    /*********************************************/
+    // checking to see if someone clicked a link and changed the url
+    // if yes, then lets see what we see...
+    if (pathname !== pathnameLast) this.setState({ pathname, categoryId, term, filter: true })
   }
 
   render() {
-    console.log('********** HOME - this.props: ', this.props)
+    /*********************************************/
+    // setup local variables
+    let products = this.props.products;
     const categories = this.props.categories;
-    const products = this.props.products;
+    const filter = this.state.filter;
+    const categoryId = this.state.categoryId;
+    const term = this.state.term;
+    /*********************************************/
+    //if ( !categories.length && !products.length) return <div></div>
 
+    console.log('********** HOME - this.props: ', this.props)
+
+    /*********************************************/
+    // filter the Products List? - Main Section
+    // are we filtering by category?
+    if (filter && categoryId) {
+       products = products.filter(product => {
+        let acceptProd = false;
+        product.categories.forEach(category => {
+          if (categoryId === category.id) acceptProd = true;
+        })
+        return acceptProd;
+      })
+    }
+    // now check if we are filtering by search term.
+    if (filter && term && products.length) {
+      products = products.filter(product => {
+        let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase();
+        let searchLower = term.toLowerCase();
+        let title = product.title;
+        return title.includes(searchLower) || title.includes(searchUpper);
+      })
+    }
     /*********************************************/
     // create the Categories List - Sidebar
     const renderCategories = categories.map(category => {
@@ -37,8 +82,7 @@ class Home extends Component {
         if (product.imgUrls[0].slice(0, 7) === 'http://') {
           image = product.imgUrls[0]
         } else {
-          image = `../assets/images/${ product.imgUrls[0] }.png`;
-          if (image.slice(-8) === '.png.png') image = image.slice(0, -4);
+          image = `../../assets/images/${ product.imgUrls[0] }`;
         }
         /*************************************/
         // formating the price:

@@ -12,7 +12,7 @@ class UserSignIn extends Component {
 
   render() {
     console.log('***User Sign-In component:......', this.props)
-    const categories = this.props.state.shop.categories;
+    const categories = this.props.state.categories;
     if (!categories.length) return <div></div>;
 
     return (
