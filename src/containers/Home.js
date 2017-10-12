@@ -12,6 +12,12 @@ class Home extends Component {
       term: '',
       filter: false
     }
+
+    this.productWork = this.productWork.bind(this);
+  }
+
+  productWork() {
+    return 'ok this worked';
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,35 +89,41 @@ class Home extends Component {
           <h6>{ category.name }</h6></div></Link>)
       })
     /*********************************************/
-    // create the Products List - Main Section
-    const renderProducts = products.map(product => {
-      if (product.inventory) {
-        /*************************************/
-        // accounting for varied image inputs:
-        let image;
-        if (product.imgUrls[0].slice(0, 7) === 'http://') {
-          image = product.imgUrls[0]
-        } else {
-          image = `../../assets/images/${ product.imgUrls[0] }`;
+    // create the Products List &/or the Selected Product- Main Section
+    /*********************************************/
+    // if there is a selected Product, then render for the one product
+    let renderProducts = <div>one product = { this.productWork() }</div>
+    if (selectedProduct.title) {
+    } else {
+      renderProducts = products.map(product => {
+        if (product.inventory) {
+          /*************************************/
+          // accounting for varied image inputs:
+          let image;
+          if (product.imgUrls[0].slice(0, 7) === 'http://') {
+            image = product.imgUrls[0]
+          } else {
+            image = `../../assets/images/${ product.imgUrls[0] }`;
+          }
+          /*************************************/
+          // formating the price:
+          const price = '$' + product.price.toString();
+          /*************************************/
+          return (<Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
+              <div className="col-sm-6 border panel panel-default">
+                <div className="col-sm-6">
+                  <img src={ image } className="responsive-image" />
+                </div>
+                <div className="col-sm-6">
+                  <h6>{ product.title }</h6>     
+                  <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
+                  <h6><strong>Price: </strong>{ price }</h6>
+                </div>
+              </div>
+            </Link>)
         }
-        /*************************************/
-        // formating the price:
-        const price = '$' + product.price.toString();
-        /*************************************/
-        return (<Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-            <div className="col-sm-6 border panel panel-default">
-              <div className="col-sm-6">
-                <img src={ image } className="responsive-image" />
-              </div>
-              <div className="col-sm-6">
-                <h6>{ product.title }</h6>     
-                <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
-                <h6><strong>Price: </strong>{ price }</h6>
-              </div>
-            </div>
-          </Link>)
-      }
-    })
+      })
+    }
     /*********************************************/
     // Label Products section:
     let categoryName;
