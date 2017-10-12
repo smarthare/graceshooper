@@ -50,15 +50,5 @@ const Product = conn.define(
     //   }
     // }
   }
-);
-
-Product.search = function(str) {
-  return this.findAll({
-    where: {
-      name: { $like: `%${str}%`, inventory: { $gt: 0 } },
-      order: ["name"]
-    }
-  });
-};
 
 module.exports = Product;

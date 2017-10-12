@@ -1,25 +1,28 @@
-const router = require("express").Router(),
-  Order = require("./order.model");
+const
+  router = require('express').Router(),
+  Order = require('./order.model')
 
 router
-  .get("/", (req, res, next) => {
+  .get('/', (req, res, next) => {
     Order.getOrdersByUserId(req.session.userId)
       .then(orders => res.send(orders))
-      .catch(next);
+      .catch(next)
   })
-  .get("/cart", (req, res, next) => {
+
+  .get('/cart', (req, res, next) => {
     Order.getCartByUserId(req.session.userId)
       .then(cart => res.send(cart))
-      .catch(next);
+      .catch(next)
   })
-  .put("/", (req, res, next) => {
-    // Order submission
+
+  .put('/', (req, res, next) => {
     Order.getCartByUserId(req.session.userId)
       .then(cart => cart.submit())
       .then(order => res.send(order))
-      .catch(next);
+      .catch(next)
   })
-  .post("/", (req, res, next) => {
+
+  .post('/', (req, res, next) => {
     // To create a cart from request body
     // i.e. when a guest signup
     // Placeholding - creating an order from store can be more
@@ -27,23 +30,20 @@ router
     //   add all lineItems one by one
     Order.create(req.body)
       .then(order => res.send(order))
-      .catch(next);
+      .catch(next)
   })
-  .post("/:id/lineItems", (req, res, next) => {
-    // Note how this method returns a lineItem instead of the order
-    Order.addToCartOfUser(
-      req.session.userId,
-      req.body.productId,
-      req.body.quantity
-    )
-      .then(lineItem => res.send(lineItem))
-      .catch(next);
-  })
-  .delete("/:orderId/lineItems/:id", (req, res, next) => {
-    Order.destroyLineItem(req.params.orderId, req.params.id)
-      // Expect nothing from response here
-      .then(result => res.send(result))
-      .catch(next);
-  });
 
-module.exports = router;
+  .post('/lineItems', (req, res, next) => {
+    Order.getCartByUserId(req.session.userId)
+      .then(cart => cart.addProdToCart(req.body))
+      .then(lineItem => res.send(lineItem))
+      .catch(next)
+  })
+
+  .delete('/lineItems/:id', (req, res, next) => {
+    Order.destroyLineItem(req.params.id)
+      .then(result => res.send(result))
+      .catch(next)
+  })
+
+module.exports = router

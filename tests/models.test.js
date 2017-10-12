@@ -41,12 +41,12 @@ describe('==== Sequelize Models ====', function () {
       })
       it('can have multiple categories', () => {
         const product = Product.build({
-            id: 1,
-            title: 'Chair',
-            categories: [ { name: 'foo'}, { name: 'bar'} ]
-          }, {
-            include: [ Category ]
-          })
+          id: 1,
+          title: 'Chair',
+          categories: [ { name: 'foo'}, { name: 'bar'} ]
+        }, {
+          include: [ Category ]
+        })
 
         return product.validate()
           .then(result => result)
@@ -75,11 +75,11 @@ describe('==== Sequelize Models ====', function () {
       })
       it('must create a placeholder photo, if there is no photo', () => {
         const product = Product.build({
-            title: 'Chair',
-            categories: [ { name: 'foo'}, { name: 'bar'} ]
-          }, {
-            include: [ Category ]
-          })
+          title: 'Chair',
+          categories: [ { name: 'foo'}, { name: 'bar'} ]
+        }, {
+          include: [ Category ]
+        })
         return product.validate()
           .then(product => expect(product.imgUrls.length > 0).to.be.true)
       })
@@ -152,14 +152,13 @@ describe('==== Sequelize Models ====', function () {
         return User.create({ name: 'fooa', email: 'fooa@123.com' })
       })
       .then(_user => {
-        prof = _user;
+        prof = _user
         return prof
       })
     })
 
     after('clear variables', () => {
       products = null; prof = null
-      return
     })
 
     describe('association', () => {
@@ -178,7 +177,8 @@ describe('==== Sequelize Models ====', function () {
       })
 
       it('have line items that capture price, product id, and quantity', () => {
-        return Order.addToCartOfUser(prof.id, products[0].id, 3)
+        return Order.create({userId: prof.id})
+          .then(cart => cart.addProdToCart(products[0].id, 3))
           .then(lineItem => {
             expect(lineItem).to.exist
             expect(lineItem.price).to.be.a('null')
@@ -190,21 +190,29 @@ describe('==== Sequelize Models ====', function () {
 
     describe('instance method - submit', () => {
       it('must be able to submit an order with correct info for correct user', () => {
-        return Order.addToCartOfUser(prof.id, products[0].id, 4)
-          .then(() => Order.addToCartOfUser(prof.id, products[1].id, 3))
-          .then(() => Order.addToCartOfUser(prof.id, products[2].id, 2))
+        return Order.create({userId: prof.id})
+          .then(cart => cart.addProdToCart(products[0].id, 4)
+            .then(() => cart.addProdToCart(products[1].id, 3))
+            .then(() => cart.addProdToCart(products[2].id, 2))
+          )
           .then(() => Order.getCartByUserId(prof.id))
           .then(cart => cart.submit())
-          .then(order =>  Order.getOrdersByUserId(prof.id))
+          .then(order => Order.getOrdersByUserId(prof.id))
           .then(orders => {
             expect(orders.length).to.equal(1)
             expect(orders[0].lineItems.length).to.equal(3)
-            expect(orders[0].lineItems[0].quantity).to.equal(4)
-            expect(orders[0].lineItems[1].quantity).to.equal(3)
-            expect(orders[0].lineItems[2].quantity).to.equal(2)
-            expect(orders[0].lineItems[0].productId).to.equal(products[0].id)
-            expect(orders[0].lineItems[1].productId).to.equal(products[1].id)
-            expect(orders[0].lineItems[2].productId).to.equal(products[2].id)
+            expect(orders[0].lineItems).to.include.a.thing.with.properties({
+              quantity: 4,
+              productId: products[0].id
+            })
+            expect(orders[0].lineItems).to.include.a.thing.with.properties({
+              quantity: 3,
+              productId: products[1].id
+            })
+            expect(orders[0].lineItems).to.include.a.thing.with.properties({
+              quantity: 2,
+              productId: products[2].id
+            })
           })
           .then(() => Product.findById(products[0].id)
             .then(product => {
@@ -216,14 +224,18 @@ describe('==== Sequelize Models ====', function () {
 
     describe('functionality', () => {
       it('must be able to complete and keep price at the time of order', () => {
-        return Order.addToCartOfUser(prof.id, products[0].id, 4)
+        return Order.create({userId: prof.id})
+          .then(cart => cart.addProdToCart(products[0].id, 4))
           .then(() => Order.getCartByUserId(prof.id))
           .then(cart => cart.submit())
           .then(() => Product.findById(products[0].id, { include: [ Category ] }))
           .then(product => product.update({price: 9999}))
           .then(order => Order.getOrdersByUserId(prof.id))
           .then(orders => {
-            expect(orders[0].lineItems[0].price).to.equal(2.5)
+            expect(orders[0].lineItems).to.include.a.thing.with.properties({
+              price: 2.5,
+              productId: products[0].id
+            })
           })
       })
     })

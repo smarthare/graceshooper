@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { } from '../store'
 
 const Cart = (props) => {
   const { cart } = props
@@ -9,18 +10,28 @@ const Cart = (props) => {
       <div className='row'>
         <div className='col-sm-8 panel panel-default backTan'>
           <div className='panel-heading'>
-            <h3>Add Address and Stuff</h3>
+            <h3>Shopping Cart</h3>
           </div>
           <div className='panel-body'>
-            Address, Payment, Confirmation?
+            <ul className='list-group'>
+              {cart.lineItems.map((line, idx) => (
+                <li className='list-group-item clearfix' key={idx}>
+                  {line.productId}
+                  {line.quantity}
+                  {line.price}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
         <div className='col-sm-4 panel panel-default backTan'>
           <h4>Subtotal: </h4>
-          <button className='btn btn-primary' type='submit'>
-            Place Order
-          </button>
+          <Link to={`/checkout`}>
+            <button className='btn btn-primary' type='submit'>
+              Proceed to Checkout
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,57 +1,68 @@
-import axios from 'axios';
+import axios from 'axios'
 // Will need to work with user part of the state to get user/address
 
 const initialState = {
-  // user: {}, <= this part of the state should focus on a single thing
-  // Maybe addresses
-  cart: { lineItems: [] }
+  lineItems: [
+      {productId: 1, quantity: 1, price: null},
+      {productId: 2, quantity: 10, price: null},
+      {productId: 3, quantity: 3, price: null},
+      {productId: 4, quantity: 15, price: null}
+  ]
 }
 
 /*
   ACTION TYPE
  */
-const GET_USER_CART = 'GET_USER_CART'
-const ADD_TO_CART = 'ADD_TO_CART';
-const REMOVE_LINEITEM = 'REMOVE_LINEITEM';
-// This action removes cart from store and add the returned (from db) order into orders store.
-// However, need to handle both a user submission and a guest submission
-const SUBMIT_CART = 'SUBMIT_CART';
+const FETCH_CART = 'FETCH_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_LINE = 'REMOVE_LINE'
 
 /*
   ACTION CREATOR
  */
-const getUserCart = cart => ({ type: GET_USER_CART, cart })
-const addToCart = lineItem => ({ type: ADD_TO_CART, lineItem })
-const removeLineItem = lnId => ({ type: REMOVE_LINEITEM, lnId })
-  // Handle address and other things here
-  /*
-    Maybe this goes to orders reducer instead, or at least should fetchOrders right after
-    ...Q: should order and cart be put into one file?
-    Maybe not, this part might also need to take care of the handling of a guest order
-  */
-const submitCart = () => ({ type: SUBMIT_CART })
+const fetchUserCart = cart => ({ type: FETCH_CART, cart })
+const addLineToCart = lineItem => ({ type: ADD_TO_CART, lineItem })
+const removeLineFromCart = lineItem => ({ type: REMOVE_LINE, lineItem })
 
 /*
   REDUCER
  */
-export default (cart = initialState, action) => {
+export default (prevState = initialState, action) => {
   switch (action.type) {
-    case GET_USER_CART:
-      return action.cart
+    case FETCH_CART:
+      return Object.assign(prevState, action.cart)
     case ADD_TO_CART:
-      return { lineItems: [ action.lineItem, ...cart.lineItems ], ...cart }
-    case REMOVE_LINEITEM:
-      return { lineItems: cart.lineItems.filter(ln => ln.id !== action.lnId), ...cart }
+      return { lineItems: [ action.lineItem, ...prevState.lineItems ], ...prevState }
+    case REMOVE_LINE:
+      return {
+        lineItems: prevState.lineItems.filter(ln => ln !== action.lineItem),
+        ...prevState
+      }
     default:
-      return cart;
+      return prevState
   }
-};
+}
 
 /*
   THUNK
  */
-export const get
-export const addProductToCart = (productId) => dispatch => {
-  axios.
+export const getUserCart = (userId) => dispatch => {
+  return axios.get('/cart')
+    .then(result => result.data)
+    .then(cart => dispatch(fetchUserCart(cart)))
+    .catch(() => console.log('error fetching cart for user'))
 }
 
+export const addProductToCart = (productId, quantity) => dispatch => {
+  // Not addressing guest here. Potentially need to rewrite the order model
+  // It might makes more sense to directly add lineItem if possible
+  return axios.post('/lineItems', { productId, quantity })
+    .then(lineItem => dispatch(addLineToCart(lineItem)))
+}
+
+export const deleteLnFromCart = (lineItem) => dispatch => {
+  // if guest, simply dispatch
+  if (!lineItem.id) return dispatch(removeLineFromCart(lineItem))
+  return axios.delete(`/lineItem/${lineItem.id}`)
+    .then(() => dispatch(removeLineFromCart(lineItem)))
+}

@@ -79,6 +79,9 @@
 .backWhite {
   background-color: #fff; }
 
+.backGrey {
+  background-color: #D0D7D9; }
+
 .backRed {
   background-color: red; }
 
@@ -93,6 +96,9 @@
 .textBlk {
   color: #000;
   font-weight: normal; }
+
+.colWidth100 {
+  width: 100%; }
 
 .colWidth95 {
   width: 95%; }
@@ -129,4 +135,16 @@
 .setWidth {
   width: 85%; }
 
-  
+.responsive-image {
+  height: auto;
+  width: 100%;
+}
+
+.border {
+  border: 1px;
+}
+
+#content {
+  width: 90%;
+  margin: 0 5%;
+}
