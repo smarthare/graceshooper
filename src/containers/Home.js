@@ -8,6 +8,7 @@ class Home extends Component {
     this.state = {
       pathname: '/',
       categoryId: 0,
+      productId: {},
       term: '',
       filter: false
     }
@@ -89,7 +90,7 @@ class Home extends Component {
         const price = '$' + product.price.toString();
         /*************************************/
         return (<Link to={ `/category/${ product.id }` } key={ product.id }>
-            <div className="col-sm-6 border">
+            <div className="col-sm-6 border panel panel-default">
               <div className="col-sm-6">
                 <img src={ image } className="responsive-image" />
               </div>
@@ -102,6 +103,19 @@ class Home extends Component {
           </Link>)
       }
     })
+    /*********************************************/
+    // Label Products section:
+    let categoryName;
+    if (categoryId) {
+      const resultArr = categories.filter(category => {
+        return category.id === categoryId;
+      })
+      categoryName = resultArr[0].name;
+    } else {
+      categoryName = 'all Categories';
+    }
+
+
     /*********************************************/
     return (
       <div>
@@ -119,7 +133,7 @@ class Home extends Component {
           </div>
           <div className="col-sm-10 panel panel-default">
             <div className="col-sm-12 marginbelow panel-heading colWidth100">
-              <h6 className="center">PRODUCTS</h6>
+              <h6 className="center">PRODUCTS - ( in { categoryName } )</h6>
             </div>
             <div className="col-sm-12 marginbelow">
               { renderProducts }
