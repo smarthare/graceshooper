@@ -7,8 +7,6 @@ import Cart from './Cart'
 import Checkout from './Checkout'
 import Home from '../containers/Home'
 import Orders from '../containers/Orders'
-import ProductList from '../containers/ProductList'
-import Product from '../containers/Product'
 import { Login, Signup } from './AuthForm'
 import Account from './User'
 
@@ -50,14 +48,8 @@ export default class App extends Component {
               <Route path='/orders' component={Orders} />
               <Route path='/signin' component={Login} />
               <Route path='/checkout' component={Checkout} />
-              <Route path='/products' component={ProductList} />
-              <Route
-                path='/category/:id/:term'
-                render={router => <ProductList router={router} />}
-            />
-              <Route
-                path='/category/:id'
-                render={router => <ProductList router={router} />}
+              <Route path='/category/:id/:term' render={router => <Home router={router} />} />
+              <Route path='/category/:id' render={router => <Home router={router} />} />
             />
             </Switch>
           </div>
