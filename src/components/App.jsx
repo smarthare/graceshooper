@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import Admin from './Admin'
 import SearchBar from '../containers/SearchBar'
 import Cart from './Cart'
+import Checkout from './Checkout'
 import Home from '../containers/Home'
 import Orders from '../containers/Orders'
 import ProductList from '../containers/ProductList'
@@ -54,6 +55,7 @@ export default class App extends Component {
               <Route path='/cart' component={Cart} />
               <Route path='/orders' component={Orders} />
               <Route path='/signin' component={Login} />
+              <Route path='/checkout' component={Checkout} />
               <Route path='/products' component={ProductList} />
               <Route
                 path='/category/:id/:term'

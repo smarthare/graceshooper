@@ -29,7 +29,7 @@ Order.getCartByUserId = function (userId) {
       include: [{ model: Product }]
     }]
   })
-  .then(order => order || Order.create({userId}))
+  .then(cart => cart || Order.create({userId}))
 }
 
 Order.getOrdersByUserId = function (userId) {
@@ -42,24 +42,19 @@ Order.getOrdersByUserId = function (userId) {
   })
 }
 
-Order.addToCartOfUser = function (userId, productId, quantity) {
-  quantity = quantity || 1
-  return Order.getCartByUserId(userId)
-    .then(cart => {
-      let lineItem = cart.lineItems && cart.lineItems.find(el => el.productId === productId)
-      if (lineItem) {
-        lineItem.quantity += quantity
-        return lineItem.save()
-      }
-      return LineItem.create({
-        orderId: cart.id,
-        productId,
-        quantity
-      })
-    })
+Order.prototype.addProdToCart = function (productId, quantity = 1) {
+  if (this.status !== 'Created') throw new Error('Only cart can be edited')
+
+  let lineItem = this.lineItems && this.lineItems.find(el => el.productId === productId)
+  if (lineItem) {
+    lineItem.quantity += quantity
+    return lineItem.save()
+  }
+  return LineItem.create({ orderId: this.id, productId, quantity }, { include: Product })
 }
 
-Order.destroyLineItem = function (lineId) {
+Order.prototype.destroyLineItem = function (lineId) {
+  if (this.status !== 'Created') throw new Error('Only cart can be edited')
   return LineItem.find({where: {id: lineId}})
     .then(lineItem => lineItem.destroy())
 }

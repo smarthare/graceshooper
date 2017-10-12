@@ -34,11 +34,8 @@ router
   })
 
   .post('/lineItems', (req, res, next) => {
-    Order.addToCartOfUser(
-      req.session.userId,
-      req.body.productId,
-      req.body.quantity
-    )
+    Order.getCartByUserId(req.session.userId)
+      .then(cart => cart.addProdToCart(req.body))
       .then(lineItem => res.send(lineItem))
       .catch(next)
   })
