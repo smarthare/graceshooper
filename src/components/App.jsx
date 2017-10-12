@@ -35,15 +35,9 @@ export default class App extends Component {
       <div className='container-fluid'>
         <h3>Welcome to Grace-Shopper</h3>
         <Switch>
-          <Route
-            path='/category/:id'
-            render={router => <SearchBar router={router} />}
-          />
+          <Route path='/category/:id/:term' render={router => <SearchBar router={router} />} />
+          <Route path='/category/:id' render={router => <SearchBar router={router} />} />
           <Route path='/' render={router => <SearchBar router={router} />} />
-          <Route
-            path='/product/:id'
-            render={router => <SearchBar router={router} />}
-          />
         </Switch>
 
         <div className='container'>
@@ -64,10 +58,6 @@ export default class App extends Component {
               <Route
                 path='/category/:id'
                 render={router => <ProductList router={router} />}
-            />
-              <Route
-                path='/product/:id'
-                render={router => <Product router={router} />}
             />
             </Switch>
           </div>

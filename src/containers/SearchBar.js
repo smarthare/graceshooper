@@ -2,51 +2,54 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { fetchCategories, writeSearchTerm, fetchProductsForCat } from '../actions';
+import {  } from '../actions';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchTerm: '', searchCategory: 0 };
+    this.state = {
+      // searchTerm: this.props.state.shop.searchTerm,
+      // searchCategory: this.props.state.shop.searchCategory };
+      searchTerm: '',
+      searchCategory: 0 };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.clearState = this.clearState.bind(this);
+    // this.clearState = this.clearState.bind(this);
   }
 
-  clearState() {
-    this.setState({
-      searchTerm: this.props.state.shop.searchTerm,
-      searchCategory: this.props.state.shop.searchCategory
-    })
-  }
+  // clearState() {
+  //   this.setState({
+  //     searchTerm: this.props.state.shop.searchTerm,
+  //     searchCategory: this.props.state.shop.searchCategory
+  //   })
+  // }
 
   componentDidMount() {
-      this.clearState();
-      this.props.fetchCategories();
+      // this.clearState();
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('.......Search this.props: ', this.props)
-    console.log('.......Search nextPops: ', nextProps)
-    const routePath = nextProps.router.location.pathname.slice(0, 9);
-    const idLast = this.props.router.match.params.id * 1;
-    const idNext = nextProps.router.match.params.id * 1;
-    const termLast = this.props.router.match.params.term;
-    const termNext = nextProps.router.match.params.term;
-    const catLenLast = this.props.state.shop.categories.length;
-    if (!idLast && !idNext && routePath === '/' && !catLenLast) {
-      console.log('****** Starting the App ******')
-      // *****       Starting the App      *****
-      // ***** Just start, do nothing else *****
-    } else if (routePath === '/category' && (idNext !== idLast || (termNext !== termLast))) {
-      console.log('****** Select Categories from Home Display List *********')
-      // *****      Select Categories from Home Display List       *****
-      // ***** fetch categories & display on ProductList component *****
-      this.props.fetchProductsForCat(idNext, termNext)
-    } else if (!idNext && routePath === '/') {
-      console.log('****** //// Hitting the Grace Hopper link //// ******')
-    }
+    // console.log('.......Search this.props: ', this.props)
+    // console.log('.......Search nextPops: ', nextProps)
+    // const routePath = nextProps.router.location.pathname.slice(0, 9);
+    // const idLast = this.props.router.match.params.id * 1;
+    // const idNext = nextProps.router.match.params.id * 1;
+    // const termLast = this.props.router.match.params.term;
+    // const termNext = nextProps.router.match.params.term;
+    // const catLenLast = this.props.state.categories.length;
+    // if (!idLast && !idNext && routePath === '/' && !catLenLast) {
+    //   console.log('****** Starting the App ******')
+    //   // *****       Starting the App      *****
+    //   // ***** Just start, do nothing else *****
+    // } else if (routePath === '/category' && (idNext !== idLast || (termNext !== termLast))) {
+    //   console.log('****** Select Categories from Home Display List *********')
+    //   // *****      Select Categories from Home Display List       *****
+    //   // ***** fetch categories & display on ProductList component *****
+    //   this.props.fetchProductsForCat(idNext, termNext)
+    // } else if (!idNext && routePath === '/') {
+    //   console.log('****** //// Hitting the Grace Hopper link //// ******')
+    // }
   }
 
   handleSubmit(event) {
@@ -73,8 +76,9 @@ class SearchBar extends Component {
 
   render() {
     const state = this.props.state;
-    console.log(state)
-    const categories = state.shop.categories;
+    // console.log(state)
+    // const categories = state.shop.categories;
+    const categories = state.categories;
     if (!categories.length) return <div></div>;
     //Develop category select control
     const _categories = [{ id: 0, name: 'All Categories' }].concat(categories);
@@ -83,10 +87,10 @@ class SearchBar extends Component {
     })
     //-------------------------------
     return (
-      <div className="container">
+      <div>
         <div className="row">
-          <div className="col-sm-12 panel panel-default nomarginBot">
-            <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h4>
+          <div className="col-sm-12 panel panel-default nomarginBot backGrey">
+            <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/category/0` }>Grace Shopper</Link></h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <form onSubmit={ this.handleSubmit }>
                 <select
@@ -125,7 +129,7 @@ function mapStateToProps (state, { router }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchCategories, writeSearchTerm, fetchProductsForCat }, dispatch);
+  return bindActionCreators({  }, dispatch);
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));
