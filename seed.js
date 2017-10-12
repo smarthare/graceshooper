@@ -133,11 +133,11 @@ const guitars = () => {
           price: 1799.0,
           inventory: 3,
           imgUrls: [
-            "Gibson_2016_ES-339_1",
-            "Gibson_2016_ES-339_2",
-            "Gibson_2016_ES-339_3",
-            "Gibson_2016_ES-339_4",
-            "Gibson_2016_ES-339_5"
+            "Gibson_2016_ES-339_1.png",
+            "Gibson_2016_ES-339_2.png",
+            "Gibson_2016_ES-339_3.png",
+            "Gibson_2016_ES-339_4.png",
+            "Gibson_2016_ES-339_5.png"
           ]
         }),
         models.Product.create({
@@ -147,13 +147,13 @@ const guitars = () => {
           price: 1799.0,
           inventory: 1,
           imgUrls: [
-            "Gibson_2016_ES-335_1",
-            "Gibson_2016_ES-335_2",
-            "Gibson_2016_ES-335_3",
-            "Gibson_2016_ES-335_4",
-            "Gibson_2016_ES-335_5",
-            "Gibson_2016_ES-335_6",
-            "Gibson_2016_ES-335_7"
+            "Gibson_2016_ES-335_1.png",
+            "Gibson_2016_ES-335_2.png",
+            "Gibson_2016_ES-335_3.png",
+            "Gibson_2016_ES-335_4.png",
+            "Gibson_2016_ES-335_5.png",
+            "Gibson_2016_ES-335_6.png",
+            "Gibson_2016_ES-335_7.png"
           ]
         }),
         models.Product.create({
@@ -163,13 +163,13 @@ const guitars = () => {
           price: 6499.0,
           inventory: 1,
           imgUrls: [
-            "Gibson_L-4_CES_M_1",
-            "Gibson_L-4_CES_M_2",
-            "Gibson_L-4_CES_M_3",
-            "Gibson_L-4_CES_M_4",
-            "Gibson_L-4_CES_M_5",
-            "Gibson_L-4_CES_M_6",
-            "Gibson_L-4_CES_M_7"
+            "Gibson_L-4_CES_M_1.png",
+            "Gibson_L-4_CES_M_2.png",
+            "Gibson_L-4_CES_M_3.png",
+            "Gibson_L-4_CES_M_4.png",
+            "Gibson_L-4_CES_M_5.png",
+            "Gibson_L-4_CES_M_6.png",
+            "Gibson_L-4_CES_M_7.png"
           ]
         }),
         models.Product.create({
@@ -180,12 +180,12 @@ const guitars = () => {
           price: 699.0,
           inventory: 5,
           imgUrls: [
-            "Martin_Artist_Custom_GPCPA5_1",
-            "Martin_Artist_Custom_GPCPA5_2",
-            "Martin_Artist_Custom_GPCPA5_3",
-            "Martin_Artist_Custom_GPCPA5_4",
-            "Martin_Artist_Custom_GPCPA5_5",
-            "Martin_Artist_Custom_GPCPA5_6"
+            "Martin_Artist_Custom_GPCPA5_1.png",
+            "Martin_Artist_Custom_GPCPA5_2.png",
+            "Martin_Artist_Custom_GPCPA5_3.png",
+            "Martin_Artist_Custom_GPCPA5_4.png",
+            "Martin_Artist_Custom_GPCPA5_5.png",
+            "Martin_Artist_Custom_GPCPA5_6.png"
           ]
         }),
         models.Product.create({
@@ -195,12 +195,12 @@ const guitars = () => {
           price: 2699.0,
           inventory: 7,
           imgUrls: [
-            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_1",
-            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_2",
-            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_3",
-            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_4",
-            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_5",
-            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_6"
+            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_1.png",
+            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_2.png",
+            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_3.png",
+            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_4.png",
+            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_5.png",
+            "Taylor_T5z_Pro_Acoustic-Electric_Guitar_6.png"
           ]
         }),
         models.Product.create({
@@ -211,12 +211,12 @@ const guitars = () => {
           price: 3699.0,
           inventory: 3,
           imgUrls: [
-            "Korg_New_Kronos_88_1",
-            "Korg_New_Kronos_88_2",
-            "Korg_New_Kronos_88_3",
-            "Korg_New_Kronos_88_4",
-            "Korg_New_Kronos_88_5",
-            "Korg_New_Kronos_88_6"
+            "Korg_New_Kronos_88_1.png",
+            "Korg_New_Kronos_88_2.png",
+            "Korg_New_Kronos_88_3.png",
+            "Korg_New_Kronos_88_4.png",
+            "Korg_New_Kronos_88_5.png",
+            "Korg_New_Kronos_88_6.png"
           ]
         }),
         models.Product.create({
@@ -226,11 +226,11 @@ const guitars = () => {
           price: 1000.0,
           inventory: 6,
           imgUrls: [
-            "Roland_JUNO-DS88_1",
-            "Roland_JUNO-DS88_2",
-            "Roland_JUNO-DS88_3",
-            "Roland_JUNO-DS88_4",
-            "Roland_JUNO-DS88_5"
+            "Roland_JUNO-DS88_1.png",
+            "Roland_JUNO-DS88_2.png",
+            "Roland_JUNO-DS88_3.png",
+            "Roland_JUNO-DS88_4.png",
+            "Roland_JUNO-DS88_5.png"
           ]
         }),
         models.Product.create({
@@ -241,8 +241,8 @@ const guitars = () => {
           price: 599.0,
           inventory: 10,
           imgUrls: [
-            "Orange_Amplifiers_PPC212OB_1",
-            "Orange_Amplifiers_PPC212OB_2"
+            "Orange_Amplifiers_PPC212OB_1.png",
+            "Orange_Amplifiers_PPC212OB_2.png"
           ]
         })
       ]);

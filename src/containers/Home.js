@@ -43,7 +43,6 @@ class Home extends Component {
     //if ( !categories.length && !products.length) return <div></div>
 
     console.log('********** HOME - this.props: ', this.props)
-    console.log('>>>>>>>>>>filter: ', this.state);
 
     /*********************************************/
     // filter the Products List? - Main Section
@@ -58,20 +57,18 @@ class Home extends Component {
       })
     }
     // now check if we are filtering by search term.
-    // if (filter && term) {
-    //   products = products.filter(product => {
-    //    let acceptProd = false;
-    //    product.categories.forEach(category => {
-    //      if (categoryId === category.id) acceptProd = true;
-    //    })
-    //    return acceptProd;
-    //  })
-    // }
-
+    if (filter && term && products.length) {
+      products = products.filter(product => {
+        let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase();
+        let searchLower = term.toLowerCase();
+        let title = product.title;
+        return title.includes(searchLower) || title.includes(searchUpper);
+      })
+    }
     /*********************************************/
     // create the Categories List - Sidebar
     const renderCategories = categories.map(category => {
-        return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
+        return (<Link to={ `/category/${ category.id }/piano` } key={ category.id }><div
           className="col-sm-12">
           <h6>{ category.name }</h6></div></Link>)
       })
@@ -85,8 +82,7 @@ class Home extends Component {
         if (product.imgUrls[0].slice(0, 7) === 'http://') {
           image = product.imgUrls[0]
         } else {
-          image = `../assets/images/${ product.imgUrls[0] }.png`;
-          if (image.slice(-8) === '.png.png') image = image.slice(0, -4);
+          image = `../../assets/images/${ product.imgUrls[0] }`;
         }
         /*************************************/
         // formating the price:
