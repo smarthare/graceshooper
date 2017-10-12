@@ -4,8 +4,7 @@ import store from "../store";
 import Categories from "./Categories";
 import Users from "./Users";
 import Products from "./Products";
-
-//to do - build product form so we can display and adjust products
+import ProductForm from "./ProductForm";
 
 function Admin(props) {
   return (
@@ -13,6 +12,7 @@ function Admin(props) {
       <h1>Admin</h1>
       <Categories />
       <Users />
+      <ProductForm isAddProduct={true} />
       <Products />
     </div>
   );

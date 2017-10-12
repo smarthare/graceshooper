@@ -14,7 +14,11 @@ class Products extends React.Component {
       <div>
         <h3>Product</h3>
         {products.map(product => (
-          <ProductForm product={product} key={product.id} />
+          <ProductForm
+            product={product}
+            key={product.id}
+            isAddProduct={false}
+          />
         ))}
       </div>
     );

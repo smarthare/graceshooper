@@ -1,7 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import store from "../store";
-import { updateProduct } from "../reducers/reducer_products";
+import { updateProduct, addProduct } from "../reducers/reducer_products";
+import _ from "lodash";
+
+const emptyProduct = {
+  title: "",
+  description: "",
+  price: "",
+  inventory: "",
+  imageUrls: [],
+  categories: {}
+};
 
 class ProductForm extends React.Component {
   constructor(props) {
@@ -14,29 +24,34 @@ class ProductForm extends React.Component {
   }
 
   handleChange(e) {
+    console.log("this is firing", this.state);
     const change = {};
     change[e.target.name] = e.target.value;
-    this.setState({ product: Object.assign(this.state.student, change) });
+    this.setState({ product: Object.assign({}, this.state.product, change) });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const product = this.state.product;
-    const { updateProduct } = this.props;
-    const thunk = updateProduct();
-    // store.dispatch(thunk);
+    const { updateProduct, addProduct } = this.props;
+    const thunk = this.props.isAddProduct
+      ? addProduct(product)
+      : updateProduct(product);
+    store.dispatch(thunk);
+    if (this.props.isAddProduct) {
+      this.setState({ product: emptyProduct });
+    }
   }
 
-  handleAddUrl(e) {}
-
   render() {
-    const { product, categories } = this.props;
+    const { product } = this.state;
+    const { categories, isAddProduct } = this.props;
     const { handleSubmit, handleChange, handleAddUrl } = this;
     return (
       <div className="col-sm-2">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <h4>{false ? "Add a Product" : `Edit ${product.title}`}</h4>
+            <h4>{isAddProduct ? "Add a Product" : `Edit ${product.title}`}</h4>
           </div>
           <div className="panel-body">
             <form onSubmit={handleSubmit} value={product.id}>
@@ -45,7 +60,7 @@ class ProductForm extends React.Component {
                 <input
                   type="text"
                   className="form-control"
-                  name="name"
+                  name="title"
                   value={product.title}
                   onChange={handleChange}
                 />
@@ -80,7 +95,7 @@ class ProductForm extends React.Component {
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group">
+              {/*<div className="form-group">
                 <label>Category:&nbsp;</label>
                 <select name="categiries" onChange={handleChange} value={""}>
                   <option value="">(select a category)</option>
@@ -90,7 +105,7 @@ class ProductForm extends React.Component {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div>*/}
               <div className="form-group">
                 <button
                   type="submit"
@@ -100,7 +115,7 @@ class ProductForm extends React.Component {
                   Save
                 </button>
               </div>
-              <div className="form-group">
+              {/*<div className="form-group">
                 <label>Add Image URL</label>
                 <input
                   type="text"
@@ -109,7 +124,7 @@ class ProductForm extends React.Component {
                   value=""
                   onChange={handleAddUrl}
                 />
-              </div>
+              </div>*/}
             </form>
           </div>
         </div>
@@ -118,14 +133,15 @@ class ProductForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    product: ownProps.product || emptyProduct
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return { updateProduct, addProduct };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductForm);
