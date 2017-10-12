@@ -8,7 +8,7 @@ class Home extends Component {
     this.state = {
       pathname: '/',
       categoryId: 0,
-      productId: {},
+      selectedProduct: {},
       term: '',
       filter: false
     }
@@ -26,10 +26,24 @@ class Home extends Component {
     const pathname = nextProps.router.location.pathname;
     const categoryId = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0;
     const term = (nextProps.router.match.params.term) ? nextProps.router.match.params.term : '';
+    const products = nextProps.products;
     /*********************************************/
     // checking to see if someone clicked a link and changed the url
-    // if yes, then lets see what we see...
-    if (pathname !== pathnameLast) this.setState({ pathname, categoryId, term, filter: true })
+    /*********************************************/
+    // did someone click a specific product? ...yes?: get that instance:
+    const productId = (nextProps.router.location.search) ? nextProps.router.location.search.slice(9) * 1 : 0;
+    let selectedProduct = {};
+    if (productId) {
+      const selectedProductArr = products.filter(product => {
+        return productId === product.id;
+      })
+      selectedProduct = selectedProductArr[0];
+      console.log('=================>selectedProduct: ', selectedProduct)
+    }
+    /*********************************************/
+    // update state......
+    if (pathname !== pathnameLast) this.setState({ pathname, categoryId, term, selectedProduct, filter: true });
+    /*********************************************/
   }
 
   render() {
@@ -43,7 +57,7 @@ class Home extends Component {
     /*********************************************/
     //if ( !categories.length && !products.length) return <div></div>
 
-    console.log('********** HOME - this.props: ', this.props)
+    console.log('********** HOME - this.props: ', 'this.props, state: ', this.state)
 
     /*********************************************/
     // filter the Products List? - Main Section
@@ -69,7 +83,7 @@ class Home extends Component {
     /*********************************************/
     // create the Categories List - Sidebar
     const renderCategories = categories.map(category => {
-        return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
+        return (<Link to={ `/category/${ category.id }?product=16` } key={ category.id }><div
           className="col-sm-12">
           <h6>{ category.name }</h6></div></Link>)
       })
