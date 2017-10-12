@@ -98,7 +98,7 @@ class Home extends Component {
         // formating the price:
         const price = '$' + product.price.toString();
         /*************************************/
-        return (<Link to={ `/category/${ categoryId }/${ term }/?product=${ product.id }` } key={ product.id }>
+        return (<Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
             <div className="col-sm-6 border panel panel-default">
               <div className="col-sm-6">
                 <img src={ image } className="responsive-image" />
