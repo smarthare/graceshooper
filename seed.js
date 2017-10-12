@@ -11,9 +11,9 @@ const faker = require('faker'),
   Promise = require('bluebird'),
   db = require('./server/db'),
   models = db.models,
-  numProducts = 100,
-  numUsers = 50,
-  Categories = ['Phone', 'Music Instruments', 'Books', 'Cool Stuff']
+  numProducts = 15,
+  numUsers = 15,
+  Categories = ['Cool Stuff', 'Books', 'Shirts', 'Pants', 'Glasses']
 
 function doTimes (n, fn) {
   var results = []

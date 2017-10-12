@@ -1,8 +1,15 @@
+/*
+This will be a presentation sub-component of Home.
+*/
+
+
+
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-class Home extends Component {
+class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,12 +17,10 @@ class Home extends Component {
       categoryId: 0,
       selectedProduct: {},
       term: '',
-      filter: false,
-      selectQty: 3
+      filter: false
     }
 
     this.productWork = this.productWork.bind(this);
-    this.handleInput = this.handleInput.bind(this);
   }
 
   productWork(imgBefore, priceBefore) {
@@ -32,16 +37,6 @@ class Home extends Component {
     // possible price formating:
     const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given';
     return [imgAfter, priceAfter];
-  }
-
-  handleInput(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    switch (name) {
-      case 'selectQty':
-        this.setState({ selectQty: value })
-        break;
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -213,6 +208,19 @@ class Home extends Component {
         </div>
       )
     } else {
+
+
+//break into its own simple display module
+/*
+What do we need:
+
+categories
+
+
+*/
+
+
+
       return (
         <div>
           <div className="row">
@@ -255,14 +263,10 @@ class Home extends Component {
                 <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
                 <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
                 <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
-                  <select
-                    value={ this.state.selectQty }
-                    onChange={ this.state.handleInput }>
-                    <option key="1" value="1">1</option>
-                    <option key="2" value="1">2</option>
-                    <option key="3" value="1">3</option>
-                    <option key="4" value="1">4</option>
-                    <option key="5" value="1">5</option>
+                  <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
                   </select>
                 </div>
                   <button id="content" className="btn btn-primary marginbelow margintop" >
@@ -284,4 +288,4 @@ function mapStateToProps (state) {
   return state;
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(ProductDetail);
