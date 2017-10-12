@@ -1,12 +1,12 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux'
 // import TestsReducer from "./reducer_tests";
-import auth from "./auth";
-import cart from "./auth";
-import users from "./users";
-import orders from "./orders";
-import categories from "./categories";
-import ShopReducer from "./reducer_shop";
-import products from "./reducer_products";
+import auth from './auth'
+import cart from './cart'
+import users from './users'
+import orders from './orders'
+import categories from './categories'
+import ShopReducer from './reducer_shop'
+import products from './reducer_products'
 // import CartReducer from './reducer_cart'
 
 const rootReducer = combineReducers({
@@ -17,8 +17,8 @@ const rootReducer = combineReducers({
   categories,
   products,
   shop: ShopReducer
-});
+})
 
-export default rootReducer;
-export * from "./auth"
-export * from "./cart"
+export default rootReducer
+export * from './auth'
+export * from './cart'

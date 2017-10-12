@@ -14,11 +14,10 @@ module.exports = {
     loaders: [
       {
         test: /jsx?$/,
-        include: path.resolve(__dirname, './src'),
-        // exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         query: {
-          presets: ['stage-2', 'react', 'env', 'es2015']
+          presets: ['stage-2', 'react', 'env']
         }
       }
     ]

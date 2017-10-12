@@ -12,24 +12,10 @@ const Order = conn.define('order', {
     type: conn.Sequelize.STRING,
     defaultValue: 'Created'
   },
-  // This might not be necessary. Guess order will simply has a userId of null
-  // guestId: {
-  //   type: conn.Sequelize.STRING,
-  //   defaultValue: 'none'
-  // },
-  billingAddress: {
+
+  address: {
     type: conn.Sequelize.STRING,
-    // Removing allowNull for test, addresses are not strictly required druing build
-    // Validation should be peformed before order submission
-    // allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  shippingAddress: {
-    type: conn.Sequelize.STRING,
-    // See comment above
-    // allowNull: false,
+    // Validation should be peformed before order submission on front end
     validate: {
       notEmpty: true
     }
@@ -73,8 +59,8 @@ Order.addToCartOfUser = function (userId, productId, quantity) {
     })
 }
 
-Order.destroyLineItem = function (OrderId, LineId) {
-  return LineItem.find({where: {id: LineId}})
+Order.destroyLineItem = function (lineId) {
+  return LineItem.find({where: {id: lineId}})
     .then(lineItem => lineItem.destroy())
 }
 

@@ -1,27 +1,30 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { login } from '../store';
+import React from 'react'
+import { connect } from 'react-redux'
+import { auth } from '../store'
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props
   return (
-     <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor='email'><small>Email</small></label>
-          <input name='email' type='text' />
+    <div className='col-md-4 col-md-offset-4'>
+      <div className='panel panel-default'>
+        <div className='panel-body'>
+          <form onSubmit={handleSubmit} name={name}>
+            <div className='form-group'>
+              <label htmlFor='email'><small>Email</small></label>
+              <input className='form-control' name='email' type='text' />
+            </div>
+            <div className='form-group'>
+              <label htmlFor='password'><small>Password</small></label>
+              <input className='form-control' name='password' type='password' />
+            </div>
+            <div>
+              <button className='btn btn-primary' type='submit'>{displayName}</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          <a href='/auth/google'>{displayName} with Google</a>
         </div>
-        <div>
-          <label htmlFor='password'><small>Password</small></label>
-          <input name='password' type='password' />
-        </div>
-        <div>
-          <button type='submit'>{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href='/auth/google'>{displayName} with Google</a>
+      </div>
     </div>
   )
 }
@@ -42,15 +45,16 @@ const mapSignup = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     handleSubmit (evt) {
       evt.preventDefault()
+      const formName = evt.target.name
       const credentials = {
         email: evt.target.email.value,
         password: evt.target.password.value
       }
-      dispatch(login(credentials, history))
+      dispatch(auth(credentials, ownProps.history, formName))
     }
   }
 }
