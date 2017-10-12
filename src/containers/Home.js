@@ -68,11 +68,6 @@ class Home extends Component {
     const selectedProduct = this.state.selectedProduct;
     const term = this.state.term;
     /*********************************************/
-    //if ( !categories.length && !products.length) return <div></div>
-
-    console.log('********** HOME - this.props: ', this.props, '........>state: ', this.state)
-
-    /*********************************************/
     // filter the Products List? - Main Section
     // are we filtering by category?
     if (filter && categoryId) {
@@ -97,7 +92,7 @@ class Home extends Component {
     // create the Products List &/or the Selected Product- Main Section
     /*********************************************/
     // if there is a selected Product, then render for the one product
-    let renderProducts, renderProducts2, renderswitch;
+    let renderProducts, renderProducts2, renderswitch, price;
     if (selectedProduct.title) {
       /*************************************/
       //single product work here
@@ -108,13 +103,13 @@ class Home extends Component {
       const images = selectedProduct.imgUrls.map(image => {
         return this.productWork(image)[0];
       })
-      const price = this.productWork(null, selectedProduct.price)[1];
+      price = this.productWork(null, selectedProduct.price)[1];
       /*************************************/
       //create <div></div> for the multiple extra images
       const imagesExtra = images.slice(1);
       if (imagesExtra.length) {
         renderProducts = (
-          <div className="col-sm-2 panel panel-default marginbelowsm">
+          <div className="col-sm-3 panel panel-default marginbelowsm">
             {
               imagesExtra.map(img => {
                 return (<div className="col-sm-12" key={ img }>
@@ -129,7 +124,7 @@ class Home extends Component {
       /*************************************/
       //create <div></div> for the main image
       const imagesMain = images.slice(0, 1);
-      renderProducts2 = <div className="col-sm-6"><img src={ imagesMain } className="responsive-image" /></div>;
+      renderProducts2 = <div className="col-sm-9"><img src={ imagesMain } className="responsive-image" /></div>;
     /*************************************/
     } else {
       // looking for products in a category &/or containing a search term
@@ -141,7 +136,7 @@ class Home extends Component {
           /*************************************/
           const formatResult = this.productWork(product.imgUrls[0], product.price);
           const image = formatResult[0];
-          const price = formatResult[1];
+          price = formatResult[1];
           /*************************************/
           return (<Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
               <div className="col-sm-6 panel panel-default">
@@ -162,15 +157,14 @@ class Home extends Component {
     /*********************************************/
     // Label Products section:
     let categoryName;
-    if (selectedProduct.title) {
-      categoryName = 'Single Product Selected';
-    } else if (categoryId) {
+      categoryName = (selectedProduct.title) ? 'Single Product Selected - ' : '';
+    if (categoryId) {
       const resultArr = categories.filter(category => {
         return category.id === categoryId;
       })
-      categoryName = resultArr[0].name;
+      categoryName = categoryName + resultArr[0].name;
     } else {
-      categoryName = 'all Categories';
+      categoryName = categoryName + 'all Categories';
     }
     /*********************************************/
     if (renderswitch) {
@@ -235,9 +229,32 @@ class Home extends Component {
                 <strong>{ selectedProduct.title }</strong>
               </div>
               <div className="col-sm-12 marginbelow">
-                { renderProducts }
-                { renderProducts2 }
+                { selectedProduct.description } - ( Product #: { selectedProduct.id } )
               </div>
+              <div className="col-sm-9 marginbelow">
+                { renderProducts2 }
+                { renderProducts }
+              </div>
+              <div className="col-sm-3 marginbelow margintop panel panel-default">
+                <div className="col-sm-12 marginbelow panel-heading colWidth100">
+                  <h6 className="center">Order Now</h6>
+                </div>
+                <div className="col-sm-12 panel-body colWidth100">
+                <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
+                <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
+                <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
+                  <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                </div>
+                  <button id="content" className="btn btn-primary marginbelow margintop" >
+                    <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                    Add to Cart
+                  </button>
+                </div>
+            </div>
             </div>
   
           </div>

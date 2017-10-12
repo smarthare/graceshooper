@@ -40,6 +40,8 @@ export default class App extends React.Component {
     return (
       <div className="container-fluid">
         <Switch>
+          <Route path="/category/:id/:term" render={router => <SearchBar router={router} />} />
+          <Route path="/category/:id" render={router => <SearchBar router={router} />} />
           <Route path="/" render={router => <SearchBar router={router} />} />
         </Switch>
 
