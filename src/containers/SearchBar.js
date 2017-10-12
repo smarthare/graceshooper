@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { writeSearchTerm, fetchProductsForCat } from '../actions';
+import {  } from '../actions';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -10,8 +10,8 @@ class SearchBar extends Component {
     this.state = {
       // searchTerm: this.props.state.shop.searchTerm,
       // searchCategory: this.props.state.shop.searchCategory };
-      searchTerm: this.props.state.searchTerm,
-      searchCategory: this.props.state.searchCategory };
+      searchTerm: '',
+      searchCategory: 0 };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -25,10 +25,9 @@ class SearchBar extends Component {
   //   })
   // }
 
-  // componentDidMount() {
-  //     this.clearState();
-  //     this.props.fetchCategories();
-  // }
+  componentDidMount() {
+      // this.clearState();
+  }
 
   componentWillReceiveProps(nextProps) {
     // console.log('.......Search this.props: ', this.props)
@@ -91,7 +90,7 @@ class SearchBar extends Component {
       <div>
         <div className="row">
           <div className="col-sm-12 panel panel-default nomarginBot backGrey">
-            <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/` }>Grace Shopper</Link></h4>
+            <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/category/0` }>Grace Shopper</Link></h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <form onSubmit={ this.handleSubmit }>
                 <select
@@ -130,7 +129,7 @@ function mapStateToProps (state, { router }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ writeSearchTerm, fetchProductsForCat }, dispatch);
+  return bindActionCreators({  }, dispatch);
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));
