@@ -16,11 +16,6 @@ class Home extends Component {
 
   componentWillReceiveProps(nextProps) {
     /*********************************************/
-    // console.log - delete at some point
-    console.log('>>>>>>>>>receiving Props:');
-    console.log('>>>This Props:', this.props);
-    console.log('>>>Next Props:', nextProps);
-    /*********************************************/
     // get nextProps variables
     const pathnameLast = this.state.pathname;
     const pathname = nextProps.router.location.pathname;
@@ -38,7 +33,6 @@ class Home extends Component {
         return productId === product.id;
       })
       selectedProduct = selectedProductArr[0];
-      console.log('=================>selectedProduct: ', selectedProduct)
     }
     /*********************************************/
     // update state......
@@ -53,11 +47,12 @@ class Home extends Component {
     const categories = this.props.categories;
     const filter = this.state.filter;
     const categoryId = this.state.categoryId;
+    const selectedProduct = this.state.selectedProduct;
     const term = this.state.term;
     /*********************************************/
     //if ( !categories.length && !products.length) return <div></div>
 
-    console.log('********** HOME - this.props: ', 'this.props, state: ', this.state)
+    console.log('********** HOME - this.props: ', this.props, '........>state: ', this.state)
 
     /*********************************************/
     // filter the Products List? - Main Section
@@ -83,7 +78,7 @@ class Home extends Component {
     /*********************************************/
     // create the Categories List - Sidebar
     const renderCategories = categories.map(category => {
-        return (<Link to={ `/category/${ category.id }?product=16` } key={ category.id }><div
+        return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
           className="col-sm-12">
           <h6>{ category.name }</h6></div></Link>)
       })
@@ -103,7 +98,7 @@ class Home extends Component {
         // formating the price:
         const price = '$' + product.price.toString();
         /*************************************/
-        return (<Link to={ `/category/${ product.id }` } key={ product.id }>
+        return (<Link to={ `/category/${ categoryId }/${ term }/?product=${ product.id }` } key={ product.id }>
             <div className="col-sm-6 border panel panel-default">
               <div className="col-sm-6">
                 <img src={ image } className="responsive-image" />
@@ -120,7 +115,9 @@ class Home extends Component {
     /*********************************************/
     // Label Products section:
     let categoryName;
-    if (categoryId) {
+    if (selectedProduct.title) {
+      categoryName = 'Single Product Selected';
+    } else if (categoryId) {
       const resultArr = categories.filter(category => {
         return category.id === categoryId;
       })
@@ -128,8 +125,6 @@ class Home extends Component {
     } else {
       categoryName = 'all Categories';
     }
-
-
     /*********************************************/
     return (
       <div>
@@ -147,7 +142,7 @@ class Home extends Component {
           </div>
           <div className="col-sm-10 panel panel-default">
             <div className="col-sm-12 marginbelow panel-heading colWidth100">
-              <h6 className="center">PRODUCTS - ( in { categoryName } )</h6>
+              <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
             </div>
             <div className="col-sm-12 marginbelow">
               { renderProducts }
