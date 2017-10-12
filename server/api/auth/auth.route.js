@@ -14,8 +14,17 @@ router
     res.sendStatus(204)
   })
 
-  .post('/', (req, res, next) => {
+  .post('/login', (req, res, next) => {
     User.login(req.body)
+    .then(user => {
+      req.session.userId = user.id
+      res.send(user)
+    })
+    .catch(next)
+  })
+
+  .post('/signup', (req, res, next) => {
+    User.signup(req.body)
     .then(user => {
       req.session.userId = user.id
       res.send(user)
