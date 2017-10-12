@@ -51,7 +51,7 @@ function randProduct() {
         description: faker.company.bs(),
         price: faker.commerce.price(),
         inventory: faker.random.number(9999),
-        imgUrls: [faker.image.cats()]
+        imgUrl: faker.image.cats()
       })
       .then(product => product.setCategories(categories));
   });
@@ -276,16 +276,17 @@ const seed = () =>
 
 console.log("Syncing database");
 
-module.exports = () => db
-  .sync({ force: true })
-  .then(() => {
-    console.log("Seeding database");
-    return seed();
-  })
-  .then(() => {
-    console.log("Seeding successful");
-  })
-  .catch(err => {
-    console.error("Error while seeding");
-    console.error(err.errors);
-  });
+module.exports = () =>
+  db
+    .sync({ force: true })
+    .then(() => {
+      console.log("Seeding database");
+      return seed();
+    })
+    .then(() => {
+      console.log("Seeding successful");
+    })
+    .catch(err => {
+      console.error("Error while seeding");
+      console.error(err.errors);
+    });

@@ -33,6 +33,20 @@ export function deleteProduct(id) {
   };
 }
 
+export function updateProduct(product) {
+  return function thunk(dispatch) {
+    return axios
+      .put(`/api/products/${product.id}`, {
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        inventory: product.inventory
+      })
+      .then(() => fetchAllProducts(dispatch))
+      .catch(err => console.error(err));
+  };
+}
+
 //reducer
 
 export default function Products(products = [], action) {
