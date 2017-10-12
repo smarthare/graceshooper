@@ -235,26 +235,28 @@ class Home extends Component {
                 { renderProducts2 }
                 { renderProducts }
               </div>
-              <div className="col-sm-3 marginbelow margintop panel panel-default">
-                <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                  <h6 className="center">Order Now</h6>
+              <form>
+                <div className="col-sm-3 marginbelow margintop panel panel-default">
+                  <div className="col-sm-12 marginbelow panel-heading colWidth100">
+                    <h6 className="center">Order Now</h6>
+                  </div>
+                  <div className="col-sm-12 panel-body colWidth100">
+                  <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
+                  <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
+                  <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
+                    <select>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                    </select>
+                  </div>
+                    <button id="content" className="btn btn-primary marginbelow margintop" type="submit" >
+                      <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
-                <div className="col-sm-12 panel-body colWidth100">
-                <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
-                <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
-                <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
-                  <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                  </select>
-                </div>
-                  <button id="content" className="btn btn-primary marginbelow margintop" >
-                    <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                    Add to Cart
-                  </button>
-                </div>
-            </div>
+              </form>
             </div>
   
           </div>
