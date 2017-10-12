@@ -68,7 +68,7 @@ class Home extends Component {
     /*********************************************/
     // create the Categories List - Sidebar
     const renderCategories = categories.map(category => {
-        return (<Link to={ `/category/${ category.id }/piano` } key={ category.id }><div
+        return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
           className="col-sm-12">
           <h6>{ category.name }</h6></div></Link>)
       })
