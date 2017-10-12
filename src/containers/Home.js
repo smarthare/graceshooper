@@ -101,8 +101,11 @@ class Home extends Component {
     // create the Products List &/or the Selected Product- Main Section
     /*********************************************/
     // if there is a selected Product, then render for the one product
-    let renderProducts = <div>one product</div>
+    let renderProducts = <div className="center"><strong> - no products found - </strong></div>
     if (selectedProduct.title) {
+
+      //single product work here
+
     } else {
       renderProducts = products.map(product => {
         if (product.inventory) {
@@ -126,6 +129,7 @@ class Home extends Component {
             </Link>)
         }
       })
+      if (!renderProducts.length) renderProducts = <div className="center"><strong> - no products found - </strong></div>;
     }
     /*********************************************/
     // Label Products section:
