@@ -50,8 +50,8 @@ export default (cart = initialState, action) => {
 /*
   THUNK
  */
-export const get
-export const addProductToCart = (productId) => dispatch => {
-  axios.
-}
+// export const get
+// export const addProductToCart = (productId) => dispatch => {
+//   axios.
+// }
 

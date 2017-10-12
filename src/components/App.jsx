@@ -1,20 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-// Let's settle on a list of component names
-// import ProductList from "./ProductList";
-// import User from "./User";
 import Admin from "./Admin";
 import SearchBar from "../containers/SearchBar";
 import Account from "../containers/Account";
-// import Admin from '../containers/Admin';
-import Cart from "../containers/Cart";
+import Cart from "./Cart";
 import Home from "../containers/Home";
 import Orders from "../containers/Orders";
 import ProductList from "../containers/ProductList";
 import Product from "../containers/Product";
-import UserSignIn from "../containers/User_SignIn";
-import User from "../components/User";
+import { Login, Signup } from "./AuthForm";
+import User from "./User";
 
 import store from "../store";
 import { fetchUsers } from "../reducers/users";
@@ -54,31 +50,36 @@ export default class App extends React.Component {
           />
         </Switch>
 
-        <Switch>
-          <Route path="/" exact render={router => <Home router={router} />} />
-          <Route path="/account" component={User} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/orders" component={Orders} />
-          <Route path="/signin" component={UserSignIn} />
-          <Route path="/products" component={ProductList} />
-          <Route
-            path="/category/:id/:term"
-            render={router => <ProductList router={router} />}
-          />
-          <Route
-            path="/category/:id"
-            render={router => <ProductList router={router} />}
-          />
-          <Route
-            path="/product/:id"
-            render={router => <Product router={router} />}
-          />
-          <Route
-            path="/category/:id"
-            render={router => <ProductList router={router} />}
-          />
-        </Switch>
+
+        <div className="container">
+         <div className="row">
+          <Switch>
+            <Route path="/" exact render={router => <Home router={router} />} />
+            <Route path="/account" component={Account} />
+            <Route path="/admin" component={Admin} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/orders" component={Orders} />
+            <Route path="/signin" component={Login} />
+            <Route path="/products" component={ProductList} />
+            <Route
+              path="/category/:id/:term"
+              render={router => <ProductList router={router} />}
+            />
+            <Route
+              path="/category/:id"
+              render={router => <ProductList router={router} />}
+            />
+            <Route
+              path="/product/:id"
+              render={router => <Product router={router} />}
+            />
+            <Route
+              path="/category/:id"
+              render={router => <ProductList router={router} />}
+            />
+          </Switch>
+          </div>
+        </div>
       </div>
     );
   }
