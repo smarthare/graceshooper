@@ -1,4 +1,5 @@
-const router = require('express').Router(),
+const
+  router = require('express').Router(),
   Order = require('./order.model')
 
 router
@@ -7,18 +8,20 @@ router
       .then(orders => res.send(orders))
       .catch(next)
   })
+
   .get('/cart', (req, res, next) => {
     Order.getCartByUserId(req.session.userId)
       .then(cart => res.send(cart))
       .catch(next)
   })
+
   .put('/', (req, res, next) => {
-    // Order submission
     Order.getCartByUserId(req.session.userId)
       .then(cart => cart.submit())
       .then(order => res.send(order))
       .catch(next)
   })
+
   .post('/', (req, res, next) => {
     // To create a cart from request body
     // i.e. when a guest signup
@@ -29,8 +32,8 @@ router
       .then(order => res.send(order))
       .catch(next)
   })
+
   .post('/lineItems', (req, res, next) => {
-    // Note how this method returns a lineItem instead of the order
     Order.addToCartOfUser(
       req.session.userId,
       req.body.productId,
@@ -39,9 +42,9 @@ router
       .then(lineItem => res.send(lineItem))
       .catch(next)
   })
+
   .delete('/lineItems/:id', (req, res, next) => {
     Order.destroyLineItem(req.params.id)
-      // Expect nothing from response here
       .then(result => res.send(result))
       .catch(next)
   })

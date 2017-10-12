@@ -2,12 +2,12 @@ import axios from 'axios'
 // Will need to work with user part of the state to get user/address
 
 const initialState = {
-  cart: { lineItems: [
+  lineItems: [
       {productId: 1, quantity: 1, price: null},
       {productId: 2, quantity: 10, price: null},
       {productId: 3, quantity: 3, price: null},
       {productId: 4, quantity: 15, price: null}
-  ] }
+  ]
 }
 
 /*

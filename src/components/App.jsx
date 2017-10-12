@@ -11,10 +11,7 @@ import Product from '../containers/Product'
 import { Login, Signup } from './AuthForm'
 import Account from './User'
 
-import store from '../store'
-import { fetchUsers } from '../reducers/users'
-import { fetchCategories } from '../reducers/categories'
-import { fetchProducts } from '../reducers/reducer_products'
+import store, { fetchUsers, fetchCategories, fetchProducts } from '../store'
 
 export default class App extends Component {
   constructor () {
@@ -69,10 +66,6 @@ export default class App extends Component {
               <Route
                 path='/product/:id'
                 render={router => <Product router={router} />}
-            />
-              <Route
-                path='/category/:id'
-                render={router => <ProductList router={router} />}
             />
             </Switch>
           </div>

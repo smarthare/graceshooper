@@ -1,38 +1,45 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { } from '../actions';
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { deleteUser } from '../store'
 
-class Cart extends Component {
-  constructor() {
-    super();
-
-  }
-
-  render() {
-    console.log('***Cart component:......', this.props)
-    const categories = this.props.state.shop.categories;
-    if (!categories.length) return <div></div>;
-
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-12 panel panel-default backTan">
-            <h4>Cart Container</h4>
+const Cart = (props) => {
+  const { cart } = props
+  return (
+    <div className='container'>
+      <div className='row'>
+        <div className='col-sm-8 panel panel-default backTan'>
+          <div className='panel-heading'>
+            <h3>Shopping Cart</h3>
+          </div>
+          <div className='panel-body'>
+            <ul className='list-group'>
+              {cart.lineItems.map((line, idx) => (
+                <li className='list-group-item clearfix' key={idx}>
+                  {line.productId}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
+
+        <div className='col-sm-4 panel panel-default backTan'>
+          <h4>Subtotal: </h4>
+          <button className='btn btn-primary' type='submit'>
+            Proceed to Checkout
+          </button>
+        </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-function mapStateToProps (state) {
-  return { state };
+const mapState = state => {
+  return { cart: state.cart }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ }, dispatch);
+const mapDispatch = dispatch => {
+  return {}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapState, mapDispatch)(Cart)
