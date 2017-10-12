@@ -16,8 +16,17 @@ class Home extends Component {
     this.productWork = this.productWork.bind(this);
   }
 
-  productWork() {
-    return 'ok this worked';
+  productWork(imgBefore, priceBefore) {
+    // accounting for varied image inputs:
+    let imgAfter;
+    if (imgBefore.slice(0, 7) === 'http://') {
+      imgAfter = imgBefore;
+    } else {
+      imgAfter = `../../assets/images/${ imgBefore }`;
+    }
+    // formating the price:
+    const priceAfter = '$' + priceBefore.toString();
+    return [imgAfter, priceAfter];
   }
 
   componentWillReceiveProps(nextProps) {
@@ -92,22 +101,16 @@ class Home extends Component {
     // create the Products List &/or the Selected Product- Main Section
     /*********************************************/
     // if there is a selected Product, then render for the one product
-    let renderProducts = <div>one product = { this.productWork() }</div>
+    let renderProducts = <div>one product</div>
     if (selectedProduct.title) {
     } else {
       renderProducts = products.map(product => {
         if (product.inventory) {
           /*************************************/
-          // accounting for varied image inputs:
-          let image;
-          if (product.imgUrls[0].slice(0, 7) === 'http://') {
-            image = product.imgUrls[0]
-          } else {
-            image = `../../assets/images/${ product.imgUrls[0] }`;
-          }
-          /*************************************/
-          // formating the price:
-          const price = '$' + product.price.toString();
+          // // accounting for varied image inputs & price formatting:
+          const formatResult = this.productWork(product.imgUrls[0], product.price);
+          const image = formatResult[0];
+          const price = formatResult[1];
           /*************************************/
           return (<Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
               <div className="col-sm-6 border panel panel-default">
