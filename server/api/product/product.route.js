@@ -9,15 +9,22 @@ router
       .then(products => res.send(products))
       .catch(next);
   })
-
   .get("/:id", (req, res, next) => {
     Product.findById(req.params.id, { include: [Category] })
       .then(product => res.send(product))
       .catch(next);
   })
-
   .post("/", (req, res, next) => {
-    Product.create(req.body, { include: [Category] })
+    const { product } = req.body;
+    Product.create(
+      {
+        title: product.title,
+        description: product.description,
+        price: parseInt(product.price),
+        inventory: parseInt(product.inventory)
+      },
+      { include: [Category] }
+    )
       .then(product => res.send(product))
       .catch(next);
   })

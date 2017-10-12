@@ -13,7 +13,10 @@ export function getProducts(products) {
 function fetchAllProducts(dispatch) {
   return axios
     .get("/api/products")
-    .then(res => dispatch(getProducts(res.data)))
+    .then(res => {
+      console.log("this is data", res.data);
+      return dispatch(getProducts(res.data));
+    })
     .catch(err => console.error(err));
 }
 
@@ -28,6 +31,36 @@ export function deleteProduct(id) {
   return function thunk(dispatch) {
     return axios
       .delete(`/api/products/${id}`)
+      .then(() => fetchAllProducts(dispatch))
+      .catch(err => console.error(err));
+  };
+}
+
+export function updateProduct(product) {
+  return function thunk(dispatch) {
+    return axios
+      .put(`/api/products/${product.id}`, {
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        inventory: product.inventory
+      })
+      .then(() => fetchAllProducts(dispatch))
+      .catch(err => console.error(err));
+  };
+}
+
+export function addProduct(product) {
+  return function thunk(dispatch) {
+    return axios
+      .post("/api/products", {
+        product: {
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          inventory: product.inventory
+        }
+      })
       .then(() => fetchAllProducts(dispatch))
       .catch(err => console.error(err));
   };

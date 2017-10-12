@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import store from "../store";
+import ProductForm from "./ProductForm";
 
 class Products extends React.Component {
   constructor(props) {
@@ -9,10 +10,16 @@ class Products extends React.Component {
 
   render() {
     const { products } = this.props;
-    console.log(products);
     return (
       <div>
         <h3>Product</h3>
+        {products.map(product => (
+          <ProductForm
+            product={product}
+            key={product.id}
+            isAddProduct={false}
+          />
+        ))}
       </div>
     );
   }
