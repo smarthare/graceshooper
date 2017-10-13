@@ -1,9 +1,12 @@
+/*
+This will be a presentation sub-component of Home.
+*/
+
+
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import ProductDetail from './ProductDetail';
-import { addProductsToCart } from '../store';
 
 class Home extends Component {
   constructor(props) {
@@ -13,13 +16,10 @@ class Home extends Component {
       categoryId: 0,
       selectedProduct: {},
       term: '',
-      filter: false,
-      selectQty: 1
+      filter: false
     }
 
     this.productWork = this.productWork.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   productWork(imgBefore, priceBefore) {
@@ -36,21 +36,6 @@ class Home extends Component {
     // possible price formating:
     const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given';
     return [imgAfter, priceAfter];
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.addProductsToCart(this.state.selectedProduct.id, this.state.selectQty)
-  }
-
-  handleInput(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    switch (name) {
-      case 'selectQty':
-        this.setState({ selectQty: value })
-        break;
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -105,7 +90,7 @@ class Home extends Component {
       products = products.filter(product => {
         let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase();
         let searchLower = term.toLowerCase();
-        let title = selectedProduct.title;
+        let title = product.title;
         return title.includes(searchLower) || title.includes(searchUpper);
       })
     }
@@ -196,7 +181,7 @@ class Home extends Component {
               <h6>Select a category (below) or enter search term (above)</h6>
             </div>
             <div className="col-sm-2 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-body colWidth100 backGreyBlue">
+              <div className="col-sm-12 marginbelow panel-heading colWidth100">
                 <h6 className="center">CATEGORIES</h6>
               </div>
               <div className="col-sm-12 marginbelow">
@@ -210,7 +195,7 @@ class Home extends Component {
               </div>
             </div>
             <div className="col-sm-10 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-body colWidth100 backGreyBlue">
+              <div className="col-sm-12 marginbelow panel-heading colWidth100">
                 <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
               </div>
               <div className="col-sm-12 marginbelow">
@@ -222,7 +207,65 @@ class Home extends Component {
         </div>
       )
     } else {
-      return <ProductDetail categoryId={ categoryId } categories={ categories } selectedProduct={ selectedProduct } />
+      return (
+        <div>
+          <div className="row">
+            <div className="col-sm-12 marginbelow">
+              <h6>Select a category (below) or enter search term (above)</h6>
+            </div>
+            <div className="col-sm-2 panel panel-default">
+              <div className="col-sm-12 marginbelow panel-heading colWidth100">
+                <h6 className="center">CATEGORIES</h6>
+              </div>
+              <div className="col-sm-12 marginbelow">
+                {
+                  categories.map(category => {
+                    return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
+                      className="col-sm-12">
+                      <h6>{ category.name }</h6></div></Link>)
+                  })
+                }
+              </div>
+            </div>
+            <div className="col-sm-10 panel panel-default">
+              <div className="col-sm-12 marginbelow panel-heading colWidth100">
+                <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
+              </div>
+              <div className="col-sm-12 center marginbelow">
+                <strong>{ selectedProduct.title }</strong>
+              </div>
+              <div className="col-sm-12 marginbelow">
+                { selectedProduct.description } - ( Product #: { selectedProduct.id } )
+              </div>
+              <div className="col-sm-9 marginbelow">
+                { renderProducts2 }
+                { renderProducts }
+              </div>
+              <div className="col-sm-3 marginbelow margintop panel panel-default">
+                <div className="col-sm-12 marginbelow panel-heading colWidth100">
+                  <h6 className="center">Order Now</h6>
+                </div>
+                <div className="col-sm-12 panel-body colWidth100">
+                <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
+                <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
+                <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
+                  <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                </div>
+                  <button id="content" className="btn btn-primary marginbelow margintop" >
+                    <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                    Add to Cart
+                  </button>
+                </div>
+            </div>
+            </div>
+  
+          </div>
+        </div>
+      )
     }
   }
 }
