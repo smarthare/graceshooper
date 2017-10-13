@@ -11,8 +11,8 @@ const faker = require('faker'),
   Promise = require('bluebird'),
   db = require('./server/db'),
   models = db.models,
-  numProducts = 100,
-  numUsers = 50,
+  numProducts = 30,
+  numUsers = 10,
   Categories = ['Phone', 'Music Instruments', 'Books', 'Cool Stuff']
 
 function doTimes (n, fn) {
@@ -57,18 +57,17 @@ function randProduct (n) {
   })
 }
 
-function randOrder (n) {
+function randCart (n) {
   let userId = n + 1
   return models.Order.create({userId, address: 'Fullstack 25th Fl, NY'})
     .then(cart => {
       return Promise.map(
-        Array(...Array(faker.random.number(5) + 1))
+        Array(...Array(faker.random.number(3) + 1))
         .map(elem => faker.random.number(numProducts - 1) + 1),
         productId => cart.addProdToCart(productId, faker.random.number(10) + 1)
       )
     })
     .then(() => models.Order.getCartByUserId(userId))
-    .then(cart => cart.submit())
 }
 
 function generateUsers () {
@@ -110,12 +109,12 @@ function generateUsers () {
 const
   generateProducts = () => doTimes(numProducts, randProduct),
   generateCategories = () => Categories.map(cat => models.Category.build({ name: cat })),
-  generateOrders = () => doTimes(numUsers + 3, randOrder),
-
+  generateOrders = () => doTimes(numUsers + 3, randCart),
   createUsers = () => Promise.map(generateUsers(), user => user.save()),
   createCategories = () => Promise.map(generateCategories(), category => category.save()),
   createProducts = () => Promise.all(generateProducts()),
-  createOrders = () => Promise.all(generateOrders())
+  createCarts = () => Promise.all(generateOrders()),
+  createOrders = () => Promise.map(generateOrders(), cart => cart.submit())
 
 const guitars = () => {
   let categories
@@ -276,6 +275,7 @@ const seed = () =>
   createUsers()
     .then(() => createCategories())
     .then(() => createProducts())
+    .then(() => createCarts())
     .then(() => createOrders())
     .then(() => guitars())
     .catch(console.log)

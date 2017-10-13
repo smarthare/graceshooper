@@ -1,4 +1,5 @@
-const conn = require('../../conn')
+const conn = require('../../conn'),
+  Orders = require('../order/order.model')
 
 const User = conn.define('user', {
   name: {
@@ -52,7 +53,7 @@ const generateError = message => {
 
 User.findBySessionId = function (userId) {
   if (!userId) throw generateError('no user found')
-  return this.findById(userId)
+  return this.findById(userId, {include: Orders})
 }
 
 User.login = function (credentials) {
@@ -60,7 +61,7 @@ User.login = function (credentials) {
     throw generateError('no credentials')
   }
 
-  return this.findOne({ where: credentials }).then(user => {
+  return this.findOne({ where: credentials, include: Orders }).then(user => {
     if (!user) throw generateError('bad credentials')
     return user
   })

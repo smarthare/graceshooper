@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { auth } from '../store'
 
-const AuthForm = (props) => {
+const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props
   return (
     <div className='col-md-4 col-md-offset-4'>
@@ -29,7 +29,7 @@ const AuthForm = (props) => {
   )
 }
 
-const mapLogin = (state) => {
+const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
@@ -37,7 +37,7 @@ const mapLogin = (state) => {
   }
 }
 
-const mapSignup = (state) => {
+const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
