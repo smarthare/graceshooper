@@ -147,6 +147,7 @@ class ProductDetail extends Component {
                 <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
                 <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
                   <select
+                    name="selectQty"
                     value={ this.state.selectQty }
                     onChange={ this.handleInput }>
                    { renderOptions }
