@@ -1,23 +1,10 @@
-/*
-This will be a presentation sub-component of Home.
-*/
-
-
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-class Home extends Component {
+class ProductList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      pathname: '/',
-      categoryId: 0,
-      selectedProduct: {},
-      term: '',
-      filter: false
-    }
 
     this.productWork = this.productWork.bind(this);
   }
@@ -38,38 +25,11 @@ class Home extends Component {
     return [imgAfter, priceAfter];
   }
 
-  componentWillReceiveProps(nextProps) {
-    /*********************************************/
-    // get nextProps variables
-    const pathnameLast = this.state.pathname;
-    const pathname = nextProps.router.location.pathname;
-    const categoryId = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0;
-    const term = (nextProps.router.match.params.term) ? nextProps.router.match.params.term : '';
-    const products = nextProps.products;
-    /*********************************************/
-    // checking to see if someone clicked a link and changed the url
-    /*********************************************/
-    // did someone click a specific product? ...yes?: get that instance:
-    const productId = (nextProps.router.location.search) ? nextProps.router.location.search.slice(9) * 1 : 0;
-    let selectedProduct = {};
-    if (productId) {
-      const selectedProductArr = products.filter(product => {
-        return productId === product.id;
-      })
-      selectedProduct = selectedProductArr[0];
-    }
-    /*********************************************/
-    // update state......
-    if (pathname !== pathnameLast) this.setState({ pathname, categoryId, term, selectedProduct, filter: true });
-    /*********************************************/
-  }
-
   render() {
     /*********************************************/
     // setup local variables
     let products = this.props.products;
     const categories = this.props.categories;
-    const filter = this.state.filter;
     const categoryId = this.state.categoryId;
     const selectedProduct = this.state.selectedProduct;
     const term = this.state.term;
@@ -90,7 +50,7 @@ class Home extends Component {
       products = products.filter(product => {
         let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase();
         let searchLower = term.toLowerCase();
-        let title = product.title;
+        let title = selectedProduct.title;
         return title.includes(searchLower) || title.includes(searchUpper);
       })
     }
@@ -98,14 +58,13 @@ class Home extends Component {
     // create the Products List &/or the Selected Product- Main Section
     /*********************************************/
     // if there is a selected Product, then render for the one product
-    let renderProducts, renderProducts2, renderswitch, price;
+    let renderProducts, price;
     if (selectedProduct.title) {
       /*************************************/
       //single product work here
       /*************************************/
       // accounting for varied image inputs & price formatting:
       /*************************************/
-      renderswitch = false;
       const images = selectedProduct.imgUrls.map(image => {
         return this.productWork(image)[0];
       })
@@ -127,14 +86,9 @@ class Home extends Component {
       } else {
         renderProducts = <div className="col-sm-1 border panel panel-default"></div>
       }
-      /*************************************/
-      //create <div></div> for the main image
-      const imagesMain = images.slice(0, 1);
-      renderProducts2 = <div className="col-sm-9"><img src={ imagesMain } className="responsive-image" /></div>;
     /*************************************/
     } else {
       // looking for products in a category &/or containing a search term
-      renderswitch = true;
       renderProducts = products.map(product => {
         if (product.inventory) {
           /*************************************/
@@ -173,100 +127,38 @@ class Home extends Component {
       categoryName = categoryName + 'all Categories';
     }
     /*********************************************/
-    if (renderswitch) {
-      return (
-        <div>
-          <div className="row">
-            <div className="col-sm-12 marginbelow">
-              <h6>Select a category (below) or enter search term (above)</h6>
-            </div>
-            <div className="col-sm-2 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                <h6 className="center">CATEGORIES</h6>
-              </div>
-              <div className="col-sm-12 marginbelow">
-                {
-                  categories.map(category => {
-                    return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
-                      className="col-sm-12">
-                      <h6>{ category.name }</h6></div></Link>)
-                  })
-                }
-              </div>
-            </div>
-            <div className="col-sm-10 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
-              </div>
-              <div className="col-sm-12 marginbelow">
-                { renderProducts }
-              </div>
-            </div>
-  
+    return (
+      <div>
+        <div className="row">
+          <div className="col-sm-12 marginbelow">
+            <h6>Select a category (below) or enter search term (above)</h6>
           </div>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <div className="row">
+          <div className="col-sm-2 panel panel-default">
+            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
+              <h6 className="center">CATEGORIES</h6>
+            </div>
             <div className="col-sm-12 marginbelow">
-              <h6>Select a category (below) or enter search term (above)</h6>
+              {
+                categories.map(category => {
+                  return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
+                    className="col-sm-12">
+                    <h6>{ category.name }</h6></div></Link>)
+                })
+              }
             </div>
-            <div className="col-sm-2 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                <h6 className="center">CATEGORIES</h6>
-              </div>
-              <div className="col-sm-12 marginbelow">
-                {
-                  categories.map(category => {
-                    return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
-                      className="col-sm-12">
-                      <h6>{ category.name }</h6></div></Link>)
-                  })
-                }
-              </div>
-            </div>
-            <div className="col-sm-10 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
-              </div>
-              <div className="col-sm-12 center marginbelow">
-                <strong>{ selectedProduct.title }</strong>
-              </div>
-              <div className="col-sm-12 marginbelow">
-                { selectedProduct.description } - ( Product #: { selectedProduct.id } )
-              </div>
-              <div className="col-sm-9 marginbelow">
-                { renderProducts2 }
-                { renderProducts }
-              </div>
-              <div className="col-sm-3 marginbelow margintop panel panel-default">
-                <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                  <h6 className="center">Order Now</h6>
-                </div>
-                <div className="col-sm-12 panel-body colWidth100">
-                <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
-                <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
-                <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
-                  <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                  </select>
-                </div>
-                  <button id="content" className="btn btn-primary marginbelow margintop" >
-                    <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                    Add to Cart
-                  </button>
-                </div>
-            </div>
-            </div>
-  
           </div>
+          <div className="col-sm-10 panel panel-default">
+            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
+              <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
+            </div>
+            <div className="col-sm-12 marginbelow">
+              { renderProducts }
+            </div>
+          </div>
+
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
 
@@ -274,4 +166,4 @@ function mapStateToProps (state) {
   return state;
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(ProductList);

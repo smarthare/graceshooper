@@ -50,7 +50,7 @@ class ProductDetail extends Component {
     /*********************************************/
     // setup local variables from props
     console.log('>>>>>>>>>>>>>>>>>>>>>>', this.props)
-    const { categoryId, categories, selectedProduct } = this.props.myProps;
+    const { categoryId, categories, selectedProduct } = this.props;
     /*********************************************/
     let renderProducts, renderProducts2, price;
     if (selectedProduct.title) {
@@ -113,7 +113,7 @@ class ProductDetail extends Component {
             <h6>Select a category (below) or enter search term (above)</h6>
           </div>
           <div className="col-sm-2 panel panel-default">
-            <div className="col-sm-12 marginbelow panel-body colWidth100 backGreyBlue">
+            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
               <h6 className="center">CATEGORIES</h6>
             </div>
             <div className="col-sm-12 marginbelow">
@@ -127,7 +127,7 @@ class ProductDetail extends Component {
             </div>
           </div>
           <div className="col-sm-10 panel panel-default">
-            <div className="col-sm-12 marginbelow panel-body colWidth100 backGreyBlue">
+            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
               <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
             </div>
             <div className="col-sm-12 center marginbelow">
@@ -167,8 +167,8 @@ class ProductDetail extends Component {
   }
 }
 
-function mapStateToProps (state, myProps) {
-  return { state, myProps };
+function mapStateToProps (state) {
+  return { state };
 }
 
 function mapDispatchToProps (dispatch) {
