@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import ProductDetail from './ProductDetail';
 import { addProductsToCart } from '../store';
 
 class Home extends Component {
@@ -194,7 +196,7 @@ class Home extends Component {
               <h6>Select a category (below) or enter search term (above)</h6>
             </div>
             <div className="col-sm-2 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
+              <div className="col-sm-12 marginbelow panel-body colWidth100 backGreyBlue">
                 <h6 className="center">CATEGORIES</h6>
               </div>
               <div className="col-sm-12 marginbelow">
@@ -208,7 +210,7 @@ class Home extends Component {
               </div>
             </div>
             <div className="col-sm-10 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
+              <div className="col-sm-12 marginbelow panel-body colWidth100 backGreyBlue">
                 <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
               </div>
               <div className="col-sm-12 marginbelow">
@@ -220,70 +222,7 @@ class Home extends Component {
         </div>
       )
     } else {
-      return (
-        <div>
-          <div className="row">
-            <div className="col-sm-12 marginbelow">
-              <h6>Select a category (below) or enter search term (above)</h6>
-            </div>
-            <div className="col-sm-2 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                <h6 className="center">CATEGORIES</h6>
-              </div>
-              <div className="col-sm-12 marginbelow">
-                {
-                  categories.map(category => {
-                    return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
-                      className="col-sm-12">
-                      <h6>{ category.name }</h6></div></Link>)
-                  })
-                }
-              </div>
-            </div>
-            <div className="col-sm-10 panel panel-default">
-              <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
-              </div>
-              <div className="col-sm-12 center marginbelow">
-                <strong>{ selectedProduct.title }</strong>
-              </div>
-              <div className="col-sm-12 marginbelow">
-                { selectedProduct.description } - ( Product #: { selectedProduct.id } )
-              </div>
-              <div className="col-sm-9 marginbelow">
-                { renderProducts2 }
-                { renderProducts }
-              </div>
-              <form onSubmit={ this.handleSubmit }>
-                <div className="col-sm-3 marginbelow margintop panel panel-default">
-                  <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                    <h6 className="center">Order Now</h6>
-                  </div>
-                  <div className="col-sm-12 panel-body colWidth100">
-                  <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
-                  <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
-                  <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
-                    <select
-                      value={ this.state.selectQty }
-                      onChange={ this.handleInput }>
-                      <option key="1" value="1">1</option>
-                      <option key="2" value="2">2</option>
-                      <option key="3" value="3">3</option>
-                      <option key="4" value="4">4</option>
-                      <option key="5" value="5">5</option>
-                    </select>
-                  </div>
-                    <button id="content" className="btn btn-primary marginbelow margintop" >
-                      <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )
+      return <ProductDetail categoryId={ categoryId } categories={ categories } selectedProduct={ selectedProduct } />
     }
   }
 }

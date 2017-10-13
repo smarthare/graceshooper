@@ -89,7 +89,7 @@ class SearchBar extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 panel panel-default nomarginBot backGrey">
+          <div className="col-sm-12 panel panel-default nomarginBot backGreyBlue">
             <h4 className="col-sm-3 textBlk margintop marginbelowsm"><Link to={ `/category/0` }>Grace Shopper</Link></h4>
             <div className="col-sm-9 search-bar margintop marginbelowsm">
               <form onSubmit={ this.handleSubmit }>
@@ -111,11 +111,11 @@ class SearchBar extends Component {
               </form>
             </div>
             <div className="col-md-6 col-md-offset-6 search-bar marginbelowsm">
-              <Link to={ `/admin` }><button>Admin Portal</button></Link>
-              <Link to={ `/signin` }><button className="moverightsm">sign-in</button></Link>
-              <Link to={ `/account` }><button className="moverightsm">Account</button></Link>
-              <Link to={ `/orders` }><button className="moverightsm">Orders</button></Link>
-              <Link to={ `/cart` }><button className="moverightsm margintopsm">Cart (0)</button></Link>
+              <Link to={ `/admin` }><div className="col-sm-2 moverightsm margintopsm">Admin Portal</div></Link>
+              <Link to={ `/signin` }><div className="col-sm-2 moverightsm margintopsm">sign-in</div></Link>
+              <Link to={ `/account` }><div className="col-sm-2 moverightsm margintopsm">Account</div></Link>
+              <Link to={ `/orders` }><div className="col-sm-2 moverightsm margintopsm">Orders</div></Link>
+              <Link to={ `/cart` }><div className="col-sm-2 moverightsm margintopsm">Cart (0)</div></Link>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ const faker = require('faker'),
   models = db.models,
   numProducts = 15,
   numUsers = 15,
-  Categories = ['Cool Stuff', 'Books', 'Shirts', 'Pants', 'Glasses']
+  Categories = ['Cool Stuff', 'Electronics', 'Clothing', 'Accessories']
 
 function doTimes (n, fn) {
   var results = []
