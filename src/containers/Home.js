@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ProductDetail from './ProductDetail';
-import { addProductsToCart } from '../store';
+import ProductList from './ProductList';
 
 class Home extends Component {
   constructor(props) {
@@ -13,13 +13,10 @@ class Home extends Component {
       categoryId: 0,
       selectedProduct: {},
       term: '',
-      filter: false,
-      selectQty: 1
+      filter: false
     }
 
     this.productWork = this.productWork.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   productWork(imgBefore, priceBefore) {
@@ -36,21 +33,6 @@ class Home extends Component {
     // possible price formating:
     const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given';
     return [imgAfter, priceAfter];
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.addProductsToCart(this.state.selectedProduct.id, this.state.selectQty)
-  }
-
-  handleInput(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    switch (name) {
-      case 'selectQty':
-        this.setState({ selectQty: value })
-        break;
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -189,6 +171,8 @@ class Home extends Component {
     }
     /*********************************************/
     if (renderswitch) {
+      // return <ProductList categoryId={ categoryId } categories={ categories } />
+      
       return (
         <div>
           <div className="row">
