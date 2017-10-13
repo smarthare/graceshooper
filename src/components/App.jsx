@@ -23,7 +23,6 @@ export default class App extends Component {
   render () {
     return (
       <div className="container-fluid">
-        <h3>Welcome to Grace-Shopper</h3>
         <Switch>
           <Route path="/category/:id/:term" render={router => <SearchBar router={router} />} />
           <Route path="/category/:id" render={router => <SearchBar router={router} />} />
