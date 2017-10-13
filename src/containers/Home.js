@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addProductsToCart } from '../store';
 
 class Home extends Component {
   constructor(props) {
@@ -11,11 +12,12 @@ class Home extends Component {
       selectedProduct: {},
       term: '',
       filter: false,
-      selectQty: 3
+      selectQty: 1
     }
 
     this.productWork = this.productWork.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   productWork(imgBefore, priceBefore) {
@@ -32,6 +34,11 @@ class Home extends Component {
     // possible price formating:
     const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given';
     return [imgAfter, priceAfter];
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.addProductsToCart(this.state.selectedProduct.id, this.state.selectQty)
   }
 
   handleInput(event) {
@@ -96,7 +103,7 @@ class Home extends Component {
       products = products.filter(product => {
         let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase();
         let searchLower = term.toLowerCase();
-        let title = product.title;
+        let title = selectedProduct.title;
         return title.includes(searchLower) || title.includes(searchUpper);
       })
     }
@@ -247,32 +254,33 @@ class Home extends Component {
                 { renderProducts2 }
                 { renderProducts }
               </div>
-              <div className="col-sm-3 marginbelow margintop panel panel-default">
-                <div className="col-sm-12 marginbelow panel-heading colWidth100">
-                  <h6 className="center">Order Now</h6>
+              <form onSubmit={ this.handleSubmit }>
+                <div className="col-sm-3 marginbelow margintop panel panel-default">
+                  <div className="col-sm-12 marginbelow panel-heading colWidth100">
+                    <h6 className="center">Order Now</h6>
+                  </div>
+                  <div className="col-sm-12 panel-body colWidth100">
+                  <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
+                  <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
+                  <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
+                    <select
+                      value={ this.state.selectQty }
+                      onChange={ this.handleInput }>
+                      <option key="1" value="1">1</option>
+                      <option key="2" value="2">2</option>
+                      <option key="3" value="3">3</option>
+                      <option key="4" value="4">4</option>
+                      <option key="5" value="5">5</option>
+                    </select>
+                  </div>
+                    <button id="content" className="btn btn-primary marginbelow margintop" >
+                      <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
-                <div className="col-sm-12 panel-body colWidth100">
-                <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
-                <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
-                <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
-                  <select
-                    value={ this.state.selectQty }
-                    onChange={ this.state.handleInput }>
-                    <option key="1" value="1">1</option>
-                    <option key="2" value="1">2</option>
-                    <option key="3" value="1">3</option>
-                    <option key="4" value="1">4</option>
-                    <option key="5" value="1">5</option>
-                  </select>
-                </div>
-                  <button id="content" className="btn btn-primary marginbelow margintop" >
-                    <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                    Add to Cart
-                  </button>
-                </div>
+              </form>
             </div>
-            </div>
-  
           </div>
         </div>
       )
