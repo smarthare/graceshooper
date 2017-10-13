@@ -110,8 +110,8 @@ class SearchBar extends Component {
                 </button>
               </form>
             </div>
-            <div className="col-md-6 col-md-offset-6 search-bar marginbelowsm">
-              <Link to={ `/admin` }><div className="col-sm-2 moverightsm margintopsm">Admin Portal</div></Link>
+            <div className="col-md-7 col-md-offset-5 search-bar marginbelowsm">
+              <Link to={ `/admin` }><div className="col-sm-3 moverightsm margintopsm">Admin Portal</div></Link>
               <Link to={ `/signin` }><div className="col-sm-2 moverightsm margintopsm">sign-in</div></Link>
               <Link to={ `/account` }><div className="col-sm-2 moverightsm margintopsm">Account</div></Link>
               <Link to={ `/orders` }><div className="col-sm-2 moverightsm margintopsm">Orders</div></Link>
