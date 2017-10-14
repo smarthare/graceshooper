@@ -14,7 +14,6 @@ function fetchAllProducts(dispatch) {
   return axios
     .get("/api/products")
     .then(res => {
-      console.log("this is data", res.data);
       return dispatch(getProducts(res.data));
     })
     .catch(err => console.error(err));

@@ -5,9 +5,9 @@ const faker = require('faker'),
   Promise = require('bluebird'),
   db = require('./server/db'),
   models = db.models,
-  numProducts = 30,
-  numUsers = 10,
-  Categories = ['Phone', 'Music Instruments', 'Books', 'Cool Stuff']
+  numProducts = 15,
+  numUsers = 15,
+  Categories = ['Cool Stuff', 'Electronics', 'Clothing', 'Accessories']
 
 function doTimes (n, fn) {
   var results = []
@@ -223,11 +223,11 @@ const guitars = () => {
           price: 1000.0,
           inventory: 6,
           imgUrls: [
-            'Roland_JUNO-DS88_1.png',
+            'Roland_JUNO-DS88_5.png',
             'Roland_JUNO-DS88_2.png',
             'Roland_JUNO-DS88_3.png',
             'Roland_JUNO-DS88_4.png',
-            'Roland_JUNO-DS88_5.png'
+            'Roland_JUNO-DS88_1.png'
           ]
         }),
         models.Product.create({
@@ -271,24 +271,136 @@ const guitars = () => {
             'Gibson_2016_ES-335_Semi-Hollow_Electric_6.png'
           ]
         }),
-
-
-
-
-
-
-
-
-        // models.Product.create({
-        //   description: '',
-        //   title: '',
-        //   price: 0,
-        //   inventory: 0,
-        //   imgUrls: [
-        //     '_1.png',
-        //     '_2.png'
-        //   ]
-        // }),
+        models.Product.create({
+          description: 'Part of Martins successful Road Series, the 000RS1A is a great solid-wood Martin at an affordable price. Constructed with sapele and equipped with Fishman Sonitone electronics, this stage-ready Auditorium model produces the perfect blend of volume and balance. Hardshell case included.',
+          title: 'Martin Road Series 000RS1 Auditorium Acoustic-Electric Guitar Natural',
+          price: 759.0,
+          inventory: 2,
+          imgUrls: [
+            'Martin_Road_Series_000RS1_Auditorium_1.png',
+            'Martin_Road_Series_000RS1_Auditorium_2.png',
+            'Martin_Road_Series_000RS1_Auditorium_3.png',
+            'Martin_Road_Series_000RS1_Auditorium_4.png',
+            'Martin_Road_Series_000RS1_Auditorium_5.png'
+          ]
+        }),
+        models.Product.create({
+          description: 'Travel-friendly and affordable, the FP-50 brings you top-class piano performance along with many other great features to enhance your playing enjoyment. At your fingers is the authentic tone and touch of an acoustic grand, plus a large selection of versatile sounds for performing in a variety of situations. The intelligent rhythm feature makes it simple to create incredible music, providing dynamic, sophisticated accompaniments that automatically follow your performances in real time. And with its compact, stylish design and built-in speaker system, the FP-50 is always ready to go wherever you want to play.',
+          title: 'Roland FP-50 Digital Piano Black',
+          price: 1299.0,
+          inventory: 3,
+          imgUrls: [
+            'Roland_FP-50_Digital_Piano_Black_1.png'
+          ]
+        }),
+        models.Product.create({
+          description: 'Cordoba has chosen to honor four master luthiers whose work has shaped the history of the nylon string guitar over the past 150 years, inspiring generations of guitar builders. Each Master Series model is a replica of an iconic guitar representing significant moments in the careers of Antonio de Torres, Hermann Hauser I, Miguel Rodriguez, and Manuel Reyes. Handmade with premium materials in Cordobas California Workshop, Cordoba has partnered with Kenny Hill to examine the original guitars, poring over nuances and specifications to get inside the mind of each maker. From Torres signature 7-fan bracing and unique small body design, to Hausers famed 1937 model used by Andres Segovia, the Master Series allows todays players to get their hands on a slice of guitar history at a fraction of the cost. The Torres Classical Guitar features a solid Engelmann spruce, solid Indian rosewood back and sides, and Spanish cedar neck with an ebony fingerboard. Other appointments include an Indian rosewood binding and bridge, a rope design wood top purfling with 3-ply back and sides purfling (maple/ebony/maple), and an all-natural mosaic rope and herringbone marquetry rosette. It also comes with gold Gotoh tuners with ebony buttons and a hardshell Cordoba humidified archtop case.',
+          title: 'Cordoba Torres Classical Guitar Natural',
+          price: 3499.0,
+          inventory: 1,
+          imgUrls: [
+            'Cordoba_Torres_Classical_Guitar_Natural_1.png',
+            'Cordoba_Torres_Classical_Guitar_Natural_2.png',
+            'Cordoba_Torres_Classical_Guitar_Natural_3.png',
+            'Cordoba_Torres_Classical_Guitar_Natural_4.png',
+            'Cordoba_Torres_Classical_Guitar_Natural_5.png',
+            'Cordoba_Torres_Classical_Guitar_Natural_6.png'
+          ]
+        }),
+        models.Product.create({
+          description: 'Built to last, the Glasser carbon composite violin looks and sounds great. This unique design makes for an instrument with a wonderful tonal quality with durability most instruments will never match. Fully adjusted with Larsen strings, a Despiau bridge, Planetary Tuning Pegs, and a carbon composite Glasser tailpiece with 4 fine tuners.',
+          title: 'Glasser Carbon Composite 4/4 Size Acoustic Violin',
+          price: 544.0,
+          inventory: 5,
+          imgUrls: [
+            'Glasser_Carbon_Composite_Acoustic_Violin_1.jpg',
+            'Glasser_Carbon_Composite_Acoustic_Violin_2.jpg',
+            'Glasser_Carbon_Composite_Acoustic_Violin_3.jpg',
+            'Glasser_Carbon_Composite_Acoustic_Violin_4.jpg',
+            'Glasser_Carbon_Composite_Acoustic_Violin_5.jpg',
+            'Glasser_Carbon_Composite_Acoustic_Violin_6.jpg',
+            'Glasser_Carbon_Composite_Acoustic_Violin_7.jpg',
+            'Glasser_Carbon_Composite_Acoustic_Violin_8.jpg'
+          ]
+        }),
+        models.Product.create({
+          description: 'Nice sunburst on bound maple top, dark cherry finish on mahogany body and neck, bound rosewood fretboard, trapezoid inlays, 22 frets, 2 humbucking pickups, 4 pull pots change pickup phase and tap coils, stop tailpiece, ABR-1 tune-o-matic bridge, Grover Rotomatic tuners, gold hardware, J.P.s signature appears on original pickguard (included in case pocket), 1-11/16" nut, 24-3/4" scale, OHSC (J.P.s signature appears on the interior cape), EC, consignment (SN:92725452)',
+          title: 'Gibson Jimmy Page Les Paul (1995)',
+          price: 4250.0,
+          inventory: 1,
+          imgUrls: [
+            'Gibson_Jimmy_Page_Les_Paul_1995_1.jpg',
+            'Gibson_Jimmy_Page_Les_Paul_1995_6.jpg',
+            'Gibson_Jimmy_Page_Les_Paul_1995_3.jpg',
+            'Gibson_Jimmy_Page_Les_Paul_1995_4.jpg',
+            'Gibson_Jimmy_Page_Les_Paul_1995_5.jpg',
+            'Gibson_Jimmy_Page_Les_Paul_1995_2.jpg',
+            'Gibson_Jimmy_Page_Les_Paul_1995_7.jpg'
+          ]
+        }),
+        models.Product.create({
+          description: 'Affordable travel fiddle makes it possible to play anywhere, worry-free. Design inspired by the 17th century Pochette, or Dance Masters Violin, sized to fit in a coat pocket. Hardwood neck, solid Adirondack Red Spruce top, flaxwood polymer/wood composite injection molded fingerboard, glass reinforced injection-molded thermoplastic body. Hard maple bridge, acrylic tailpiece and chin/shoulder rest (with 3-way height and angle adjustment). Grover 2B friction pegs with fine tuner on High E. ~23" long x ~4" wide. Includes pickup.',
+          title: 'Magic Fluke Company Cricket Violin with Pickup',
+          price: 458,
+          inventory: 3,
+          imgUrls: [
+            'Magic_Fluke_Company_Cricket_Violin_1.jpg',
+            'Magic_Fluke_Company_Cricket_Violin_2.jpg',
+            'Magic_Fluke_Company_Cricket_Violin_3.jpg',
+            'Magic_Fluke_Company_Cricket_Violin_4.jpg',
+            'Magic_Fluke_Company_Cricket_Violin_5.jpg',
+            'Magic_Fluke_Company_Cricket_Violin_6.jpg'
+          ]
+        }),
+        models.Product.create({
+          description: 'Williams redefines affordable elegance with the best-in-class Symphony Grand digital piano. This micro-grand style, 88-key, graded hammer-action instrument offers realistic sound and feel, complemented by a luxurious ebony gloss finish. The newly designed keybed provides an authentic response and playability. The Williams Custom Sound Library the Symphony Grand uses is designed around a wide collection of high-resolution instruments taken from a famed Italian grand piano, as well as vintage electric pianos and organs.',
+          title: 'Williams Symphony Grand Digital Piano with Bench',
+          price: 1499.0,
+          inventory: 2,
+          imgUrls: [
+            'Williams_Symphony_Grand_Digital_Piano_1.png',
+            'Williams_Symphony_Grand_Digital_Piano_2.png',
+            'Williams_Symphony_Grand_Digital_Piano_3.png',
+            'Williams_Symphony_Grand_Digital_Piano_4.png',
+            'Williams_Symphony_Grand_Digital_Piano_5.png'
+          ]
+        }),
+        models.Product.create({
+          description: 'Iconic tone in a limited edition amazing design. In the pantheon of great amps, there are few that stand the test of time like the Fender Princeton and its signature clean tones. There’s that long, luscious spring reverb that lets players dial in everything from ethereal echoes to cavernous swirls. There’s that recognizable Princeton tremolo, which pulses with pure Fender character through every passage and performance. Clearly, its rich tone and responsiveness have given it an unmistakable voice. The relationship between classic Fender amps and Jensen speakers has long existed, and they"ve long been part of the recipe that results in those beloved tones. But true to its namesake, the switch from 10 in. to 12 in. speaker serves up a little something extra for tone chasers—crystal clear wine glass fidelity with plenty of low-end punch and attitude when cranked—a slight differentiation from the tonal quality of the famous Princeton. The Limited Edition Princeton 112 Bordeaux Reserve is a drool-worthy collectable for the discerning amp enthusiast seeking a cosmetically unique amp as well. Also in line with its moniker, the Bordeaux Reserve features a classy yet understated wine red textured vinyl covering and, paired with traditional wheat-colored grille cloth, offers an air of sophistication that only a Fender Princeton can exude.',
+          title: 'Fender Limited Edition 65 Princeton Reverb 15W 1x12 Tube Guitar Combo Amp Bordeaux Reserve',
+          price: 1100.0,
+          inventory: 10,
+          imgUrls: [
+            'Fender_Limited_Edition_65_Princeton_Reverb_15W_1.png',
+            'Fender_Limited_Edition_65_Princeton_Reverb_15W_2.png',
+            'Fender_Limited_Edition_65_Princeton_Reverb_15W_3.png',
+            'Fender_Limited_Edition_65_Princeton_Reverb_15W_4.png'
+          ]
+        }),
+        models.Product.create({
+          description: 'Vintage overdrive-soaked sounds for the stage and studio. The Marshall 1974X 18W 1x12 Combo Amp is a handwired reissue of the model 1974, a combo originally produced from 1965 to 1968. Introduced as a practice combo amp in 1965, it wasnt as loud as the terror-inducing heads Marshall was producing, but it could rock, giving up incredible lead and crunch sounds at low volumes. The 1974X combo comes with 2 EL84 tubes in the power amp, 3 ECC83s in the preamp, an EZ81 rectifier tube, and features valve-driven tremolo. A proprietary, aged reissue of the 20W, ceramic magnet Celestion T1221 speaker used in the original adds to the Marshall 1974Xs tonal authenticity. Marshall includes a footswitch with your 1974X Combo Amp.',
+          title: 'Marshall 1974X Handwired 18W 1x12 Combo Amp',
+          price: 2700.0,
+          inventory: 7,
+          imgUrls: [
+            'Marshall_1974X_Combo_Amp_1.png',
+            'Marshall_1974X_Combo_Amp_2.png',
+            'Marshall_1974X_Combo_Amp_3.png',
+            'Marshall_1974X_Combo_Amp_4.png',
+            'Marshall_1974X_Combo_Amp_5.png'
+          ]
+        }),
+        models.Product.create({
+          description: 'The Fender 65 Twin Reverb Amp is an authentic all-tube reproduction of the original classic! It has earned a reputation of being one of the cleanest tube amps ever, but it delivers a taste of the trademark Fender crunch when cranked up high. Delivers 85W through two Jensen 12" speakers. It has two channels, tube vibrato, tube spring reverb, tilt-back legs and Blackface cosmetics. Includes two-button footswitch to control reverb and vibrato effects.',
+          title: 'Fender Vintage Reissue 65 Twin Reverb 85W 2x12 Guitar Combo Amp',
+          price: 1500,
+          inventory: 5,
+          imgUrls: [
+            'Fender_Vintage_Reissue_65_Twin_Reverb_85W_Combo_Amp_1.png',
+            'Fender_Vintage_Reissue_65_Twin_Reverb_85W_Combo_Amp_2.png',
+            'Fender_Vintage_Reissue_65_Twin_Reverb_85W_Combo_Amp_3.png'
+          ]
+        })
       ])
     })
     .then(products => {
@@ -312,7 +424,17 @@ const guitars = () => {
         categories[1].addProducts(products[8]),
         categories[0].addProducts(products[9]),
         categories[1].addProducts(products[9]),
-        //----
+        categories[0].addProducts(products[10]),
+        categories[1].addProducts(products[10]),
+        categories[4].addProducts(products[11]),
+        categories[1].addProducts(products[12]),
+        categories[5].addProducts(products[13]),
+        categories[0].addProducts(products[14]),
+        categories[5].addProducts(products[15]),
+        categories[4].addProducts(products[16]),
+        categories[2].addProducts(products[17]),
+        categories[2].addProducts(products[18]),
+        categories[2].addProducts(products[19])
       ])
     })
 }
