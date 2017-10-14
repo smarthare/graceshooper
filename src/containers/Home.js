@@ -83,10 +83,6 @@ class Home extends Component {
       products = products.filter(product => {
         const regex = new RegExp(term, 'i')
         return regex.test(product.title)
-        // let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase()
-        // let searchLower = term.toLowerCase()
-        // let title = product.title
-        // return title.includes(searchLower) || title.includes(searchUpper)
       })
     }
     /*********************************************/
@@ -167,40 +163,7 @@ class Home extends Component {
     }
     /*********************************************/
     if (renderswitch) {
-      // return <ProductList categoryId={ categoryId } categories={ categories } />
-
-      return (
-        <div>
-          <div className='row'>
-            <div className='col-sm-12 marginbelow'>
-              <h6>Select a category (below) or enter search term (above)</h6>
-            </div>
-            <div className='col-sm-2 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-body colWidth100 backGreyBlue'>
-                <h6 className='center'>CATEGORIES</h6>
-              </div>
-              <div className='col-sm-12 marginbelow'>
-                {
-                  categories.map(category => {
-                    return (<Link to={`/category/${category.id}`} key={category.id}><div
-                      className='col-sm-12'>
-                      <h6>{ category.name }</h6></div></Link>)
-                  })
-                }
-              </div>
-            </div>
-            <div className='col-sm-10 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-body colWidth100 backGreyBlue'>
-                <h6 className='center'>PRODUCTS - ( { categoryName } )</h6>
-              </div>
-              <div className='col-sm-12 marginbelow'>
-                { renderProducts }
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )
+      return <ProductList categoryId={ categoryId } categories={ categories } filter={ filter } term={ term } />
     } else {
       return <ProductDetail categoryId={categoryId} categories={categories} selectedProduct={selectedProduct} />
     }
