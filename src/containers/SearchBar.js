@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 import { logout } from '../store'
 
 // To Do: add currentUser.isAdmin in front of admin link
@@ -81,46 +80,24 @@ class SearchBar extends Component {
     const selectCat = _categories.map(category => {
       return <option key={category.id} value={category.id}>{ category.name }</option>
     })
-    let renderAuth, test = true;
-    if (currentUser.id || test) {
+    let renderAuth, renderAdmin;
+    if (currentUser.id) {
+      renderAdmin = <Link to="/admin"><div className="col-sm-2 moverightsm margintopsm center">Admin Portal</div></Link>;
       renderAuth = <div onClick={onLogOut} className="col-sm-2 moverightsm margintopsm center">Log Out</div>
+    } else {
+      renderAuth = (<div className="col-sm-4 moverightsm margintopsm center">
+          <Link to="/signin"><div className="col-sm-2 center">Login</div></Link>
+          <Link to="/signup"><div className="col-sm-7 center">Sign Up</div></Link>
+        </div>
+      )
     }
-
-
-    //   : (<div>
-    //     <Link to='/signin'><div className='col-sm-6'>
-    //       <button className='btn btn-default'>Login</button>
-    //     </div></Link>
-    //     <Link to='/signup'><div className='col-sm-6'>
-    //       <button className='btn btn-primary'>Sign Up</button>
-    //     </div></Link>
-    //   </div>
-    // )}
-
-    //--------------------------------
-
-          //   <div className='col-sm-3 col-sm-offset-6 search-bar margintop marginbelowsm'>
-          //   {currentUser.id
-          //     ? (<button onClick={onLogOut} className='col-sm-6 btn btn-warning'>Log Out</button>)
-          //     : (<div>
-          //       <Link to='/signin'><div className='col-sm-6'>
-          //         <button className='btn btn-default'>Login</button>
-          //       </div></Link>
-          //       <Link to='/signup'><div className='col-sm-6'>
-          //         <button className='btn btn-primary'>Sign Up</button>
-          //       </div></Link>
-          //     </div>
-          //   )}
-
-          // </div>
-
     // -------------------------------
     return (
       <div>
         <div className="row">
           <div className="col-sm-12 panel panel-default nomarginBot backGreyBlue">
-            <h4 className="col-sm-3 margintop marginbelowsm"><Link to={`/category/0`}>Grace Shopper</Link></h4>
-            <div className="col-sm-9 margintop marginbelowsm">
+            <h4 className="col-sm-3 margintopmore marginbelowsm"><Link to={`/category/0`}>Grace Shopper</Link></h4>
+            <div className="col-sm-9 margintopmore marginbelowsm">
               <form onSubmit={this.handleSubmit}>
                 <select
                   onChange={this.handleInput}
@@ -139,12 +116,12 @@ class SearchBar extends Component {
                 </button>
               </form>
             </div>
-              <div className="col-sm-7 marginbelowsm">
-                <Link to="/"><div className="col-sm-1 margintopsm center">Home</div></Link>
-                <Link to="/admin"><div className="col-sm-2 moverightsm margintopsm center">Admin Portal</div></Link>
-                <Link to="/account"><div className="col-sm-1 moverightsm margintopsm center">Account</div></Link>
+              <div className="col-sm-12 marginbelowsm">
+                <Link to="/"><div className="col-sm-1 moverightsm margintopsm center">Home</div></Link>
+                <Link to="/account"><div className="col-sm-2 moverightsm margintopsm center">Account</div></Link>
                 <Link to="/cart"><div className="col-sm-2 moverightsm margintopsm center">Cart ({cart.lineItems.length})</div></Link>
                 { renderAuth }
+                { renderAdmin }
               </div>
           </div>
         </div>
