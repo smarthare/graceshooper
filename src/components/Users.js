@@ -7,6 +7,7 @@ class Users extends React.Component {
   constructor (props) {
     super(props)
     this.handleDelete = this.handleDelete.bind(this)
+    this.toggleAdmin = this.toggleAdmin.bind(this)
   }
 
   handleDelete (e) {
@@ -14,12 +15,15 @@ class Users extends React.Component {
     store.dispatch(deleteUser(e.target.value))
   }
 
-  toggleAdmin () {}
+  toggleAdmin (e) {
+    console.log(e.target.value)
+  }
 
   render () {
     const { users } = this.props
     return (
       <div className='col-xs-4'>
+        <br/>
         <div className='panel panel-default'>
           <div className='panel-heading'>
             <h3>Users</h3>
@@ -38,8 +42,8 @@ class Users extends React.Component {
                     >
                       Delete
                     </button>
-                    <button className='btn btn-primary btn-sm' value={user.id}>
-                      {user.isAdmin ? 'Remove Admin' : 'Make Admin'}
+                    <button className='btn btn-primary btn-sm' value={user.id} onClick={this.toggleAdmin}>
+                      {user.isAdmin==='true' ? 'Remove Admin' : 'Make Admin'}
                     </button>
                     <button className='btn btn-default btn-sm' value={user.id}>
                       Reset PW
