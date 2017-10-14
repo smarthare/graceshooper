@@ -11,7 +11,8 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user
+      user: props.user,
+      orders: props.orders
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -19,9 +20,7 @@ class User extends Component {
   }
 
   componentDidMount() {
-    //NOT SURE WE NEED THESE?
-    store.dispatch(fetchUsers());
-    store.dispatch(fetchOrders());
+    //NOT SURE WE NEED THIS?
     store.dispatch(fetchCart());
   }
 
@@ -38,6 +37,7 @@ class User extends Component {
 
   render() {
     const { cart, orders, currentUser, users } = this.props;
+    console.log("orders", orders);
     const { user } = this.state;
     console.log("user", user);
     // const user = currentUser;
@@ -162,9 +162,11 @@ class User extends Component {
 const mapStateToProps = state => {
   return {
     users: state.users,
-    orders: state.orders,
+    orders: state.orders.filter(order => {
+      return order.userId === state.users[3].id;
+    }),
     currentUser: state.currentUser,
-    user: state.users[1]
+    user: state.users[3]
   };
 };
 
