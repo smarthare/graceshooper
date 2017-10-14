@@ -133,7 +133,7 @@ const guitars = () => {
         models.Product.create({
           description:
             'This simple, elegant semi-hollow features 57 Classic and Super 57 Classic pickups with matched bobbin windings for vintage humbucker tone with enhanced highs. Appointments include a great-feeling C neck profile with torrified maple fretboard, an improved truss rod, rolled neck binding, low-profile frets, Grover tuners and locking stopbar tailpiece for better sustain. Includes hardshell case.',
-          title: 'Gibson ES-339 Studio Semi-Hollow Guitar',
+          title: 'Gibson ES-339 Studio Semi-Hollow Guitar Ginger Burst',
           price: 1799.0,
           inventory: 3,
           imgUrls: [
@@ -147,7 +147,7 @@ const guitars = () => {
         models.Product.create({
           description:
             'This simple, elegant semi-hollow features 57 Classic and Super 57 Classic pickups with matched bobbin windings for vintage humbucker tone with enhanced highs. Appointments include a great-feeling C neck profile with torrified maple fretboard, an improved truss rod, rolled neck binding, low-profile frets, Grover tuners and locking stopbar tailpiece for better sustain. Includes hardshell case.',
-          title: 'Gibson 2016 ES-335 Studio Semi-Hollow Electric Guitar',
+          title: 'Gibson 2016 ES-335 Studio Semi-Hollow Electric Guitar Faded Cherry',
           price: 1799.0,
           inventory: 1,
           imgUrls: [
@@ -246,9 +246,56 @@ const guitars = () => {
           inventory: 10,
           imgUrls: [
             'Orange_Amplifiers_PPC212OB_1.png',
-            'Orange_Amplifiers_PPC212OB_2.png'
+            'Orange_Amplifiers_PPC212OB_2.png',
+            'Orange_Amplifiers_PPC212OB_3.png'
           ]
-        })
+        }),
+        models.Product.create({
+          description: 'This ingenious blend of tradition and innovation is perfectly executed by the team at Gibson Memphis. Combining characteristics of a Les Paul and ES-335 it yields surprisingly powerful tones and a wonderful playing experience, courtesy of PAF-style MHS Alnico II (lead) and MHS Alnico III (rhythm) pickups, rounded C neck profile, historic details and more. Other features include F-hole emblem engraved truss rod cover, redesigned neck dimensions, bone nut, rolled neck binding, low-profile frets, Kluson tuners and an ABR-1 bridge with stopbar tailpiece.  Includes hardshell case.',
+          title: 'Gibson ES-Les Paul Semi-Hollow Body Electric Guitar Transparent Amber',
+          price: 3284.0,
+          inventory: 2,
+          imgUrls: [
+            'Gibson_ES-Les_Paul_Semi-Hollow_Body_1.png',
+            'Gibson_ES-Les_Paul_Semi-Hollow_Body_2.png',
+            'Gibson_ES-Les_Paul_Semi-Hollow_Body_3.png',
+            'Gibson_ES-Les_Paul_Semi-Hollow_Body_4.png',
+            'Gibson_ES-Les_Paul_Semi-Hollow_Body_5.png',
+            'Gibson_ES-Les_Paul_Semi-Hollow_Body_6.png'
+          ]
+        }),
+        models.Product.create({
+          description: '',
+          title: 'Gibson 2016 ES-335 Semi-Hollow Electric Guitar Faded Light Burst',
+          price: 0,
+          inventory: 0,
+          imgUrls: [
+            'Gibson_2016_ES-335_Semi-Hollow_Electric_1.png',
+            'Gibson_2016_ES-335_Semi-Hollow_Electric_2.png',
+            'Gibson_2016_ES-335_Semi-Hollow_Electric_3.png',
+            'Gibson_2016_ES-335_Semi-Hollow_Electric_4.png',
+            'Gibson_2016_ES-335_Semi-Hollow_Electric_5.png',
+            'Gibson_2016_ES-335_Semi-Hollow_Electric_6.png'
+          ]
+        }),
+
+
+
+
+
+
+
+
+        // models.Product.create({
+        //   description: '',
+        //   title: '',
+        //   price: 0,
+        //   inventory: 0,
+        //   imgUrls: [
+        //     '_1.png',
+        //     '_2.png'
+        //   ]
+        // }),
       ])
     })
     .then(products => {
@@ -267,7 +314,12 @@ const guitars = () => {
         categories[4].addProducts(products[5]),
         categories[3].addProducts(products[6]),
         categories[4].addProducts(products[6]),
-        categories[2].addProducts(products[7])
+        categories[2].addProducts(products[7]),
+        categories[0].addProducts(products[8]),
+        categories[1].addProducts(products[8]),
+        categories[0].addProducts(products[9]),
+        categories[1].addProducts(products[9]),
+        //----
       ])
     })
 }
