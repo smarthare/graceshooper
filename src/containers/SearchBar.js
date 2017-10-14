@@ -16,41 +16,19 @@ class SearchBar extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInput = this.handleInput.bind(this)
-    // this.clearState = this.clearState.bind(this);
-  }
-
-  // clearState() {
-  //   this.setState({
-  //     searchTerm: this.props.state.shop.searchTerm,
-  //     searchCategory: this.props.state.shop.searchCategory
-  //   })
-  // }
-
-  componentDidMount () {
-      // this.clearState();
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('.......Search this.props: ', this.props)
-    console.log('.......Search nextPops: ', nextProps)
-    // const routePath = nextProps.router.location.pathname.slice(0, 9);
-    // const idLast = this.props.router.match.params.id * 1;
-    // const idNext = nextProps.router.match.params.id * 1;
-    // const termLast = this.props.router.match.params.term;
-    // const termNext = nextProps.router.match.params.term;
-    // const catLenLast = this.props.state.categories.length;
-    // if (!idLast && !idNext && routePath === '/' && !catLenLast) {
-    //   console.log('****** Starting the App ******')
-    //   // *****       Starting the App      *****
-    //   // ***** Just start, do nothing else *****
-    // } else if (routePath === '/category' && (idNext !== idLast || (termNext !== termLast))) {
-    //   console.log('****** Select Categories from Home Display List *********')
-    //   // *****      Select Categories from Home Display List       *****
-    //   // ***** fetch categories & display on ProductList component *****
-    //   this.props.fetchProductsForCat(idNext, termNext)
-    // } else if (!idNext && routePath === '/') {
-    //   console.log('****** //// Hitting the Grace Hopper link //// ******')
-    // }
+    /*********************************************/
+    // get nextProps variables
+    const pathnameLast = this.props.location.pathname
+    const pathname = nextProps.router.location.pathname
+    const searchCategory = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0
+    const searchTerm = (nextProps.router.match.params.term) ? nextProps.router.match.params.term : ''
+    /*********************************************/
+    // update state......
+    if (pathname !== pathnameLast) this.setState({ searchCategory, searchTerm })
+    /*********************************************/
   }
 
   handleSubmit (event) {
