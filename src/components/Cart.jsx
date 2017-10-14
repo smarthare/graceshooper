@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom'
 import { } from '../store'
 
 const Cart = (props) => {
-  const { cart } = props
+  const
+    { cart } = props
+    // subtotal = cart.lineItems.reduce((sum, ln))
+
   return (
     <div className='container'>
       <div className='row'>
@@ -16,9 +19,7 @@ const Cart = (props) => {
             <ul className='list-group'>
               {cart.lineItems.map((line, idx) => (
                 <li className='list-group-item clearfix' key={idx}>
-                  {line.productId}
-                  {line.quantity}
-                  {line.price}
+                  {JSON.stringify(line)}
                 </li>
               ))}
             </ul>

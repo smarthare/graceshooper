@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
 export default rootReducer
 export * from './auth'
 export * from './cart'
+export * from './orders'
 export * from './users'
 export * from './categories'
 export * from './reducer_products'

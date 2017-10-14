@@ -34,8 +34,9 @@ router
   })
 
   .post('/lineItems', (req, res, next) => {
+    const { productId, quantity } = req.body
     Order.getCartByUserId(req.session.userId)
-      .then(cart => cart.addProdToCart(req.body))
+      .then(cart => cart.addProdToCart(productId, quantity))
       .then(lineItem => res.send(lineItem))
       .catch(next)
   })
