@@ -81,59 +81,71 @@ class SearchBar extends Component {
     const selectCat = _categories.map(category => {
       return <option key={category.id} value={category.id}>{ category.name }</option>
     })
+    let renderAuth, test = true;
+    if (currentUser.id || test) {
+      renderAuth = <div onClick={onLogOut} className="col-sm-2 moverightsm margintopsm center">Log Out</div>
+    }
+
+
+    //   : (<div>
+    //     <Link to='/signin'><div className='col-sm-6'>
+    //       <button className='btn btn-default'>Login</button>
+    //     </div></Link>
+    //     <Link to='/signup'><div className='col-sm-6'>
+    //       <button className='btn btn-primary'>Sign Up</button>
+    //     </div></Link>
+    //   </div>
+    // )}
+
+    //--------------------------------
+
+          //   <div className='col-sm-3 col-sm-offset-6 search-bar margintop marginbelowsm'>
+          //   {currentUser.id
+          //     ? (<button onClick={onLogOut} className='col-sm-6 btn btn-warning'>Log Out</button>)
+          //     : (<div>
+          //       <Link to='/signin'><div className='col-sm-6'>
+          //         <button className='btn btn-default'>Login</button>
+          //       </div></Link>
+          //       <Link to='/signup'><div className='col-sm-6'>
+          //         <button className='btn btn-primary'>Sign Up</button>
+          //       </div></Link>
+          //     </div>
+          //   )}
+
+          // </div>
+
     // -------------------------------
     return (
       <div>
-        <div className='row'>
-          <div className='col-sm-12 panel panel-default nomarginBot backGreyBlue'>
-            <div className='row'>
-              <h2 className='col-sm-3 textBlk margintop marginbelowsm'>
-                <Link to={`/category/0`}>Grace Shopper</Link>
-              </h2>
-              <div className='col-sm-3 col-sm-offset-6 search-bar margintop marginbelowsm'>
-                {currentUser.id
-                  ? (<button onClick={onLogOut} className='col-sm-6 btn btn-warning'>Log Out</button>)
-                  : (<div>
-                    <Link to='/signin'><div className='col-sm-6'>
-                      <button className='btn btn-default'>Login</button>
-                    </div></Link>
-                    <Link to='/signup'><div className='col-sm-6'>
-                      <button className='btn btn-primary'>Sign Up</button>
-                    </div></Link>
-                  </div>
-                )}
-
-              </div>
-            </div>
-
-            <div className='col-sm-12 col-md-8  col-md-offset-2 search-bar marginbelowsm'>
+        <div className="row">
+          <div className="col-sm-12 panel panel-default nomarginBot backGreyBlue">
+            <h4 className="col-sm-3 margintop marginbelowsm"><Link to={`/category/0`}>Grace Shopper</Link></h4>
+            <div className="col-sm-9 margintop marginbelowsm">
               <form onSubmit={this.handleSubmit}>
                 <select
                   onChange={this.handleInput}
                   value={this.state.searchCategory}
-                  name='searchCategory'
-                  type='text'>
+                  name="searchCategory"
+                  type="text">
                   { selectCat }
                 </select>
                 <input
                   value={this.state.searchTerm}
                   onChange={this.handleInput}
-                  className='colWidth60'
-                  name='searchTerm' />
-                <button type='submit'>
-                  <span className='glyphicon glyphicon-search' aria-hidden='true' />
+                  className="colWidth60"
+                  name="searchTerm" />
+                <button type="submit">
+                  <span className="glyphicon glyphicon-search" aria-hidden="true" />
                 </button>
               </form>
             </div>
-
-            <div className='col-md-6 col-md-offset-6 search-bar marginbelowsm'>
-              <Link to='/admin'><div className='col-sm-3 moverightsm margintopsm'>Admin Portal</div></Link>
-              <Link to='/'><div className='col-sm-3 moverightsm margintopsm'>Home</div></Link>
-              <Link to='/account'><div className='col-sm-3 moverightsm margintopsm'>Account</div></Link>
-              <Link to='/cart'><div className='col-sm-3 moverightsm margintopsm'>
-                Cart ({cart.lineItems.length})
-              </div></Link>
-            </div>
+              <div className="col-sm-7 marginbelowsm">
+                <Link to="/"><div className="col-sm-1 margintopsm center">Home</div></Link>
+                <Link to="/admin"><div className="col-sm-2 moverightsm margintopsm center">Admin Portal</div></Link>
+                <Link to="/account"><div className="col-sm-1 moverightsm margintopsm center">Account</div></Link>
+                <Link to="/cart"><div className="col-sm-2 moverightsm margintopsm center">Cart ({cart.lineItems.length})</div></Link>
+                { renderAuth }
+              </div>
           </div>
         </div>
       </div>
