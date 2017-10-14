@@ -4,6 +4,8 @@ import { Link, withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { logout } from '../store'
 
+// To Do: add currentUser.isAdmin in front of admin link
+
 class SearchBar extends Component {
   constructor (props) {
     super(props)
@@ -125,11 +127,7 @@ class SearchBar extends Component {
             </div>
 
             <div className='col-md-6 col-md-offset-6 search-bar marginbelowsm'>
-              {
-                currentUser.isAdmin &&
-                <Link to='/admin'><div className='col-sm-3 moverightsm margintopsm'>Admin Portal</div></Link>
-              }
-
+              <Link to='/admin'><div className='col-sm-3 moverightsm margintopsm'>Admin Portal</div></Link>
               <Link to='/'><div className='col-sm-3 moverightsm margintopsm'>Home</div></Link>
               <Link to='/account'><div className='col-sm-3 moverightsm margintopsm'>Account</div></Link>
               <Link to='/cart'><div className='col-sm-3 moverightsm margintopsm'>
