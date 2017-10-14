@@ -48,7 +48,6 @@ class ProductDetail extends Component {
   render () {
     /*********************************************/
     // setup local variables from props
-    console.log('>>>>>>>>>>>>>>>>>>>>>>', this.props)
     const { categoryId, categories, selectedProduct } = this.props
     /*********************************************/
     let renderProducts, renderProducts2, price
@@ -67,7 +66,7 @@ class ProductDetail extends Component {
           <div className='col-sm-3 panel panel-default marginbelowsm'>
             {
               imagesExtra.map(img => {
-                return (<div className='col-sm-12' key={img}>
+                return (<div className='col-sm-12 marginbelowsm' key={img}>
                   <img src={img} className='responsive-image' />
                 </div>)
               })
