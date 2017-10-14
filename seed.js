@@ -1,11 +1,5 @@
 'use strict'
-
-// Incorporated VR's guitars. Needs to test that there won't be collisons
-
-// Run 'node seed' or 'npm run seed' to seed user and products.
-// There might be error messages giving on unique constraints, which should not cause any real problem
-
-// At the moment, there is no data for order/reviews, as the logics for those still need work
+// At the moment, there is no data for reviews
 
 const faker = require('faker'),
   Promise = require('bluebird'),

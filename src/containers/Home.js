@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import ProductDetail from './ProductDetail'
+import ProductList from './ProductList'
+
 class Home extends Component {
   constructor (props) {
     super(props)
@@ -59,14 +62,10 @@ class Home extends Component {
   }
 
   render () {
-    /*********************************************/
-    // setup local variables
     let products = this.props.products
     const categories = this.props.categories
-    const filter = this.state.filter
-    const categoryId = this.state.categoryId
-    const selectedProduct = this.state.selectedProduct
-    const term = this.state.term
+    const { filter, categoryId, selectedProduct, term } = this.state
+
     /*********************************************/
     // filter the Products List? - Main Section
     // are we filtering by category?
@@ -82,10 +81,12 @@ class Home extends Component {
     // now check if we are filtering by search term.
     if (filter && term && products.length) {
       products = products.filter(product => {
-        let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase()
-        let searchLower = term.toLowerCase()
-        let title = product.title
-        return title.includes(searchLower) || title.includes(searchUpper)
+        const regex = new RegExp(term, 'i')
+        return regex.test(product.title)
+        // let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase()
+        // let searchLower = term.toLowerCase()
+        // let title = product.title
+        // return title.includes(searchLower) || title.includes(searchUpper)
       })
     }
     /*********************************************/
@@ -100,13 +101,12 @@ class Home extends Component {
       // accounting for varied image inputs & price formatting:
       /*************************************/
       renderswitch = false
-      const images = selectedProduct.imgUrls.map(image => {
+      const [imagesMain, ...imagesExtra] = selectedProduct.imgUrls.map(image => {
         return this.productWork(image)[0]
       })
       price = this.productWork(null, selectedProduct.price)[1]
       /*************************************/
       // create <div></div> for the multiple extra images
-      const imagesExtra = images.slice(1)
       if (imagesExtra.length) {
         renderProducts = (
           <div className='col-sm-3 panel panel-default marginbelowsm'>
@@ -123,7 +123,6 @@ class Home extends Component {
       }
       /*************************************/
       // create <div></div> for the main image
-      const imagesMain = images.slice(0, 1)
       renderProducts2 = <div className='col-sm-9'><img src={imagesMain} className='responsive-image' /></div>
     /*************************************/
     } else {
@@ -168,6 +167,8 @@ class Home extends Component {
     }
     /*********************************************/
     if (renderswitch) {
+      // return <ProductList categoryId={ categoryId } categories={ categories } />
+
       return (
         <div>
           <div className='row'>
@@ -175,7 +176,7 @@ class Home extends Component {
               <h6>Select a category (below) or enter search term (above)</h6>
             </div>
             <div className='col-sm-2 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-heading colWidth100'>
+              <div className='col-sm-12 marginbelow panel-body colWidth100 backGreyBlue'>
                 <h6 className='center'>CATEGORIES</h6>
               </div>
               <div className='col-sm-12 marginbelow'>
@@ -189,7 +190,7 @@ class Home extends Component {
               </div>
             </div>
             <div className='col-sm-10 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-heading colWidth100'>
+              <div className='col-sm-12 marginbelow panel-body colWidth100 backGreyBlue'>
                 <h6 className='center'>PRODUCTS - ( { categoryName } )</h6>
               </div>
               <div className='col-sm-12 marginbelow'>
@@ -201,71 +202,13 @@ class Home extends Component {
         </div>
       )
     } else {
-      return (
-        <div>
-          <div className='row'>
-            <div className='col-sm-12 marginbelow'>
-              <h6>Select a category (below) or enter search term (above)</h6>
-            </div>
-            <div className='col-sm-2 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-heading colWidth100'>
-                <h6 className='center'>CATEGORIES</h6>
-              </div>
-              <div className='col-sm-12 marginbelow'>
-                {
-                  categories.map(category => {
-                    return (<Link to={`/category/${category.id}`} key={category.id}><div
-                      className='col-sm-12'>
-                      <h6>{ category.name }</h6></div></Link>)
-                  })
-                }
-              </div>
-            </div>
-            <div className='col-sm-10 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-heading colWidth100'>
-                <h6 className='center'>PRODUCTS - ( { categoryName } )</h6>
-              </div>
-              <div className='col-sm-12 center marginbelow'>
-                <strong>{ selectedProduct.title }</strong>
-              </div>
-              <div className='col-sm-12 marginbelow'>
-                { selectedProduct.description } - ( Product #: { selectedProduct.id } )
-              </div>
-              <div className='col-sm-9 marginbelow'>
-                { renderProducts2 }
-                { renderProducts }
-              </div>
-              <div className='col-sm-3 marginbelow margintop panel panel-default'>
-                <div className='col-sm-12 marginbelow panel-heading colWidth100'>
-                  <h6 className='center'>Order Now</h6>
-                </div>
-                <div className='col-sm-12 panel-body colWidth100'>
-                  <div className='col-sm-12 marginbelow center'><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
-                  <div className='col-sm-12 marginbelow center'><strong>Unit Price: </strong>{ price }</div>
-                  <div className='col-sm-12 marginbelow center'><strong>Qty to Order: </strong>
-                    <select>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                    </select>
-                  </div>
-                  <button id='content' className='btn btn-primary marginbelow margintop' >
-                    <span className='glyphicon glyphicon-shopping-cart' aria-hidden='true' />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )
+      return <ProductDetail categoryId={categoryId} categories={categories} selectedProduct={selectedProduct} />
     }
   }
 }
 
-function mapStateToProps (state) {
+function mapState (state) {
   return state
 }
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapState)(Home)

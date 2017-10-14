@@ -30,7 +30,7 @@ export default (currentUser = {}, action) => {
   THUNK
  */
 export const auth = (credentials, history, formName) => dispatch => {
-  return axios.post(`api/auth/${formName}`, credentials)
+  return axios.post(`/api/auth/${formName}`, credentials)
     .then(result => result.data)
     .then(user => {
       dispatch(setCurrUser(user))
@@ -40,7 +40,7 @@ export const auth = (credentials, history, formName) => dispatch => {
 }
 
 export const fetchFromServer = () => dispatch => {
-  return axios.get('api/auth')
+  return axios.get('/api/auth')
     .then(result => result.data)
     .then(user => {
       dispatch(setCurrUser(user))
@@ -49,7 +49,7 @@ export const fetchFromServer = () => dispatch => {
 }
 
 export const logout = () => dispatch => {
-  return axios.delete('api/auth')
+  return axios.delete('/api/auth')
     .then(() => dispatch(removeCurrUser()))
     // .catch(() => console.log('problem during logout'))
 }

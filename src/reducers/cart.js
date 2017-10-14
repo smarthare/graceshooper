@@ -1,10 +1,4 @@
 import axios from 'axios'
-// Will need to work with user part of the state to get user/address
-
-const initialState = {
-  lineItems: []
-}
-
 /*
   ACTION TYPE
  */
@@ -22,16 +16,17 @@ const removeLineFromCart = lineItem => ({ type: REMOVE_LINE, lineItem })
 /*
   REDUCER
  */
-export default (prevState = initialState, action) => {
+export default (prevState = {lineItems: []}, action) => {
+  console.log('prevState:', prevState)
   switch (action.type) {
     case GET_CART:
       return Object.assign(prevState, action.cart)
     case ADD_TO_CART:
-      return { lineItems: [ action.lineItem, ...prevState.lineItems ], ...prevState }
+      return { ...prevState, lineItems: prevState.lineItems.concat(action.lineItem) }
     case REMOVE_LINE:
       return {
-        lineItems: prevState.lineItems.filter(ln => ln !== action.lineItem),
-        ...prevState
+        ...prevState,
+        lineItems: prevState.lineItems.filter(ln => ln !== action.lineItem)
       }
     default:
       return prevState
@@ -53,7 +48,9 @@ export const addProductToCart = (productId, quantity) => dispatch => {
   // It might makes more sense to directly add lineItem if possible
   return axios.post('/api/orders/lineItems', { productId, quantity })
     .then(result => result.data)
-    .then(lineItem => dispatch(addLineToCart(lineItem)))
+    .then(lineItem => {
+      dispatch(addLineToCart(lineItem))
+    })
 }
 
 export const deleteLnFromCart = (lineItem) => dispatch => {

@@ -5,12 +5,9 @@ const
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
   db = require('./db'),
-  seed = require('../seed')
-port = process.env.PORT || 2020,
+  seed = require('../seed'),
+  port = process.env.PORT || 2020,
   session = require('express-session')
-
-// Don't think seed needs to be called everytime once it's actually seeded
-// const seed = require("../seed");
 
 app.use('/assets', express.static(path.join(__dirname, '../assets')))
 app.use('/dist', express.static(path.join(__dirname, '../dist')))

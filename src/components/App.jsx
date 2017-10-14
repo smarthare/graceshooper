@@ -12,10 +12,6 @@ import Account from './User'
 import store, { fetchUsers, fetchCategories, fetchProducts } from '../store'
 
 export default class App extends Component {
-  constructor () {
-    super()
-  }
-
   componentDidMount () {
     store.dispatch(fetchCategories())
     store.dispatch(fetchUsers())
@@ -25,7 +21,6 @@ export default class App extends Component {
   render () {
     return (
       <div className='container-fluid'>
-        <h3>Welcome to Grace-Shopper</h3>
         <Switch>
           <Route path='/category/:id/:term' render={router => <SearchBar router={router} />} />
           <Route path='/category/:id' render={router => <SearchBar router={router} />} />
