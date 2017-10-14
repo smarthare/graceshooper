@@ -66,8 +66,8 @@ class ProductDetail extends Component {
           <div className='col-sm-3 panel panel-default marginbelowsm'>
             {
               imagesExtra.map(img => {
-                return (<div className='col-sm-12 marginbelowsm' key={img}>
-                  <img src={img} className='responsive-image' />
+                return (<div className="col-sm-12 marginbelowsm" key={img}>
+                  <img src={img} className="responsive-image" />
                 </div>)
               })
             }
@@ -77,7 +77,7 @@ class ProductDetail extends Component {
       }
       /*************************************/
       // create <div></div> for the main image
-      renderProducts2 = <div className='col-sm-9'><img src={imagesMain} className='responsive-image' /></div>
+      renderProducts2 = <div className="col-sm-9"><img src={imagesMain} className="responsive-image" /></div>
     }
     /*********************************************/
     // Label Products section:
@@ -104,27 +104,27 @@ class ProductDetail extends Component {
     /*********************************************/
     return (
       <div>
-        <div className='row'>
-          <div className='col-sm-12 marginbelow'>
+        <div className="row">
+          <div className="col-sm-12 marginbelow">
             <h6>Select a category (below) or enter search term (above)</h6>
           </div>
-          <div className='col-sm-2 panel panel-default'>
-            <div className='col-sm-12 marginbelow panel-body backGreyBlue'>
-              <h6 className='center'>CATEGORIES</h6>
+          <div className="col-sm-2 panel panel-default">
+            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
+              <h6 className="center">CATEGORIES</h6>
             </div>
-            <div className='col-sm-12 marginbelow'>
+            <div className="col-sm-12 marginbelow">
               {
                 categories.map(category => {
                   return (<Link to={`/category/${category.id}`} key={category.id}><div
-                    className='col-sm-12'>
+                    className="col-sm-12">
                     <h6>{ category.name }</h6></div></Link>)
                 })
               }
             </div>
           </div>
-          <div className='col-sm-10 panel panel-default'>
-            <div className='col-sm-12 marginbelow panel-body backGreyBlue'>
-              <h6 className='center'>PRODUCTS - ( { categoryName } )</h6>
+          <div className="col-sm-10 panel panel-default">
+            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
+              <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
             </div>
             <div className='col-sm-12 center marginbelow'>
               <strong>{ selectedProduct.title }</strong>
@@ -137,11 +137,11 @@ class ProductDetail extends Component {
               { renderProducts }
             </div>
             <form onSubmit={this.handleSubmit}>
-              <div className='col-sm-3 marginbelow margintop panel panel-default backGreyBlue'>
-                <div className='col-sm-12 panel-body colWidth100'>
-                  <div className='col-sm-12 marginbelow center'><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
-                  <div className='col-sm-12 marginbelow center'><strong>Unit Price: </strong>{ price }</div>
-                  <div className='col-sm-12 marginbelow center'><strong>Qty to Order: </strong>
+              <div className="col-sm-3 marginbelow margintop panel panel-default backGreyBlue">
+                <div className="col-sm-12 panel-body colWidth100">
+                  <div className="col-sm-12 marginbelow center"><strong>Stock Qty: </strong>{ selectedProduct.inventory }</div>
+                  <div className="col-sm-12 marginbelow center"><strong>Unit Price: </strong>{ price }</div>
+                  <div className="col-sm-12 marginbelow center"><strong>Qty to Order: </strong>
                     <select
                       name='selectQty'
                       value={this.state.selectQty}
@@ -149,8 +149,8 @@ class ProductDetail extends Component {
                       { renderOptions }
                     </select>
                   </div>
-                  <button id='content' className='btn btn-primary marginbelow margintop' >
-                    <span className='glyphicon glyphicon-shopping-cart' aria-hidden='true' />
+                  <button id="content" className="btn btn-primary marginbelow margintop" >
+                    <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                     &ensp;Add to Cart
                   </button>
                 </div>

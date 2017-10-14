@@ -6,7 +6,7 @@ import ProductDetail from './ProductDetail'
 import ProductList from './ProductList'
 
 class Home extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       pathname: '/',
@@ -19,7 +19,7 @@ class Home extends Component {
     this.productWork = this.productWork.bind(this)
   }
 
-  productWork (imgBefore, priceBefore) {
+  productWork(imgBefore, priceBefore) {
     // can send only one argument or both for a result
     // accounting for varied image inputs:
     let imgAfter = 'none given'
@@ -35,7 +35,7 @@ class Home extends Component {
     return [imgAfter, priceAfter]
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     /*********************************************/
     // get nextProps variables
     const pathnameLast = this.state.pathname
@@ -61,70 +61,27 @@ class Home extends Component {
     /*********************************************/
   }
 
-  render () {
+  render() {
     let products = this.props.products
     const categories = this.props.categories
     const { filter, categoryId, selectedProduct, term } = this.state
-    /*********************************************/
-    // filter the Products List? - Main Section
-    // are we filtering by category?
-    if (filter && categoryId) {
-      products = products.filter(product => {
-        let acceptProd = false
-        product.categories.forEach(category => {
-          if (categoryId === category.id) acceptProd = true
-        })
-        return acceptProd
-      })
-    }
-    // now check if we are filtering by search term.
-    if (filter && term && products.length) {
-      products = products.filter(product => {
-        const regex = new RegExp(term, 'i')
-        return regex.test(product.title)
-      })
-    }
-    let renderswitch;
+    let renderSwitch;
     if (selectedProduct.title) {
       // single product work here
-      renderswitch = false
-    //   const [imagesMain, ...imagesExtra] = selectedProduct.imgUrls.map(image => {
-    //     return this.productWork(image)[0]
-    //   })
-    //   price = this.productWork(null, selectedProduct.price)[1]
-    //   /*************************************/
-    //   // create <div></div> for the multiple extra images
-    //   if (imagesExtra.length) {
-    //     renderProducts = (
-    //       <div className='col-sm-3 panel panel-default marginbelowsm'>
-    //         {
-    //           imagesExtra.map(img => {
-    //             return (<div className='col-sm-12' key={img}>
-    //               <img src={img} className='responsive-image' />
-    //             </div>)
-    //           })
-    //         }
-    //       </div>)
-    //   } else {
-    //     renderProducts = <div className='col-sm-1 border panel panel-default' />
-    //   }
-    //   /*************************************/
-    //   // create <div></div> for the main image
-    //   renderProducts2 = <div className='col-sm-9'><img src={imagesMain} className='responsive-image' /></div>
-    // /*************************************/
+      renderSwitch = false
     } else {
       // looking for products in a category &/or containing a search term
-      renderswitch = true;
+      renderSwitch = true;
     }
-    if (renderswitch) {
-      return <ProductList categoryId={ categoryId } categories={ categories } filter={ filter } term={ term } />
+    if (renderSwitch) {
+      return <ProductList categoryId={categoryId} categories={categories} filter={filter} term={term} />
     } else {
       return <ProductDetail categoryId={categoryId} categories={categories} selectedProduct={selectedProduct} />
     }
   }
 }
 
-function mapState (state) {
+function mapState(state) {
   return state
 }
 

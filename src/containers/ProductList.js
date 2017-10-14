@@ -28,7 +28,6 @@ class ProductList extends Component {
   render() {
     /*********************************************/
     // setup local variables
-    console.log('>>>>>>>>>>>>>> props: ', this.props);
     if (!this.props.categories.length) return <div></div>;
     const { categories, categoryId, term, filter } = this.props;
     let products = this.props.products;
