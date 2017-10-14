@@ -30,7 +30,7 @@ class ProductList extends Component {
     // setup local variables
     console.log('>>>>>>>>>>>>>> props: ', this.props);
     if (!this.props.categories.length) return <div></div>;
-    const { categories, categoryId, term } = this.props;
+    const { categories, categoryId, term, filter } = this.props;
     let products = this.props.products;
     /*********************************************/
     // filter the Products List? - Main Section
@@ -88,9 +88,9 @@ class ProductList extends Component {
       const resultArr = categories.filter(category => {
         return category.id === categoryId;
       })
-      categoryName = categoryName + resultArr[0].name;
+      categoryName = resultArr[0].name;
     } else {
-      categoryName = categoryName + 'all Categories';
+      categoryName = 'all Categories';
     }
     /*********************************************/
     return (

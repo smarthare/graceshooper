@@ -65,7 +65,6 @@ class Home extends Component {
     let products = this.props.products
     const categories = this.props.categories
     const { filter, categoryId, selectedProduct, term } = this.state
-
     /*********************************************/
     // filter the Products List? - Main Section
     // are we filtering by category?
@@ -85,83 +84,38 @@ class Home extends Component {
         return regex.test(product.title)
       })
     }
-    /*********************************************/
-    // create the Products List &/or the Selected Product- Main Section
-    /*********************************************/
-    // if there is a selected Product, then render for the one product
-    let renderProducts, renderProducts2, renderswitch, price
+    let renderswitch;
     if (selectedProduct.title) {
-      /*************************************/
       // single product work here
-      /*************************************/
-      // accounting for varied image inputs & price formatting:
-      /*************************************/
       renderswitch = false
-      const [imagesMain, ...imagesExtra] = selectedProduct.imgUrls.map(image => {
-        return this.productWork(image)[0]
-      })
-      price = this.productWork(null, selectedProduct.price)[1]
-      /*************************************/
-      // create <div></div> for the multiple extra images
-      if (imagesExtra.length) {
-        renderProducts = (
-          <div className='col-sm-3 panel panel-default marginbelowsm'>
-            {
-              imagesExtra.map(img => {
-                return (<div className='col-sm-12' key={img}>
-                  <img src={img} className='responsive-image' />
-                </div>)
-              })
-            }
-          </div>)
-      } else {
-        renderProducts = <div className='col-sm-1 border panel panel-default' />
-      }
-      /*************************************/
-      // create <div></div> for the main image
-      renderProducts2 = <div className='col-sm-9'><img src={imagesMain} className='responsive-image' /></div>
-    /*************************************/
+    //   const [imagesMain, ...imagesExtra] = selectedProduct.imgUrls.map(image => {
+    //     return this.productWork(image)[0]
+    //   })
+    //   price = this.productWork(null, selectedProduct.price)[1]
+    //   /*************************************/
+    //   // create <div></div> for the multiple extra images
+    //   if (imagesExtra.length) {
+    //     renderProducts = (
+    //       <div className='col-sm-3 panel panel-default marginbelowsm'>
+    //         {
+    //           imagesExtra.map(img => {
+    //             return (<div className='col-sm-12' key={img}>
+    //               <img src={img} className='responsive-image' />
+    //             </div>)
+    //           })
+    //         }
+    //       </div>)
+    //   } else {
+    //     renderProducts = <div className='col-sm-1 border panel panel-default' />
+    //   }
+    //   /*************************************/
+    //   // create <div></div> for the main image
+    //   renderProducts2 = <div className='col-sm-9'><img src={imagesMain} className='responsive-image' /></div>
+    // /*************************************/
     } else {
       // looking for products in a category &/or containing a search term
-      renderswitch = true
-      renderProducts = products.map(product => {
-        if (product.inventory) {
-          /*************************************/
-          // accounting for varied image inputs & price formatting:
-          /*************************************/
-          const formatResult = this.productWork(product.imgUrls[0], product.price)
-          const image = formatResult[0]
-          price = formatResult[1]
-          /*************************************/
-          return (<Link to={`/category/${categoryId}/?product=${product.id}`} key={product.id}>
-            <div className='col-sm-6 panel panel-default'>
-              <div className='col-sm-6'>
-                <img src={image} className='responsive-image' />
-              </div>
-              <div className='col-sm-6'>
-                <h6>{ product.title }</h6>
-                <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
-                <h6><strong>Price: </strong>{ price }</h6>
-              </div>
-            </div>
-          </Link>)
-        }
-      })
-      if (!renderProducts.length) renderProducts = <div className='center'><strong> - no products found - </strong></div>
+      renderswitch = true;
     }
-    /*********************************************/
-    // Label Products section:
-    let categoryName
-    categoryName = (selectedProduct.title) ? 'Single Product Selected - ' : ''
-    if (categoryId) {
-      const resultArr = categories.filter(category => {
-        return category.id === categoryId
-      })
-      categoryName = categoryName + resultArr[0].name
-    } else {
-      categoryName = categoryName + 'all Categories'
-    }
-    /*********************************************/
     if (renderswitch) {
       return <ProductList categoryId={ categoryId } categories={ categories } filter={ filter } term={ term } />
     } else {
