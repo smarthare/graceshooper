@@ -33,6 +33,15 @@ export function deleteUser(id) {
   };
 }
 
+export function updateUser(user) {
+  return function thunk(dispatch) {
+    return axios
+      .put(`/api/users/${user.id}`, user)
+      .then(() => fetchAllUsers(dispatch))
+      .catch(err => console.error(err));
+  };
+}
+
 export function toggleAdmin(id) {
   return function thunk(dispatch) {
     return axios

@@ -24,7 +24,6 @@ class ProductForm extends React.Component {
   }
 
   handleChange(e) {
-    console.log("this is firing", this.state);
     const change = {};
     change[e.target.name] = e.target.value;
     this.setState({ product: Object.assign({}, this.state.product, change) });
