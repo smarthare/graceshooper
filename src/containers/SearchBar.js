@@ -31,8 +31,8 @@ class SearchBar extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    // console.log('.......Search this.props: ', this.props)
-    // console.log('.......Search nextPops: ', nextProps)
+    console.log('.......Search this.props: ', this.props)
+    console.log('.......Search nextPops: ', nextProps)
     // const routePath = nextProps.router.location.pathname.slice(0, 9);
     // const idLast = this.props.router.match.params.id * 1;
     // const idNext = nextProps.router.match.params.id * 1;
