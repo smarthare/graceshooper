@@ -6,7 +6,7 @@ import { addProductToCart } from '../store'
 class ProductDetail extends Component {
   constructor (props) {
     super(props)
-    this.state = { selectQty: 1 }
+    this.state = { selectQty: 1, msg: '' }
 
     this.productWork = this.productWork.bind(this)
     this.handleInput = this.handleInput.bind(this)
@@ -30,9 +30,10 @@ class ProductDetail extends Component {
   }
 
   handleSubmit (event) {
-    event.preventDefault()
-    const { selectedProduct, addToCart } = this.props
-    addToCart(selectedProduct.id, this.state.selectQty)
+    event.preventDefault();
+    const { selectedProduct, addToCart } = this.props;
+    addToCart(selectedProduct.id, this.state.selectQty);
+    this.setState({ msg: 'Product has been added to the cart' })
   }
 
   handleInput (event) {
@@ -153,6 +154,7 @@ class ProductDetail extends Component {
                     <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                     &ensp;Add to Cart
                   </button>
+                  <div className="marginbelow margintop center textBlue">{ this.state.msg }</div>
                 </div>
               </div>
             </form>
