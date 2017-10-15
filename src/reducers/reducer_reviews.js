@@ -32,7 +32,6 @@ export function fetchReviews() {
 export default function Reviews(reviews = [], action) {
   switch (action.type) {
     case GET_REVIEWS:
-    console.log('............reviews:', action.reviews)
       return action.reviews;
 
     default:

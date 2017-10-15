@@ -37,11 +37,10 @@ class ProductList extends Component {
   }
 
   render() {
-    console.log('>>>>>props - productList>>', this.props)
     /*********************************************/
     // setup local variables
     if (!this.props.categories.length) return <div></div>;
-    const { categories, categoryId, term, filter } = this.props;
+    const { categories, categoryId, term, filter, reviews } = this.props;
     let products = this.props.products;
     /*********************************************/
     // filter the Products List? - Main Section
@@ -77,7 +76,17 @@ class ProductList extends Component {
         const image = formatResult[0];
         price = formatResult[1];
         /*************************************/
-        
+        let reviewNum, reviewAvg;
+        const reviewsArr = reviews.filter(review => review.productId === product.id);
+        if (reviewsArr.length) {
+          reviewNum = reviewsArr.length;
+          reviewAvg = reviewsArr.reduce((sum, elem) => {
+            return sum + elem.rating
+          }, 0) / reviewNum;
+        }
+        const renderReviews = (reviewsArr.length) ? (<div className="col-sm-6">
+            <h6><strong>Rating:</strong> { reviewAvg } ( { reviewNum } reviews ) </h6>
+          </div>) : null;
         /*************************************/
         return (
             <div className="col-sm-6 panel panel-default panelHeight" key={ product.id }>
@@ -90,6 +99,7 @@ class ProductList extends Component {
                   <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
                   <h6><strong>Price: </strong>{ price }</h6>
                 </div>
+                { renderReviews }
               </Link>
               <div className="col-sm-6">
                 <h6><form name={ product.id } onSubmit={this.handleSubmit}>
