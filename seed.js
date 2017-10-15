@@ -66,7 +66,7 @@ function randCart (n) {
 
 function generateUsers () {
   var users = doTimes(numUsers, randUser)
-  users.push(
+  users.unshift(
     models.User.build({
       name: 'AJ Frank',
       password: 'password',
@@ -77,17 +77,17 @@ function generateUsers () {
     })
   )
 
-  users.push(
+  users.unshift(
     models.User.build({
       name: 'Vince Rios',
       password: 'password',
       imgUrl: faker.internet.avatar(),
-      email: 'vincr@graceshopper.com',
+      email: 'vince@riversconsulting.com',
       isAdmin: true
     })
   )
 
-  users.push(
+  users.unshift(
     models.User.build({
       name: 'D Fan',
       password: 'password',
@@ -434,9 +434,22 @@ const guitars = () => {
         categories[4].addProducts(products[16]),
         categories[2].addProducts(products[17]),
         categories[2].addProducts(products[18]),
-        categories[2].addProducts(products[19])
+        categories[2].addProducts(products[19]),
+        models.Review.create({ title: 'Description very far from the truth', body: 'The description is wrong, check out Gibson website. Correctly it has a maple neck not mahagony, 57 classic and Super 57 pickups not Burstbuckers, Torrified maple neck and a Corian nut not bone.', rating: 5, productId: products[0].id, userId: 1 }),
+        models.Review.create({ title: 'Good bargain with the usual Gibson flaws', body: 'For me, this is the best 335 available from Gibson today. Every Gibson guitar has the same issues 1.the strings binding in the nut creating tuning instability and 2.the headstock breaking off if the guitar gets an impact there. Gibson simply wont fix these very basic issues because it is not being true to the original Gibson guitars of the 50s and 60s.....But there is value here. The neck plays like a dream, better than any of my other guitars. It just feels right and its extremely easy to fret. I set mine up with 10s and dont suggest using anything lighter. The pickups sound great and now that Gibson gave us all four knobs on the Studio version, the range of tones matches that from the more expensive 335s. Honestly, I dont see any reason to spend more. This guitar looks great with its translucent finish and black binding, I have the red one, and the other 335s will have the same issues that this less expensive model has.', rating: 4, productId: products[1].id, userId: 2 }),
+        models.Review.create({ title: 'oh yeah that sweet tone you can only get with a Gibson', body: 'Yes, I would recommend this to a friend', rating: 5, productId: products[1].id, userId: 3 }),
+        models.Review.create({ title: 'Disappointment', body: 'I can not believe that Gibson let that guitar out of the factory. The neck buzzed all the way to the top and I was not sure that adjustment would help. There were three major blemishes in the finish that could not be easily fixed.  Ordered an Ibanez which is back ordered.', rating: 1, productId: products[1].id, userId: 4 }),
+        models.Review.create({ title: 'Its a reality', body: 'Gibson stepped it up a notch.', rating: 5, productId: products[1].id, userId: 5 }),
+        models.Review.create({ title: 'a glorious instrument!!!', body: 'More than a guitar, this instrument is an heirloom quality work of art, that youll treasure forever. The sound is rich and toneful like no other guitar. Im a Gibson fanatic, and this is as good as it gets. I love all my Gibsons, but this model is the ultimate. I love the wine red color the best, although the natural, and sunbursts are gorgeous too.', rating: 5, productId: products[2].id, userId: 7 }),
+        models.Review.create({ title: 'I would buy this beautiful guitar again!', body: 'Purchase was handled professionally, and follow-up was excellent', rating: 5, productId: products[2].id, userId: 8 })        
       ])
     })
+}
+
+const reviews = () => {
+  return Promise.all([
+    models.Review.create({ title: 'I', body: 'excellent', rating: 5, productId: products[2].id, userId: 8 }),
+  ])
 }
 
 const seed = () =>
@@ -446,6 +459,7 @@ const seed = () =>
     .then(() => createCarts())
     .then(() => createOrders())
     .then(() => guitars())
+    // .then(() => reviews())
     .catch(console.log)
 
 console.log('Syncing database')

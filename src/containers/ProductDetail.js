@@ -64,7 +64,7 @@ class ProductDetail extends Component {
       // create <div></div> for the multiple extra images
       if (imagesExtra.length) {
         renderProducts = (
-          <div className='col-sm-3 panel panel-default marginbelowsm'>
+          <div className="col-sm-3 panel panel-default marginbelowsm">
             {
               imagesExtra.map(img => {
                 return (<div className="col-sm-12 marginbelowsm" key={img}>
@@ -165,9 +165,6 @@ class ProductDetail extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
-const mapDispatchToProps = ({
-  addToCart: addProductToCart
-})
+const mapDispatchToProps = { addToCart: addProductToCart };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)
+export default connect(null, mapDispatchToProps)(ProductDetail)

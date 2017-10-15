@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addProductToCart } from '../store'
 
 class ProductList extends Component {
   constructor(props) {
     super(props);
+    this.state = { productId: 0, msg: '' }
 
-    this.productWork = this.productWork.bind(this);
+    this.productWork = this.productWork.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   productWork(imgBefore, priceBefore) {
@@ -25,7 +28,16 @@ class ProductList extends Component {
     return [imgAfter, priceAfter];
   }
 
+  handleSubmit (event) {
+    event.preventDefault();
+    const { addToCart } = this.props;
+    const productId = event.target.name * 1;
+    addToCart(productId, 1);
+    this.setState({ productId, msg: 'added' })
+  }
+
   render() {
+    console.log('>>>>>props - productList>>', this.props)
     /*********************************************/
     // setup local variables
     if (!this.props.categories.length) return <div></div>;
@@ -65,18 +77,30 @@ class ProductList extends Component {
         const image = formatResult[0];
         price = formatResult[1];
         /*************************************/
-        return (<Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-            <div className="col-sm-6 panel panel-default">
+        return (
+            <div className="col-sm-6 panel panel-default panelHeight" key={ product.id }>
+              <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
+                <div className="col-sm-6">
+                  <img src={ image } className="responsive-image" />
+                </div>
+                <div className="col-sm-6">
+                  <h6>{ product.title }</h6>
+                  <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
+                  <h6><strong>Price: </strong>{ price }</h6>
+                </div>
+              </Link>
               <div className="col-sm-6">
-                <img src={ image } className="responsive-image" />
+                <h6><form name={ product.id } onSubmit={this.handleSubmit}>
+                  <div className="col-sm-12 colWidth100">
+                    <button className="btn btn-primary">
+                      <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
+                      &ensp;Add
+                    </button>
+                    <div className="margintop center textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
+                  </div>
+                </form></h6>
               </div>
-              <div className="col-sm-6">
-                <h6>{ product.title }</h6>     
-                <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
-                <h6><strong>Price: </strong>{ price }</h6>
-              </div>
-            </div>
-          </Link>)
+            </div>)
       }
     })
     if (!renderProducts.length) renderProducts = <div className="center"><strong> - no products found - </strong></div>;
@@ -130,4 +154,6 @@ function mapStateToProps (state) {
   return state;
 }
 
-export default connect(mapStateToProps)(ProductList);
+const mapDispatchToProps = { addToCart: addProductToCart };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
