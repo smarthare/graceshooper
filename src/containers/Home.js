@@ -50,6 +50,7 @@ class Home extends Component {
     const productId = (nextProps.router.location.search) ? nextProps.router.location.search.slice(9) * 1 : 0
     let selectedProduct = {}
     if (productId) {
+      if(!products.length) return;
       const selectedProductArr = products.filter(product => {
         return productId === product.id
       })
