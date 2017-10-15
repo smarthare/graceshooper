@@ -90,7 +90,7 @@ class SearchBar extends Component {
               <h2 className='col-sm-3 textBlk margintop marginbelowsm'>
                 <Link to={`/category/0`}>Grace Shopper</Link>
               </h2>
-              <div className='col-sm-3 col-sm-offset-6 search-bar margintop marginbelowsm'>
+              <div className='col-sm-3 col-sm-offset-5 search-bar margintop marginbelowsm'>
                 {currentUser.id
                   ? (<button onClick={onLogOut} className='col-sm-6 btn btn-warning'>Log Out</button>)
                   : (<div>
@@ -126,11 +126,11 @@ class SearchBar extends Component {
               </form>
             </div>
 
-            <div className='col-md-6 col-md-offset-6 search-bar marginbelowsm'>
-              <Link to='/admin'><div className='col-sm-3 moverightsm margintopsm'>Admin Portal</div></Link>
+            <div className='col-md-6 col-md-offset-5 search-bar marginbelowsm'>
+              <Link to='/admin'><div className='col-sm-3 margintopsm'>Admin Portal</div></Link>
               <Link to='/'><div className='col-sm-3 moverightsm margintopsm'>Home</div></Link>
               <Link to='/account'><div className='col-sm-3 moverightsm margintopsm'>Account</div></Link>
-              <Link to='/cart'><div className='col-sm-3 moverightsm margintopsm'>
+              <Link to='/cart'><div className='col-sm-2 moverightsm margintopsm'>
                 Cart ({cart.lineItems.length})
               </div></Link>
             </div>
