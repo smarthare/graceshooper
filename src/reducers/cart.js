@@ -54,8 +54,10 @@ export const addProductToCart = (productId, quantity) => dispatch => {
 }
 
 export const deleteLnFromCart = (lineItem) => dispatch => {
+  console.log(lineItem)
   // if guest, simply dispatch
   if (!lineItem.id) return dispatch(removeLineFromCart(lineItem))
-  return axios.delete(`/api/orders/lineItem/${lineItem.id}`)
+  return axios.delete(`/api/orders/lineItems/${lineItem.id}`)
     .then(() => dispatch(removeLineFromCart(lineItem)))
+    .catch(err => console.log(err))
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { deleteLnFromCart } from '../store'
 
-class Cart extends Component {
+class Checkout extends Component {
   constructor () {
     super()
     this.state = {
@@ -13,6 +14,8 @@ class Cart extends Component {
   render () {
     const
       { cart } = this.props,
+      { readyToSubmit } = this.state,
+      formatMoney = num => '$' + parseFloat(Math.round(num * 100) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
       subtotal = cart.lineItems.reduce((sum, ln) => {
         sum += ln.quantity * ln.product.price
         return sum
@@ -33,7 +36,7 @@ class Cart extends Component {
 
           <div className='col-sm-4 list-group panel panel-default'>
             <div className='panel-heading btn-checkout text-center'>
-              <button className='btn btn-primary' type='submit'>
+              <button className='btn btn-primary' type='submit' disabled={!readyToSubmit}>
                 Place Your Order
               </button>
               <div>
@@ -44,15 +47,15 @@ class Cart extends Component {
               <h4>Order Summary </h4>
               <div className='row'>
                 <div className='col-sm-8'>Items</div>
-                <div className='col-sm-4 text-right'>{subtotal}</div>
+                <div className='col-sm-4 text-right'>{formatMoney(subtotal)}</div>
               </div>
               <div className='row'>
                 <div className='col-sm-8'>Tax ({TAXRATE})</div>
-                <div className='col-sm-4 text-right'>{ subtotal * TAXRATE }</div>
+                <div className='col-sm-4 text-right'>{formatMoney(subtotal * TAXRATE)}</div>
               </div>
               <div className='row h5'>
                 <div className='col-sm-8'>Order Total:</div>
-                <div className='col-sm-4 text-right'>{ subtotal * (1 + TAXRATE) }</div>
+                <div className='col-sm-4 text-right'>{formatMoney(subtotal * (1 + TAXRATE))}</div>
               </div>
             </div>
           </div>
@@ -62,12 +65,7 @@ class Cart extends Component {
   }
 }
 
-const mapState = state => {
-  return { cart: state.cart }
-}
+const mapState = state => ({ cart: state.cart })
+const mapDispatch = dispatch => ({deleteLine: deleteLnFromCart})
 
-const mapDispatch = dispatch => {
-  return {}
-}
-
-export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState, mapDispatch)(Checkout)

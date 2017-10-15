@@ -42,7 +42,8 @@ router
   })
 
   .delete('/lineItems/:id', (req, res, next) => {
-    Order.destroyLineItem(req.params.id)
+    Order.getCartByUserId(req.session.userId)
+      .then(cart => cart.destroyLineItem(req.params.id))
       .then(result => res.send(result))
       .catch(next)
   })
