@@ -7,6 +7,7 @@ import orders from './orders'
 import categories from './categories'
 import ShopReducer from './reducer_shop'
 import products from './reducer_products'
+import reviews from './reducer_reviews'
 
 const rootReducer = combineReducers({
   currentUser: auth,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   orders,
   categories,
   products,
+  reviews,
   shop: ShopReducer
 })
 
@@ -25,3 +27,4 @@ export * from './orders'
 export * from './users'
 export * from './categories'
 export * from './reducer_products'
+export * from './reducer_reviews'

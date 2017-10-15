@@ -77,6 +77,8 @@ class ProductList extends Component {
         const image = formatResult[0];
         price = formatResult[1];
         /*************************************/
+        
+        /*************************************/
         return (
             <div className="col-sm-6 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
