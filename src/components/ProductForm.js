@@ -26,7 +26,7 @@ class ProductForm extends React.Component {
   handleChange(e) {
     const change = {};
     change[e.target.name] = e.target.value;
-    this.setState({ product: Object.assign({}, this.state.product, change) });
+    this.setState({ product: { ...this.state.product, ...change } });
   }
 
   handleSubmit(e) {

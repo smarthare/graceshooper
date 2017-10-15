@@ -6,7 +6,6 @@ import { updateUser } from "../reducers/users";
 
 // to do: figure out why refresh doesn't work
 // success message
-// why doesn't spread work?
 
 class User extends Component {
   constructor(props) {
@@ -28,8 +27,7 @@ class User extends Component {
   handleChange(e) {
     const update = {};
     update[e.target.name] = e.target.value;
-    this.setState({ user: Object.assign({}, this.state.user, update) });
-    // this.setState({ user: { ...this.state.user, update });
+    this.setState({ user: { ...this.state.user, ...update } });
   }
 
   handleSubmit(e) {
