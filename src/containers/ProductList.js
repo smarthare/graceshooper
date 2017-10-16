@@ -112,12 +112,12 @@ class ProductList extends Component {
               </Link>
               <div className="col-sm-6">
                 <h6><form name={ product.id } onSubmit={this.handleSubmit}>
-                  <div className="col-sm-12 center colWidth100">
+                  <div className="col-sm-12 moverightsm colWidth100">
                     <button className="btn btn-primary">
                       <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                       &ensp;Add
                     </button>
-                    <div className="margintop center textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
+                    <div className="margintopsm moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
                   </div>
                 </form></h6>
               </div>
