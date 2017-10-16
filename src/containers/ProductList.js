@@ -100,10 +100,10 @@ class ProductList extends Component {
         return (
             <div className="col-sm-6 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                <div className="col-sm-6">
+                <div className="col-sm-6 marginBelowLg margintopsm">
                   <img src={ image } className="responsive-image" />
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-6 margintopsm">
                   <h6>{ product.title }</h6>
                   <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
                   <h6><strong>Price: </strong>{ price }</h6>
