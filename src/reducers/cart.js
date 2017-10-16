@@ -17,7 +17,6 @@ const removeLineFromCart = lineItem => ({ type: REMOVE_LINE, lineItem })
   REDUCER
  */
 export default (prevState = {lineItems: []}, action) => {
-  console.log('prevState:', prevState)
   switch (action.type) {
     case GET_CART:
       return Object.assign(prevState, action.cart)
