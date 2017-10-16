@@ -9,13 +9,14 @@ import Home from '../containers/Home'
 import { Login, Signup } from './AuthForm'
 import Account from './User'
 
-import store, { fetchUsers, fetchCategories, fetchProducts } from '../store'
+import store, { fetchUsers, fetchCategories, fetchProducts, fetchUserSession } from '../store'
 
 export default class App extends Component {
   componentDidMount () {
     store.dispatch(fetchCategories())
     store.dispatch(fetchUsers())
     store.dispatch(fetchProducts())
+    store.dispatch(fetchUserSession())
   }
 
   render () {

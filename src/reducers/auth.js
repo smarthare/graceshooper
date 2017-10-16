@@ -39,7 +39,7 @@ export const auth = (credentials, history, formName) => dispatch => {
     .catch(result => { throw result.response.data.error })
 }
 
-export const fetchFromServer = () => dispatch => {
+export const fetchUserSession = () => dispatch => {
   return axios.get('/api/auth')
     .then(result => result.data)
     .then(user => {

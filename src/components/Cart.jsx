@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { $ } from '../util/helper'
 import { deleteLnFromCart } from '../store'
+
+// Link to single product from cart line does not work yet
 
 class Cart extends Component {
   constructor () {
     super()
-    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleDelete (idx) {
+    console.log(this, idx)
     const { cart, deleteLine } = this.props
     deleteLine(cart.lineItems[idx])
   }
@@ -17,7 +20,6 @@ class Cart extends Component {
   render () {
     const
       { cart } = this.props,
-      formatMoney = num => '$' + parseFloat(Math.round(num * 100) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
       subtotal = cart.lineItems.reduce((sum, ln) => {
         sum += ln.quantity * ln.product.price
         return sum
@@ -43,25 +45,27 @@ class Cart extends Component {
                       <img src={line.product.imgUrls[0]} className='responsive-image' />
                     </div>
                     <div className='col-sm-5'>
-                      <div>{line.product.title}</div>
+                      <Link to={`/category/0/?product=${line.productId}`} key={line.productId}>
+                        <div>{line.product.title}</div>
+                      </Link>
                       <div>{line.product.inventory > line.quantity ? 'In Stock' : 'Out of Stock'}</div>
-                      <button className='btn btn-danger' onClick={this.handleDelete.bind(null, idx)}>Delete</button>
+                      <button className='btn btn-danger' onClick={this.handleDelete.bind(this, idx)}>Delete</button>
                     </div>
-                    <div className='col-sm-2'>{formatMoney(line.product.price)}</div>
+                    <div className='col-sm-2'>{$(line.product.price)}</div>
                     <div className='col-sm-3 text-right'>{line.quantity}</div>
                   </li>
                 ))}
               </ul>
               <div className='row table-subtotal'>
                 <div className='col-sm-4 col-sm-offset-8 text-right'>
-                  Subtotal ({count} items): {formatMoney(subtotal)}
+                  Subtotal ({count} items): {$(subtotal)}
                 </div>
               </div>
             </div>
           </div>
 
           <div className='col-sm-4 panel panel-default backTan'>
-            <h4>Subtotal: {formatMoney(subtotal)}</h4>
+            <h4>Subtotal: {$(subtotal)}</h4>
             <Link to={`/checkout`}>
               <button className='btn btn-primary' type='submit' disabled={count === 0}>
                 Proceed to Checkout
