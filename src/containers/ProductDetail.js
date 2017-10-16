@@ -31,7 +31,6 @@ class ProductDetail extends Component {
   }
 
   reviewsList (reviewsArr) {
-    console.log(reviewsArr)
     return reviewsArr.map(review => {
       const reviewer = this.props.users.filter(user => user.id === review.userId)[0].name;
       const date = review.updatedAt.slice(0, 10);
