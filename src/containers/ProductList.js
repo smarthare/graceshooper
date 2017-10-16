@@ -6,26 +6,9 @@ import { addProductToCart } from '../store';
 class ProductList extends Component {
   constructor(props) {
     super(props);
-    this.state = { productId: 0, msg: '' }
+    this.state = { productId: 0, msg: '' };
 
-    this.productWork = this.productWork.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  productWork(imgBefore, priceBefore) {
-    // can send only one argument or both for a result
-    // accounting for varied image inputs:
-    let imgAfter = 'none given';
-    if (imgBefore) {
-      if (imgBefore.slice(0, 7) === 'http://') {
-        imgAfter = imgBefore;
-      } else {
-        imgAfter = `../../assets/images/${ imgBefore }`;
-      }
-    }
-    // possible price formating:
-    const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given';
-    return [imgAfter, priceAfter];
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit (event) {
@@ -33,14 +16,12 @@ class ProductList extends Component {
     const { addToCart } = this.props;
     const productId = event.target.name * 1;
     addToCart(productId, 1);
-    this.setState({ productId, msg: 'added' })
+    this.setState({ productId, msg: 'added' });
   }
 
   render() {
-    /*********************************************/
-    // setup local variables
-    if (!this.props.categories.length) return <div></div>;
-    const { categories, categoryId, term, filter, reviews } = this.props;
+    if (!this.props.categories.length) return <div />;
+    const { categories, categoryId, term, filter } = this.props;
     let products = this.props.products;
     /*********************************************/
     // filter the Products List? - Main Section
@@ -57,42 +38,28 @@ class ProductList extends Component {
     // now check if we are filtering by search term.
     if (filter && term && products.length) {
       products = products.filter(product => {
-        const regex = new RegExp(term, 'i')
-        return regex.test(product.title)
+        const regex = new RegExp(term, 'i');
+        return regex.test(product.title);
       })
     }
     /*********************************************/
     // create the Products List &/or the Selected Product- Main Section
     /*********************************************/
     // if there is a selected Product, then render for the one product
-    let renderProducts, price;
+    let renderProducts, price, renderReviews, reviewNum, reviewAvg, renderImg;
     // looking for products in a category &/or containing a search term
     renderProducts = products.map(product => {
       if (product.inventory) {
         /*************************************/
         // accounting for varied image inputs & price formatting:
         /*************************************/
-        const formatResult = this.productWork(product.imgUrls[0], product.price);
+        const formatResult = this.props.productWork(product.imgUrls[0], product.price);
         const image = formatResult[0];
         price = formatResult[1];
         /*************************************/
-        let reviewNum, reviewAvg;
-        const reviewsArr = reviews.filter(review => review.productId === product.id);
-        if (reviewsArr.length) {
-          reviewNum = reviewsArr.length;
-          reviewAvg = reviewsArr.reduce((sum, elem) => {
-            return sum + elem.rating
-          }, 0) / reviewNum;
-        } else {
-          reviewNum = 0;
-          reviewAvg = 0;
-        }
-        const fileLoc1 = Math.floor(reviewAvg);
-        const fileLoc2 = (reviewAvg - fileLoc1) ? 1 : 0;
-        const imgBefore = `stars${ fileLoc1 }${ fileLoc2 }.png`;
-        const renderImg = `../../assets/images/${imgBefore}`
-
-        const renderReviews = (<div className="col-sm-6">
+        // create a star rating output
+        [reviewNum, reviewAvg, renderImg] = this.props.reviewWork(product.id);
+        renderReviews = (<div className="col-sm-6">
             <img src={ renderImg } className="responsive-image2 moverightsm" />
             <h6 className="tabtoright">( { reviewNum } reviews ) </h6>
           </div>);
