@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import store, { fetchUsers, fetchOrders, fetchCart } from "../store";
+import store, {
+  fetchUsers,
+  fetchOrders,
+  fetchCart,
+  fetchCategories,
+  fetchProducts
+} from "../store";
 import { updateUser } from "../reducers/users";
 
 // to do: figure out why refresh doesn't work
@@ -12,34 +18,46 @@ class User extends Component {
     super(props);
     this.state = {
       user: props.user,
-      orders: props.orders
+      orders: props.orders,
+      showSuccess: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    //NOT SURE WE NEED THIS?
-    store.dispatch(fetchCart());
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== this.props.user) {
+      this.setState({
+        user: nextProps.user
+      });
+    }
+    if (nextProps.orders !== this.props.orders) {
+      this.setState({
+        orders: nextProps.orders
+      });
+    }
   }
 
   handleChange(e) {
     const update = {};
     update[e.target.name] = e.target.value;
-    this.setState({ user: { ...this.state.user, ...update } });
+    this.setState({
+      user: { ...this.state.user, ...update },
+      showSuccess: false
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    store.dispatch(this.props.updateUser(this.state.user));
+    store
+      .dispatch(this.props.updateUser(this.state.user))
+      .then(() => this.setState({ showSuccess: true }));
   }
 
   render() {
     const { cart, orders, currentUser, users } = this.props;
-    console.log("orders", orders);
     const { user } = this.state;
-    console.log("user", user);
     // const user = currentUser;
     const { handleChange, handleSubmit } = this;
 
@@ -138,6 +156,11 @@ class User extends Component {
                     </button>
                   </div>
                 </form>
+                {this.state.showSuccess && (
+                  <div>
+                    <strong>Change successful!</strong>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -160,6 +183,7 @@ class User extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log("my state", state);
   return {
     users: state.users,
     orders: state.orders.filter(order => {

@@ -16,7 +16,7 @@ export function getOrders(orders) {
 
 // reducer
 // TO DO need to add reducer for getUserOrders
-export default function users(orders = [{}], action) {
+export default function users(orders = [], action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders;
