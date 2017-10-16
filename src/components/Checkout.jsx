@@ -84,9 +84,7 @@ class Checkout extends Component {
 
 const mapState = state => ({ cart: state.cart, user: state.currentUser })
 const mapDispatch = dispatch => ({
-  handleSubmit () {
-    dispatch(submitCart())
-  }
+  handleSubmit () { dispatch(submitCart()) }
 })
 
 export default connect(mapState, mapDispatch)(Checkout)

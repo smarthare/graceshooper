@@ -5,8 +5,7 @@ const
   LineItem = require('./lineItem.model')
 
 const Order = conn.define('order', {
-  // Status should have four options:
-  //   Created, Processing, Cancelled, Completed.
+  // Status should have four options: Created, Processing, Cancelled, Completed.
   // Each user should only have one order that is 'Created', i.e. the Cart
   status: {
     type: conn.Sequelize.STRING,
@@ -15,10 +14,7 @@ const Order = conn.define('order', {
 
   address: {
     type: conn.Sequelize.STRING,
-    // Validation should be peformed before order submission on front end
-    validate: {
-      notEmpty: true
-    }
+    validate: { notEmpty: true }
   }
 })
 
@@ -47,10 +43,10 @@ Order.prototype.addProdToCart = function (productId, quantity = 1) {
 
   let lineItem = this.lineItems && this.lineItems.find(el => el.productId === productId)
   if (lineItem) {
-    lineItem.quantity += quantity
+    lineItem.quantity += 1 * quantity
     return lineItem.save()
   }
-  return LineItem.create({ orderId: this.id, productId, quantity }, { include: Product })
+  return LineItem.create({ orderId: this.id, productId, quantity }, { include: [ Product ] })
 }
 
 Order.prototype.destroyLineItem = function (lineId) {

@@ -11,7 +11,7 @@ router
 
   .delete('/', (req, res, next) => {
     req.session.destroy()
-    res.sendStatus(204)
+    res.redirect('/')
   })
 
   .post('/login', (req, res, next) => {

@@ -49,7 +49,6 @@ export const fetchUserSession = () => dispatch => {
 }
 
 export const logout = () => dispatch => {
-  console.log('1!!!!!!')
   return axios.delete('/api/auth')
     .then(() => dispatch(removeCurrUser()))
     // .catch(() => console.log('problem during logout'))

@@ -1,4 +1,5 @@
-const conn = require('../../conn'),
+const
+  conn = require('../../conn'),
   Orders = require('../order/order.model')
 
 const User = conn.define('user', {
@@ -6,9 +7,8 @@ const User = conn.define('user', {
     type: conn.Sequelize.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-      notEmpty: true
-    }
+    defaultValue: `User${Math.floor(Math.random() * 99999)}`,
+    validate: { notEmpty: true }
   },
   password: conn.Sequelize.STRING,
   imgUrl: {
@@ -79,6 +79,7 @@ User.signup = function (credentials) {
       }
     })
     .then(() => User.login(credentials))
+    .catch(console.log)
 }
 
 module.exports = User
