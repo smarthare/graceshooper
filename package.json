@@ -34,7 +34,6 @@
     "faker": "^4.1.0",
     "history": "^4.7.2",
     "http": "0.0.0",
-    "jquery.rateit": "^1.1.1",
     "lodash": "^4.17.4",
     "morgan": "^1.9.0",
     "node-sass": "^4.5.3",

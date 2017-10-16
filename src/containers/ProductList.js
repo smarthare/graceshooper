@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addProductToCart } from '../store'
+import { addProductToCart } from '../store';
 
 class ProductList extends Component {
   constructor(props) {
@@ -83,10 +83,19 @@ class ProductList extends Component {
           reviewAvg = reviewsArr.reduce((sum, elem) => {
             return sum + elem.rating
           }, 0) / reviewNum;
+        } else {
+          reviewNum = 0;
+          reviewAvg = 0;
         }
-        const renderReviews = (reviewsArr.length) ? (<div className="col-sm-6">
-            <h6><strong>Rating:</strong> { reviewAvg } ( { reviewNum } reviews ) </h6>
-          </div>) : null;
+        const fileLoc1 = Math.floor(reviewAvg);
+        const fileLoc2 = (reviewAvg - fileLoc1) ? 1 : 0;
+        const imgBefore = `stars${ fileLoc1 }${ fileLoc2 }.png`;
+        const renderImg = `../../assets/images/${imgBefore}`
+
+        const renderReviews = (<div className="col-sm-6">
+            <img src={ renderImg } className="responsive-image2 moverightsm" />
+            <h6 className="tabtoright">( { reviewNum } reviews ) </h6>
+          </div>);
         /*************************************/
         return (
             <div className="col-sm-6 panel panel-default panelHeight" key={ product.id }>
@@ -103,7 +112,7 @@ class ProductList extends Component {
               </Link>
               <div className="col-sm-6">
                 <h6><form name={ product.id } onSubmit={this.handleSubmit}>
-                  <div className="col-sm-12 colWidth100">
+                  <div className="col-sm-12 center colWidth100">
                     <button className="btn btn-primary">
                       <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                       &ensp;Add
