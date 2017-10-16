@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { $ } from '../util/helper'
-import { deleteLnFromCart } from '../store'
+import { submitCart } from '../store'
 
 class Checkout extends Component {
   constructor () {
     super()
     this.state = {
-      readyToSubmit: false
+      readyToSubmit: true
     }
+  }
+
+  componentDidMount () {
+
   }
 
   render () {
     const
-      { cart, user } = this.props,
+      { cart, user, handleSubmit } = this.props,
       { readyToSubmit } = this.state,
       subtotal = cart.lineItems.reduce((sum, ln) => {
         sum += ln.quantity * ln.product.price
@@ -31,22 +35,22 @@ class Checkout extends Component {
                 <h3>Add Address and Stuff</h3>
               </div>
               <div className='panel-body'>
+                Address
                 <ol>
                   <li className='list-group-item'>Address: {user.shipAddress}</li>
                   <li className='list-group-item'>City: {user.shipCity}</li>
                   <li className='list-group-item'>State: {user.shipState}</li>
                   <li className='list-group-item'>Zip: {user.shipZip}</li>
                 </ol>
-                <div>
-                  Address
-                </div>
+                <hr />
+                <div />
               </div>
             </div>
           </div>
 
           <div className='col-sm-4 list-group panel panel-default'>
             <div className='panel-heading btn-checkout text-center'>
-              <button className='btn btn-primary' type='submit' disabled={!readyToSubmit}>
+              <button className='btn btn-primary' onClick={handleSubmit} disabled={!readyToSubmit}>
               Place Your Order
               </button>
               <div>
@@ -64,6 +68,7 @@ class Checkout extends Component {
                 <div className='col-sm-8'>Tax ({TAXRATE})</div>
                 <div className='col-sm-4 text-right'>{$(subtotal * TAXRATE)}</div>
               </div>
+              <hr />
               <div className='row h5'>
                 <div className='col-sm-8'>Order Total:</div>
                 <div className='col-sm-4 text-right'>{$(subtotal * (1 + TAXRATE))}</div>
@@ -78,6 +83,10 @@ class Checkout extends Component {
 }
 
 const mapState = state => ({ cart: state.cart, user: state.currentUser })
-const mapDispatch = dispatch => ({deleteLine: deleteLnFromCart})
+const mapDispatch = dispatch => ({
+  handleSubmit () {
+    dispatch(submitCart())
+  }
+})
 
 export default connect(mapState, mapDispatch)(Checkout)

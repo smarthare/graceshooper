@@ -5,7 +5,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_LINE = 'REMOVE_LINE'
-const SUBMIT_CART = 'SUBMIT_CART'
+const CLEAR_CART = 'CLEAR_CART'
 
 /*
   ACTION CREATOR
@@ -13,7 +13,7 @@ const SUBMIT_CART = 'SUBMIT_CART'
 const getUserCart = cart => ({ type: GET_CART, cart })
 const addLineToCart = lineItem => ({ type: ADD_TO_CART, lineItem })
 const removeLineFromCart = lineItem => ({ type: REMOVE_LINE, lineItem })
-const submitUserCart = () => ({ type: SUBMIT_CART })
+export const clearCart = () => ({ type: CLEAR_CART })
 
 /*
   REDUCER
@@ -36,7 +36,7 @@ export default (prevState = {lineItems: []}, action) => {
         ...prevState,
         lineItems: prevState.lineItems.filter(ln => ln !== action.lineItem)
       }
-    case SUBMIT_CART:
+    case CLEAR_CART:
       return {lineItems: []}
     default:
       return prevState
@@ -71,6 +71,6 @@ export const deleteLnFromCart = (lineItem) => dispatch => {
 
 export const submitCart = () => dispatch => {
   return axios.put('/api/orders/')
-    .then(() => dispatch(submitUserCart()))
+    .then(() => dispatch(clearCart()))
     .catch(console.log)
 }
