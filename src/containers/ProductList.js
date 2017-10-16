@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addProductToCart } from '../store';
 
 class ProductList extends Component {
   constructor(props) {
     super(props);
+    this.state = { productId: 0, msg: '' };
 
-    this.productWork = this.productWork.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  productWork(imgBefore, priceBefore) {
-    // can send only one argument or both for a result
-    // accounting for varied image inputs:
-    let imgAfter = 'none given';
-    if (imgBefore) {
-      if (imgBefore.slice(0, 7) === 'http://') {
-        imgAfter = imgBefore;
-      } else {
-        imgAfter = `../../assets/images/${ imgBefore }`;
-      }
-    }
-    // possible price formating:
-    const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given';
-    return [imgAfter, priceAfter];
+  handleSubmit (event) {
+    event.preventDefault();
+    const { addToCart } = this.props;
+    const productId = event.target.name * 1;
+    addToCart(productId, 1);
+    this.setState({ productId, msg: 'added' });
   }
 
   render() {
-    /*********************************************/
-    // setup local variables
-    if (!this.props.categories.length) return <div></div>;
+    if (!this.props.categories.length) return <div />;
     const { categories, categoryId, term, filter } = this.props;
     let products = this.props.products;
     /*********************************************/
@@ -46,37 +38,57 @@ class ProductList extends Component {
     // now check if we are filtering by search term.
     if (filter && term && products.length) {
       products = products.filter(product => {
-        const regex = new RegExp(term, 'i')
-        return regex.test(product.title)
+        const regex = new RegExp(term, 'i');
+        return regex.test(product.title);
       })
     }
     /*********************************************/
     // create the Products List &/or the Selected Product- Main Section
     /*********************************************/
     // if there is a selected Product, then render for the one product
-    let renderProducts, price;
+    let renderProducts, price, renderReviews, reviewNum, reviewAvg, renderImg;
     // looking for products in a category &/or containing a search term
     renderProducts = products.map(product => {
       if (product.inventory) {
         /*************************************/
         // accounting for varied image inputs & price formatting:
         /*************************************/
-        const formatResult = this.productWork(product.imgUrls[0], product.price);
+        const formatResult = this.props.productWork(product.imgUrls[0], product.price);
         const image = formatResult[0];
         price = formatResult[1];
         /*************************************/
-        return (<Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-            <div className="col-sm-6 panel panel-default">
+        // create a star rating output
+        [reviewNum, reviewAvg, renderImg] = this.props.reviewWork(product.id);
+        renderReviews = (<div className="col-sm-6">
+            <img src={ renderImg } className="responsive-image2 moverightsm" />
+            <h6 className="tabtoright">( { reviewNum } reviews ) </h6>
+          </div>);
+        /*************************************/
+        return (
+            <div className="col-sm-6 panel panel-default panelHeight" key={ product.id }>
+              <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
+                <div className="col-sm-6 marginBelowLg margintopsm">
+                  <img src={ image } className="responsive-image" />
+                </div>
+                <div className="col-sm-6 margintopsm">
+                  <h6>{ product.title }</h6>
+                  <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
+                  <h6><strong>Price: </strong>{ price }</h6>
+                </div>
+                { renderReviews }
+              </Link>
               <div className="col-sm-6">
-                <img src={ image } className="responsive-image" />
+                <h6><form name={ product.id } onSubmit={this.handleSubmit}>
+                  <div className="col-sm-12 moverightsm colWidth100">
+                    <button className="btn btn-primary">
+                      <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
+                      &ensp;Add
+                    </button>
+                    <div className="margintopsm moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
+                  </div>
+                </form></h6>
               </div>
-              <div className="col-sm-6">
-                <h6>{ product.title }</h6>     
-                <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
-                <h6><strong>Price: </strong>{ price }</h6>
-              </div>
-            </div>
-          </Link>)
+            </div>)
       }
     })
     if (!renderProducts.length) renderProducts = <div className="center"><strong> - no products found - </strong></div>;
@@ -130,4 +142,6 @@ function mapStateToProps (state) {
   return state;
 }
 
-export default connect(mapStateToProps)(ProductList);
+const mapDispatchToProps = { addToCart: addProductToCart };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

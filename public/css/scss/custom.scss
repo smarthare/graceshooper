@@ -27,6 +27,9 @@
 .marginbelow {
   margin-bottom: 20px; }
 
+.marginBelowLg {
+  margin-bottom: 75px; }
+
 .marginbelowsm {
   margin-bottom: 10px; }
 
@@ -146,6 +149,12 @@
   width: 100%;
 }
 
+.responsive-image2 {
+  height: auto;
+  
+  width: 70%;
+}
+
 .border {
   border: 1px;
 }
@@ -153,4 +162,8 @@
 #content {
   width: 90%;
   margin: 0 5%;
+}
+
+.panelHeight {
+  height: 275px;
 }

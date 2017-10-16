@@ -12,6 +12,10 @@ const Review = conn.define('review', {
     validate: {
       len: [1, 4000]
     }
+  },
+  rating: {
+    type: conn.Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 
