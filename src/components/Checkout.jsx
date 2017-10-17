@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { $ } from '../util/helper'
+import { $, subCalc } from '../util/helper'
 import { submitCart } from '../store'
 
 class Checkout extends Component {
@@ -19,10 +19,7 @@ class Checkout extends Component {
     const
       { cart, user, handleSubmit } = this.props,
       { readyToSubmit } = this.state,
-      subtotal = cart.lineItems.reduce((sum, ln) => {
-        sum += ln.quantity * ln.product.price
-        return sum
-      }, 0),
+      subtotal = subCalc(cart.lineItems),
       TAXRATE = 0.0875
 
     return (

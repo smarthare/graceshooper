@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Order from "./Order";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import store, { fetchOrders, fetchCart } from "../store";
@@ -60,7 +61,6 @@ class User extends Component {
     const { orders } = this.props;
     const { user } = this.state;
     const { handleChange, handleSubmit } = this;
-    console.log(Object.keys(user))
     // loading state
     if (!user) return <h1>Loading...</h1>;
 
@@ -94,19 +94,14 @@ class User extends Component {
                     })
                   }
                   <div className="form-group">
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-block"
-                      value={user.id}
-                    >
+                    <button type="submit" className="btn btn-primary btn-block" >
                       Update
                     </button>
                   </div>
                 </form>
-                {this.state.showSuccess && (
-                  <div>
-                    <strong>Change successful!</strong>
-                  </div>
+                {
+                  this.state.showSuccess && (
+                  <strong>Change successful!</strong>
                 )}
               </div>
             </div>
@@ -118,7 +113,7 @@ class User extends Component {
               </div>
               <div className="panel-body">
                 <ul className="list-group">
-                  {orders.map(order => JSON.stringify(order))}
+                  {orders.map(order => <Order key={order.id} {...order} />)}
                 </ul>
               </div>
             </div>
