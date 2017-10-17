@@ -27,19 +27,19 @@ const User = conn.define('user', {
     type: conn.Sequelize.STRING,
     defaultValue: false
   },
-  shipAddress: {
+  Address: {
     type: conn.Sequelize.STRING,
     defaultValue: ''
   },
-  shipCity: {
+  City: {
     type: conn.Sequelize.STRING,
     defaultValue: ''
   },
-  shipState: {
+  State: {
     type: conn.Sequelize.STRING,
     defaultValue: ''
   },
-  shipZip: {
+  ZIP: {
     type: conn.Sequelize.STRING,
     defaultValue: ''
   },

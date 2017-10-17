@@ -57,10 +57,10 @@ class User extends Component {
   }
 
   render() {
-    const { orders, currentUser } = this.props;
+    const { orders } = this.props;
     const { user } = this.state;
     const { handleChange, handleSubmit } = this;
-
+    console.log(Object.keys(user))
     // loading state
     if (!user) return <h1>Loading...</h1>;
 
@@ -76,76 +76,23 @@ class User extends Component {
               <div className="panel-body">
                 <img src={user.imgUrl} />
                 <form onSubmit={handleSubmit} value={user.id}>
-                  <div className="form-group">
-                    <label>Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="name"
-                      value={user.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      name="email"
-                      value={user.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Phone</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="phone"
-                      value={user.phone}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Address</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipAddress"
-                      value={user.shipAddress}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>City</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipCity"
-                      value={user.shipCity}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>State</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipState"
-                      value={user.shipState}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Zip</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipZip"
-                      value={user.shipZip}
-                      onChange={handleChange}
-                    />
-                  </div>
+                  {
+                    ['name', 'email', 'phone', 'Address', 'City', 'State', 'ZIP']
+                    .map(attr => {
+                      return (
+                        <div className="form-group" key={attr}>
+                        <label>{`${attr[0].toUpperCase()}${attr.slice(1)}`}</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name={attr}
+                          value={user[attr]}
+                          onChange={handleChange}
+                        />
+                        </div>
+                      )
+                    })
+                  }
                   <div className="form-group">
                     <button
                       type="submit"
