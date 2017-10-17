@@ -40,8 +40,11 @@ router
       .then(lineItem => res.send(lineItem))
       .catch(next);
   })
-  .delete("/lineItems/:id", (req, res, next) => {
-    Order.destroyLineItem(req.params.id)
+
+  .delete('/lineItems/:id', (req, res, next) => {
+    Order.getCartByUserId(req.session.userId)
+      .then(cart => cart.destroyLineItem(req.params.id))
+
       .then(result => res.send(result))
       .catch(next);
   });

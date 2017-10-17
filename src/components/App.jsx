@@ -15,7 +15,8 @@ import store, {
   fetchProducts,
   fetchOrders,
   fetchCart,
-  fetchReviews
+  fetchReviews,
+  fetchUserSession
 } from "../store";
 
 export default class App extends Component {
@@ -23,6 +24,7 @@ export default class App extends Component {
     store.dispatch(fetchCategories());
     store.dispatch(fetchUsers());
     store.dispatch(fetchProducts());
+    store.dispatch(fetchUserSession())
     store.dispatch(fetchOrders());
     store.dispatch(fetchCart());
     store.dispatch(fetchReviews());

@@ -5,6 +5,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_LINE = 'REMOVE_LINE'
+const CLEAR_CART = 'CLEAR_CART'
 
 /*
   ACTION CREATOR
@@ -12,6 +13,7 @@ const REMOVE_LINE = 'REMOVE_LINE'
 const getUserCart = cart => ({ type: GET_CART, cart })
 const addLineToCart = lineItem => ({ type: ADD_TO_CART, lineItem })
 const removeLineFromCart = lineItem => ({ type: REMOVE_LINE, lineItem })
+export const clearCart = () => ({ type: CLEAR_CART })
 
 /*
   REDUCER
@@ -21,12 +23,21 @@ export default (prevState = {lineItems: []}, action) => {
     case GET_CART:
       return Object.assign(prevState, action.cart)
     case ADD_TO_CART:
-      return { ...prevState, lineItems: prevState.lineItems.concat(action.lineItem) }
+      const
+        oldLns = prevState.lineItems,
+        newLns = oldLns.slice(),
+        lnIdx = oldLns.findIndex(el => el.productId === action.lineItem.productId)
+
+      lnIdx < 0 ? newLns.splice(lnIdx, 0, action.lineItem)
+                : newLns.splice(lnIdx, 1, action.lineItem)
+      return { ...prevState, lineItems: newLns }
     case REMOVE_LINE:
       return {
         ...prevState,
         lineItems: prevState.lineItems.filter(ln => ln !== action.lineItem)
       }
+    case CLEAR_CART:
+      return {lineItems: []}
     default:
       return prevState
   }
@@ -39,7 +50,7 @@ export const fetchCart = () => dispatch => {
   return axios.get('/api/orders/cart')
     .then(result => result.data)
     .then(cart => dispatch(getUserCart(cart)))
-    .catch(() => console.log('error fetching cart for user'))
+    .catch(err => console.log('error fetching cart for user', err))
 }
 
 export const addProductToCart = (productId, quantity) => dispatch => {
@@ -47,14 +58,19 @@ export const addProductToCart = (productId, quantity) => dispatch => {
   // It might makes more sense to directly add lineItem if possible
   return axios.post('/api/orders/lineItems', { productId, quantity })
     .then(result => result.data)
-    .then(lineItem => {
-      dispatch(addLineToCart(lineItem))
-    })
+    .then(lineItem => dispatch(addLineToCart(lineItem)))
+    .catch(console.log)
 }
 
 export const deleteLnFromCart = (lineItem) => dispatch => {
-  // if guest, simply dispatch
   if (!lineItem.id) return dispatch(removeLineFromCart(lineItem))
-  return axios.delete(`/api/orders/lineItem/${lineItem.id}`)
+  return axios.delete(`/api/orders/lineItems/${lineItem.id}`)
     .then(() => dispatch(removeLineFromCart(lineItem)))
+    .catch(console.log)
+}
+
+export const submitCart = () => dispatch => {
+  return axios.put('/api/orders/')
+    .then(() => dispatch(clearCart()))
+    .catch(console.log)
 }

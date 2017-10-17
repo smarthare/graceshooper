@@ -4,6 +4,7 @@ import axios from "axios";
 const GET_ORDERS = "GET_ORDERS";
 const GET_USER_ORDERS = "GET_USER_ORDERS";
 const CANCEL_ORDER = "CANCEL_ORDER";
+const CLEAR_ORDERS = 'CLEAR_ORDERS'
 
 // action creators
 export function getUserOrders(orders) {
@@ -14,12 +15,18 @@ export function getOrders(orders) {
   return { type: GET_ORDERS, orders };
 }
 
+export const clearUserOrders = () => ({ type: CLEAR_ORDERS })
+
+
 // reducer
 // TO DO need to add reducer for getUserOrders
 export default function users(orders = [], action) {
   switch (action.type) {
     case GET_ORDERS:
-      return action.orders;
+
+      return action.orders
+    case CLEAR_ORDERS:
+      return [{}]
     default:
       return orders;
   }

@@ -193,10 +193,7 @@ class ProductDetail extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return state;
-}
-
-const mapDispatchToProps = { addToCart: addProductToCart };
+const mapStateToProps = state => ({})
+const mapDispatchToProps = ({ addToCart: addProductToCart })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

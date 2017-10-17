@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { logout } from '../store'
+import { logout, clearUserOrders, clearCart } from '../store'
 
 // To Do: add currentUser.isAdmin in front of admin link
 
@@ -115,8 +115,12 @@ const mapState = (state, { router }) => ({
   router
 })
 
-const mapDispatch = ({
-  onLogOut: logout
+const mapDispatch = dispatch => ({
+  onLogOut () {
+    dispatch(logout())
+    dispatch(clearCart())
+    dispatch(clearUserOrders())
+  }
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SearchBar))
