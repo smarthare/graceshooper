@@ -17,7 +17,7 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user,
+      user: props.currentUser,
       orders: props.orders,
       showSuccess: false
     };
@@ -27,9 +27,9 @@ class User extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user !== this.props.user) {
+    if (nextProps.currentUser !== this.props.currentUser) {
       this.setState({
-        user: nextProps.user
+        user: nextProps.currentUser
       });
     }
     if (nextProps.orders !== this.props.orders) {
@@ -56,9 +56,8 @@ class User extends Component {
   }
 
   render() {
-    const { cart, orders, currentUser, users } = this.props;
+    const { orders, currentUser } = this.props;
     const { user } = this.state;
-    // const user = currentUser;
     const { handleChange, handleSubmit } = this;
 
     // loading state
@@ -183,14 +182,9 @@ class User extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("my state", state);
   return {
-    users: state.users,
-    orders: state.orders.filter(order => {
-      return order.userId === state.users[3].id;
-    }),
     currentUser: state.currentUser,
-    user: state.users[3]
+    orders: state.currentUser.orders
   };
 };
 
