@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { $ } from '../util/helper'
+import { $, subCalc } from '../util/helper'
 import { deleteLnFromCart } from '../store'
 
 // Link to single product from cart line does not work yet
@@ -20,10 +20,7 @@ class Cart extends Component {
   render () {
     const
       { cart } = this.props,
-      subtotal = cart.lineItems.reduce((sum, ln) => {
-        sum += ln.quantity * ln.product.price
-        return sum
-      }, 0),
+      subtotal = subCalc(cart.lineItems),
       count = cart.lineItems.length
 
     return (

@@ -3,26 +3,31 @@ const router = require("express").Router(),
 
 router
   .get("/", (req, res, next) => {
-    Order.findAll()
-      .then(orders => res.send(orders))
-      .catch(next);
-  })
-  .get("/currentUser", (req, res, next) => {
     Order.getOrdersByUserId(req.session.userId)
       .then(orders => res.send(orders))
       .catch(next);
   })
+
   .get("/cart", (req, res, next) => {
     Order.getCartByUserId(req.session.userId)
       .then(cart => res.send(cart))
       .catch(next);
   })
+
   .put("/", (req, res, next) => {
     Order.getCartByUserId(req.session.userId)
       .then(cart => cart.submit())
       .then(order => res.send(order))
       .catch(next);
   })
+
+  .put("/:id", (req, res, next) => {
+    // Update an order's status to something other than 'Created'
+    Order.findById(req.params.Id)
+      .then(order => res.update(req.body))
+      .catch(next);
+  })
+
   .post("/", (req, res, next) => {
     // To create a cart from request body
     // i.e. when a guest signup
@@ -33,6 +38,7 @@ router
       .then(order => res.send(order))
       .catch(next);
   })
+
   .post("/lineItems", (req, res, next) => {
     const { productId, quantity } = req.body;
     Order.getCartByUserId(req.session.userId)
@@ -44,7 +50,6 @@ router
   .delete('/lineItems/:id', (req, res, next) => {
     Order.getCartByUserId(req.session.userId)
       .then(cart => cart.destroyLineItem(req.params.id))
-
       .then(result => res.send(result))
       .catch(next);
   });

@@ -1,13 +1,8 @@
 import React, { Component } from "react";
+import Order from "./Order";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import store, {
-  fetchUsers,
-  fetchOrders,
-  fetchCart,
-  fetchCategories,
-  fetchProducts
-} from "../store";
+import store, { fetchOrders, fetchCart } from "../store";
 import { updateUser } from "../reducers/users";
 
 // to do: figure out why refresh doesn't work
@@ -17,7 +12,7 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user,
+      user: props.currentUser,
       orders: props.orders,
       showSuccess: false
     };
@@ -26,10 +21,18 @@ class User extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    // This is the landing page of a user login/signup
+    // Fetch user order/cart here
+    store.dispatch(fetchOrders());
+    store.dispatch(fetchCart());
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user !== this.props.user) {
+    // Compare to currentUser updated in the store
+    if (nextProps.currentUser !== this.props.currentUser) {
       this.setState({
-        user: nextProps.user
+        user: nextProps.currentUser
       });
     }
     if (nextProps.orders !== this.props.orders) {
@@ -56,14 +59,15 @@ class User extends Component {
   }
 
   render() {
-    const { cart, orders, currentUser, users } = this.props;
+    const { orders } = this.props;
     const { user } = this.state;
-    // const user = currentUser;
     const { handleChange, handleSubmit } = this;
-
     // loading state
     if (!user) return <h1>Loading...</h1>;
 
+
+    // Simply User Info Form Fields
+    // Map to Order Components
     return (
       <div>
         <h1>User Information</h1>
@@ -76,90 +80,32 @@ class User extends Component {
               <div className="panel-body">
                 <img src={user.imgUrl} />
                 <form onSubmit={handleSubmit} value={user.id}>
+                  {
+                    ['name', 'email', 'phone', 'Address', 'City', 'State', 'ZIP']
+                    .map(attr => {
+                      return (
+                        <div className="form-group" key={attr}>
+                        <label>{`${attr[0].toUpperCase()}${attr.slice(1)}`}</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name={attr}
+                          value={user[attr]}
+                          onChange={handleChange}
+                        />
+                        </div>
+                      )
+                    })
+                  }
                   <div className="form-group">
-                    <label>Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="name"
-                      value={user.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      name="email"
-                      value={user.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Phone</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="phone"
-                      value={user.phone}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Address</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipAddress"
-                      value={user.shipAddress}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>City</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipCity"
-                      value={user.shipCity}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>State</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipState"
-                      value={user.shipState}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Zip</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shipZip"
-                      value={user.shipZip}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-block"
-                      value={user.id}
-                    >
+                    <button type="submit" className="btn btn-primary btn-block" >
                       Update
                     </button>
                   </div>
                 </form>
-                {this.state.showSuccess && (
-                  <div>
-                    <strong>Change successful!</strong>
-                  </div>
+                {
+                  this.state.showSuccess && (
+                  <strong>Change successful!</strong>
                 )}
               </div>
             </div>
@@ -171,7 +117,7 @@ class User extends Component {
               </div>
               <div className="panel-body">
                 <ul className="list-group">
-                  {orders.map(order => JSON.stringify(order))}
+                  {orders.map(order => <Order key={order.id} {...order} />)}
                 </ul>
               </div>
             </div>
@@ -183,14 +129,10 @@ class User extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("my state", state);
   return {
-    users: state.users,
-    orders: state.orders.filter(order => {
-      return order.userId === state.users[3].id;
-    }),
+    // Simplify store info
     currentUser: state.currentUser,
-    user: state.users[3]
+    orders: state.orders
   };
 };
 

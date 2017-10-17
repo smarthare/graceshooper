@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import store from "../store";
+import store, { fetchUsers } from "../store";
 import { deleteUser, toggleAdmin } from "../reducers/users";
 
 class Users extends React.Component {
@@ -9,6 +9,11 @@ class Users extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.toggleAdmin = this.toggleAdmin.bind(this);
   }
+
+  componentDidMount() {
+    store.dispatch(fetchUsers());
+  }
+
 
   handleDelete(e) {
     const { deleteUser } = this.props;

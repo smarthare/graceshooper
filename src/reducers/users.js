@@ -3,10 +3,25 @@ import axios from "axios";
 //action types
 
 const GET_USERS = "GET_USERS";
+const UPDATE_USER = "UPDATE_USER";
 
 //action creators
 export function getUsers(users) {
   return { type: GET_USERS, users };
+}
+
+export const updateInfo = userInfo => ({ type: GET_USERS, userInfo })
+
+//reducer
+export default function users(users = [], action) {
+  switch (action.type) {
+    case GET_USERS:
+      return action.users;
+    case UPDATE_USER:
+      return
+    default:
+      return users;
+  }
 }
 
 //helper function
@@ -33,10 +48,10 @@ export function deleteUser(id) {
   };
 }
 
-export function updateUser(user) {
+export function updateUser(userInfo) {
   return function thunk(dispatch) {
     return axios
-      .put(`/api/users/${user.id}`, user)
+      .put(`/api/users/${userInfo.id}`, userInfo)
       .then(() => fetchAllUsers(dispatch))
       .catch(err => console.error(err));
   };
@@ -54,16 +69,4 @@ export function toggleAdmin(id) {
       .then(() => fetchAllUsers(dispatch))
       .catch(err => console.error(err));
   };
-}
-
-//reducer
-
-export default function users(users = [], action) {
-  switch (action.type) {
-    case GET_USERS:
-      return action.users;
-
-    default:
-      return users;
-  }
 }
