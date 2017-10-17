@@ -24,10 +24,9 @@ class ProductForm extends React.Component {
   }
 
   handleChange(e) {
-    console.log("this is firing", this.state);
     const change = {};
     change[e.target.name] = e.target.value;
-    this.setState({ product: Object.assign({}, this.state.product, change) });
+    this.setState({ product: { ...this.state.product, ...change } });
   }
 
   handleSubmit(e) {
@@ -42,7 +41,7 @@ class ProductForm extends React.Component {
       this.setState({ product: emptyProduct });
     }
   }
-
+  //TODO deal with categories & images
   render() {
     const { product } = this.state;
     const { categories, isAddProduct } = this.props;
@@ -51,7 +50,7 @@ class ProductForm extends React.Component {
       <div className="col-sm-2">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <h4>{isAddProduct ? "Add a Product" : `Edit ${product.title}`}</h4>
+            <h4>{isAddProduct ? "Add a Product" : `Edit Product`}</h4>
           </div>
           <div className="panel-body">
             <form onSubmit={handleSubmit} value={product.id}>

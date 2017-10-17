@@ -33,6 +33,29 @@ export function deleteUser(id) {
   };
 }
 
+export function updateUser(user) {
+  return function thunk(dispatch) {
+    return axios
+      .put(`/api/users/${user.id}`, user)
+      .then(() => fetchAllUsers(dispatch))
+      .catch(err => console.error(err));
+  };
+}
+
+export function toggleAdmin(id) {
+  return function thunk(dispatch) {
+    return axios
+      .get(`/api/users/${id}`)
+      .then(response => {
+        return axios.put(`/api/users/${response.data.id}`, {
+          isAdmin: response.data.isAdmin === "true" ? false : true
+        });
+      })
+      .then(() => fetchAllUsers(dispatch))
+      .catch(err => console.error(err));
+  };
+}
+
 //reducer
 
 export default function users(users = [], action) {

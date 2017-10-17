@@ -19,8 +19,11 @@ class Categories extends React.Component {
     const { categories } = this.props;
     return (
       <div>
-        <div className="col-xs-3">
+        <br/>
+        <div className="col-xs-4">
           <CategoryForm />
+        </div>
+        <div className="col-xs-4">
           <div className="panel panel-default">
             <div className="panel-heading">
               <h3>Categories</h3>
