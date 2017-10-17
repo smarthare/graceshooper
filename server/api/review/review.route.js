@@ -2,12 +2,12 @@ const
   router = require('express').Router(),
   Review = require('./review.model')
 
-// I guess these routes should exist under products/:id/reviews
+// routes should exist under products/:id/reviews
 
 router
   .get('/', (req, res, next) => {
     Review.findAll({ order: ['id'] })
-    .then(res.json)
+    .then(reviews => res.send(reviews))
     .catch(next)
   })
 

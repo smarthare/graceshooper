@@ -1,214 +1,117 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import ProductDetail from './ProductDetail'
-import ProductList from './ProductList'
+import ProductDetail from './ProductDetail';
+import ProductList from './ProductList';
 
 class Home extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       pathname: '/',
       categoryId: 0,
       selectedProduct: {},
       term: '',
       filter: false
-    }
+    };
 
-    this.productWork = this.productWork.bind(this)
+    this.productWork = this.productWork.bind(this);
+    this.reviewWork = this.reviewWork.bind(this);
   }
 
   productWork (imgBefore, priceBefore) {
     // can send only one argument or both for a result
     // accounting for varied image inputs:
-    let imgAfter = 'none given'
+    let imgAfter = 'none given';
     if (imgBefore) {
       if (imgBefore.slice(0, 7) === 'http://') {
-        imgAfter = imgBefore
+        imgAfter = imgBefore;
       } else {
-        imgAfter = `../../assets/images/${imgBefore}`
+        imgAfter = `../../assets/images/${imgBefore}`;
       }
     }
     // possible price formating:
-    const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given'
-    return [imgAfter, priceAfter]
+    const priceAfter = (priceBefore) ? '$' + priceBefore.toString() : 'none given';
+    return [imgAfter, priceAfter];
   }
 
-  componentWillReceiveProps (nextProps) {
-    /*********************************************/
-    // get nextProps variables
-    const pathnameLast = this.state.pathname
-    const pathname = nextProps.router.location.pathname
-    const categoryId = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0
-    const term = (nextProps.router.match.params.term) ? nextProps.router.match.params.term : ''
-    const products = nextProps.products
+  reviewWork (id) {
+    // create a star rating output
+    let reviewNum, reviewAvg;
+    const reviewsArr = this.props.reviews.filter(review => review.productId === id);
+    if (reviewsArr.length) {
+      reviewNum = reviewsArr.length;
+      reviewAvg = reviewsArr.reduce((sum, elem) => {
+        return sum + elem.rating;
+      }, 0) / reviewNum;
+    } else {
+      reviewNum = 0;
+      reviewAvg = 0;
+    }
+    const fileLoc1 = Math.floor(reviewAvg);
+    const fileLoc2 = (reviewAvg - fileLoc1) ? 1 : 0;
+    const imgBefore = `stars${ fileLoc1 }${ fileLoc2 }.png`;
+    const renderImg = `../../assets/images/${imgBefore}`;
+
+    return [reviewNum, reviewAvg, renderImg, reviewsArr];
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const pathnameLast = this.state.pathname;
+    const pathname = nextProps.router.location.pathname;
+    const categoryId = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0;
+    const term = (nextProps.router.match.params.term) ? nextProps.router.match.params.term : '';
+    const products = nextProps.products;
     /*********************************************/
     // checking to see if someone clicked a link and changed the url
     /*********************************************/
     // did someone click a specific product? ...yes?: get that instance:
-    const productId = (nextProps.router.location.search) ? nextProps.router.location.search.slice(9) * 1 : 0
-    let selectedProduct = {}
+    const productId = (nextProps.router.location.search) ? nextProps.router.location.search.slice(9) * 1 : 0;
+    let selectedProduct = {};
     if (productId) {
+      if (!products.length) return;
       const selectedProductArr = products.filter(product => {
-        return productId === product.id
+        return productId === product.id;
       })
-      selectedProduct = selectedProductArr[0]
+      selectedProduct = selectedProductArr[0];
     }
     /*********************************************/
     // update state......
-    if (pathname !== pathnameLast) this.setState({ pathname, categoryId, term, selectedProduct, filter: true })
-    /*********************************************/
+    if (pathname !== pathnameLast) this.setState({ pathname, categoryId, term, selectedProduct, filter: true });
   }
 
-  render () {
-    let products = this.props.products
-    const categories = this.props.categories
-    const { filter, categoryId, selectedProduct, term } = this.state
-
-    /*********************************************/
-    // filter the Products List? - Main Section
-    // are we filtering by category?
-    if (filter && categoryId) {
-      products = products.filter(product => {
-        let acceptProd = false
-        product.categories.forEach(category => {
-          if (categoryId === category.id) acceptProd = true
-        })
-        return acceptProd
-      })
-    }
-    // now check if we are filtering by search term.
-    if (filter && term && products.length) {
-      products = products.filter(product => {
-        const regex = new RegExp(term, 'i')
-        return regex.test(product.title)
-        // let searchUpper = term.slice(0, 1).toUpperCase() + term.slice(1).toLowerCase()
-        // let searchLower = term.toLowerCase()
-        // let title = product.title
-        // return title.includes(searchLower) || title.includes(searchUpper)
-      })
-    }
-    /*********************************************/
-    // create the Products List &/or the Selected Product- Main Section
-    /*********************************************/
-    // if there is a selected Product, then render for the one product
-    let renderProducts, renderProducts2, renderswitch, price
+  render() {
+    const categories = this.props.categories;
+    const { filter, categoryId, selectedProduct, term } = this.state;
+    let renderSwitch;
     if (selectedProduct.title) {
-      /*************************************/
       // single product work here
-      /*************************************/
-      // accounting for varied image inputs & price formatting:
-      /*************************************/
-      renderswitch = false
-      const [imagesMain, ...imagesExtra] = selectedProduct.imgUrls.map(image => {
-        return this.productWork(image)[0]
-      })
-      price = this.productWork(null, selectedProduct.price)[1]
-      /*************************************/
-      // create <div></div> for the multiple extra images
-      if (imagesExtra.length) {
-        renderProducts = (
-          <div className='col-sm-3 panel panel-default marginbelowsm'>
-            {
-              imagesExtra.map(img => {
-                return (<div className='col-sm-12' key={img}>
-                  <img src={img} className='responsive-image' />
-                </div>)
-              })
-            }
-          </div>)
-      } else {
-        renderProducts = <div className='col-sm-1 border panel panel-default' />
-      }
-      /*************************************/
-      // create <div></div> for the main image
-      renderProducts2 = <div className='col-sm-9'><img src={imagesMain} className='responsive-image' /></div>
-    /*************************************/
+      renderSwitch = false;
     } else {
-      // looking for products in a category &/or containing a search term
-      renderswitch = true
-      renderProducts = products.map(product => {
-        if (product.inventory) {
-          /*************************************/
-          // accounting for varied image inputs & price formatting:
-          /*************************************/
-          const formatResult = this.productWork(product.imgUrls[0], product.price)
-          const image = formatResult[0]
-          price = formatResult[1]
-          /*************************************/
-          return (<Link to={`/category/${categoryId}/?product=${product.id}`} key={product.id}>
-            <div className='col-sm-6 panel panel-default'>
-              <div className='col-sm-6'>
-                <img src={image} className='responsive-image' />
-              </div>
-              <div className='col-sm-6'>
-                <h6>{ product.title }</h6>
-                <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
-                <h6><strong>Price: </strong>{ price }</h6>
-              </div>
-            </div>
-          </Link>)
-        }
-      })
-      if (!renderProducts.length) renderProducts = <div className='center'><strong> - no products found - </strong></div>
+      renderSwitch = true;
     }
-    /*********************************************/
-    // Label Products section:
-    let categoryName
-    categoryName = (selectedProduct.title) ? 'Single Product Selected - ' : ''
-    if (categoryId) {
-      const resultArr = categories.filter(category => {
-        return category.id === categoryId
-      })
-      categoryName = categoryName + resultArr[0].name
+    if (renderSwitch) {
+      return (<ProductList
+        categoryId={categoryId}
+        categories={categories}
+        filter={filter} term={term}
+        productWork={ this.productWork }
+        reviewWork={ this.reviewWork }
+      />);
     } else {
-      categoryName = categoryName + 'all Categories'
-    }
-    /*********************************************/
-    if (renderswitch) {
-      // return <ProductList categoryId={ categoryId } categories={ categories } />
-
-      return (
-        <div>
-          <div className='row'>
-            <div className='col-sm-12 marginbelow'>
-              <h6>Select a category (below) or enter search term (above)</h6>
-            </div>
-            <div className='col-sm-2 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-body colWidth100 backGreyBlue'>
-                <h6 className='center'>CATEGORIES</h6>
-              </div>
-              <div className='col-sm-12 marginbelow'>
-                {
-                  categories.map(category => {
-                    return (<Link to={`/category/${category.id}`} key={category.id}><div
-                      className='col-sm-12'>
-                      <h6>{ category.name }</h6></div></Link>)
-                  })
-                }
-              </div>
-            </div>
-            <div className='col-sm-10 panel panel-default'>
-              <div className='col-sm-12 marginbelow panel-body colWidth100 backGreyBlue'>
-                <h6 className='center'>PRODUCTS - ( { categoryName } )</h6>
-              </div>
-              <div className='col-sm-12 marginbelow'>
-                { renderProducts }
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )
-    } else {
-      return <ProductDetail categoryId={categoryId} categories={categories} selectedProduct={selectedProduct} />
+      return  (<ProductDetail
+        categoryId={categoryId}
+        categories={categories}
+        selectedProduct={selectedProduct}
+        productWork={ this.productWork }
+        reviewWork={ this.reviewWork }
+      />);
     }
   }
 }
 
-function mapState (state) {
-  return state
+function mapState(state) {
+  return state;
 }
 
-export default connect(mapState)(Home)
+export default connect(mapState)(Home);
