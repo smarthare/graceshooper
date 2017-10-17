@@ -29,6 +29,7 @@ class User extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // Compare to currentUser updated in the store
     if (nextProps.currentUser !== this.props.currentUser) {
       this.setState({
         user: nextProps.currentUser
@@ -64,6 +65,9 @@ class User extends Component {
     // loading state
     if (!user) return <h1>Loading...</h1>;
 
+
+    // Simply User Info Form Fields
+    // Map to Order Components
     return (
       <div>
         <h1>User Information</h1>
@@ -126,6 +130,7 @@ class User extends Component {
 
 const mapStateToProps = state => {
   return {
+    // Simplify store info
     currentUser: state.currentUser,
     orders: state.orders
   };

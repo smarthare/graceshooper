@@ -34,10 +34,10 @@ class Checkout extends Component {
               <div className='panel-body'>
                 Address
                 <ol>
-                  <li className='list-group-item'>Address: {user.shipAddress}</li>
-                  <li className='list-group-item'>City: {user.shipCity}</li>
-                  <li className='list-group-item'>State: {user.shipState}</li>
-                  <li className='list-group-item'>Zip: {user.shipZip}</li>
+                  <li className='list-group-item'>Address: {user.Address}</li>
+                  <li className='list-group-item'>City: {user.City}</li>
+                  <li className='list-group-item'>State: {user.State}</li>
+                  <li className='list-group-item'>ZIP: {user.ZIP}</li>
                 </ol>
                 <hr />
                 <div />

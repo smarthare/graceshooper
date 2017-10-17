@@ -51,7 +51,7 @@ export function deleteUser(id) {
 export function updateUser(userInfo) {
   return function thunk(dispatch) {
     return axios
-      .put(`/api/users/${user.id}`, userInfo)
+      .put(`/api/users/${userInfo.id}`, userInfo)
       .then(() => fetchAllUsers(dispatch))
       .catch(err => console.error(err));
   };
