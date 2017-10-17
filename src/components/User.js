@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import store, {
-  fetchUsers,
-  fetchOrders,
-  fetchCart,
-  fetchCategories,
-  fetchProducts
-} from "../store";
+import store, { fetchOrders, fetchCart } from "../store";
 import { updateUser } from "../reducers/users";
 
 // to do: figure out why refresh doesn't work
@@ -24,6 +18,13 @@ class User extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    // This is the landing page of a user login/signup
+    // Fetch user order/cart here
+    store.dispatch(fetchOrders());
+    store.dispatch(fetchCart());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -184,7 +185,7 @@ class User extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    orders: state.currentUser.orders
+    orders: state.orders
   };
 };
 

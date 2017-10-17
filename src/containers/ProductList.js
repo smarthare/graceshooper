@@ -7,7 +7,6 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = { productId: 0, msg: '' };
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -65,7 +64,7 @@ class ProductList extends Component {
           </div>);
         /*************************************/
         return (
-            <div className="col-sm-6 panel panel-default panelHeight" key={ product.id }>
+            <div className="col-sm-4 col-md-3 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
                 <div className="col-sm-6 marginBelowLg margintopsm">
                   <img src={ image } className="responsive-image" />

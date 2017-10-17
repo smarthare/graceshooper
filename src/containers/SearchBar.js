@@ -58,14 +58,15 @@ class SearchBar extends Component {
     const selectCat = _categories.map(category => {
       return <option key={category.id} value={category.id}>{ category.name }</option>
     })
-    let renderAuth, renderAdmin;
+    let renderAccount, renderAuth, renderAdmin;
     if (currentUser.id) {
-      renderAdmin = <Link to="/admin"><div className="col-sm-2 moverightsm margintopsm center">Admin Portal</div></Link>;
-      renderAuth = <div onClick={onLogOut} className="col-sm-2 moverightsm margintopsm center">Log Out</div>
+      renderAccount = <Link to="/account"><div className="col-sm-2 center">Account</div></Link>
+      renderAdmin = <Link to="/admin"><div className="col-sm-2 center">Admin Portal</div></Link>;
+      renderAuth = <div onClick={onLogOut} className="col-sm-2 center">Log Out</div>
     } else {
-      renderAuth = (<div className="col-sm-4 moverightsm margintopsm center">
+      renderAuth = (<div>
           <Link to="/signin"><div className="col-sm-2 center">Login</div></Link>
-          <Link to="/signup"><div className="col-sm-7 center">Sign Up</div></Link>
+          <Link to="/signup"><div className="col-sm-2 center">Sign Up</div></Link>
         </div>
       )
     }
@@ -74,8 +75,8 @@ class SearchBar extends Component {
       <div>
         <div className="row">
           <div className="col-sm-12 panel panel-default nomarginBot backGreyBlue">
-            <h4 className="col-sm-3 margintopmore marginbelowsm"><Link to={`/category/0`}>Grace Shopper</Link></h4>
-            <div className="col-sm-9 margintopmore marginbelowsm">
+            <h2 className="col-sm-3 margintopmore marginbelowsm"><Link to={`/category/0`}>Grace Shopper</Link></h2>
+            <div className="col-sm-9 margintopmore marginbelowsm h4">
               <form onSubmit={this.handleSubmit}>
                 <select
                   onChange={this.handleInput}
@@ -95,11 +96,11 @@ class SearchBar extends Component {
               </form>
             </div>
               <div className="col-sm-12 marginbelowsm">
-                <Link to="/"><div className="col-sm-1 moverightsm margintopsm center">Home</div></Link>
-                <Link to="/account"><div className="col-sm-2 moverightsm margintopsm center">Account</div></Link>
-                <Link to="/cart"><div className="col-sm-2 moverightsm margintopsm center">Cart ({cart.lineItems.length})</div></Link>
-                { renderAuth }
                 { renderAdmin }
+                <Link to="/"><div className="col-sm-2 center">Home</div></Link>
+                { renderAccount }
+                { renderAuth }
+                <Link to="/cart"><div className="col-sm-2 center">Cart ({cart.lineItems.length})</div></Link>
               </div>
           </div>
         </div>
@@ -115,9 +116,9 @@ const mapState = (state, { router }) => ({
   router
 })
 
-const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch, ownProps) => ({
   onLogOut () {
-    dispatch(logout())
+    dispatch(logout(ownProps.history))
     dispatch(clearCart())
     dispatch(clearUserOrders())
   }

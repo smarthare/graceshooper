@@ -10,27 +10,21 @@ import { Login, Signup } from "./AuthForm";
 import Account from "./User";
 
 import store, {
-  fetchUsers,
   fetchCategories,
   fetchProducts,
-  fetchOrders,
-  fetchCart,
   fetchReviews,
   fetchUserSession
 } from "../store";
 
 export default class App extends Component {
-  componentDidMount() {
+  componentDidMount () {
     store.dispatch(fetchCategories());
-    store.dispatch(fetchUsers());
     store.dispatch(fetchProducts());
     store.dispatch(fetchUserSession())
-    store.dispatch(fetchOrders());
-    store.dispatch(fetchCart());
     store.dispatch(fetchReviews());
   }
 
-  render() {
+  render () {
     return (
       <div className="container-fluid">
         <Switch>
@@ -45,7 +39,7 @@ export default class App extends Component {
           <Route path="/" render={router => <SearchBar router={router} />} />
         </Switch>
 
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <Switch>
               <Route

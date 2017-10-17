@@ -34,7 +34,7 @@ export const auth = (credentials, history, formName) => dispatch => {
     .then(result => result.data)
     .then(user => {
       dispatch(setCurrUser(user))
-      history.push(`/account/`)
+      history.push('/account/')
     })
     .catch(result => { throw result.response.data.error })
 }
@@ -42,14 +42,15 @@ export const auth = (credentials, history, formName) => dispatch => {
 export const fetchUserSession = () => dispatch => {
   return axios.get('/api/auth')
     .then(result => result.data)
-    .then(user => {
-      dispatch(setCurrUser(user))
-    })
+    .then(user => dispatch(setCurrUser(user)))
     .catch(() => console.log('not logged in'))
 }
 
-export const logout = () => dispatch => {
+export const logout = history => dispatch => {
   return axios.delete('/api/auth')
-    .then(() => dispatch(removeCurrUser()))
+    .then(() => {
+      dispatch(removeCurrUser())
+      history.push('/')
+    })
     // .catch(() => console.log('problem during logout'))
 }
