@@ -12,7 +12,7 @@ export default props => {
         <div className='col-sm-9'>
           {props.status} At {longDate(props.updatedAt)}
           {
-            props.lineItems.map(ln => {
+            props.lineItems && props.lineItems.map(ln => {
               return (
                 <div key={ln.id}>{ln.product.title}</div>
               )

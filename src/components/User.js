@@ -65,7 +65,6 @@ class User extends Component {
     // loading state
     if (!user) return <h1>Loading...</h1>;
 
-
     // Simply User Info Form Fields
     // Map to Order Components
     return (
@@ -85,14 +84,14 @@ class User extends Component {
                     .map(attr => {
                       return (
                         <div className="form-group" key={attr}>
-                        <label>{`${attr[0].toUpperCase()}${attr.slice(1)}`}</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          name={attr}
-                          value={user[attr]}
-                          onChange={handleChange}
-                        />
+                          <label>{`${attr[0].toUpperCase()}${attr.slice(1)}`}</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name={attr}
+                            value={user[attr]}
+                            onChange={handleChange}
+                          />
                         </div>
                       )
                     })
@@ -116,9 +115,9 @@ class User extends Component {
                 <h2>Order History</h2>
               </div>
               <div className="panel-body">
-                <ul className="list-group">
-                  {orders.map(order => <Order key={order.id} {...order} />)}
-                </ul>
+                <div>
+                  {orders && orders.map(order => <Order key={order.id} {...order} />)}
+                </div>
               </div>
             </div>
           </div>

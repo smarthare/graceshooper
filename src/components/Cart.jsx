@@ -12,7 +12,6 @@ class Cart extends Component {
   }
 
   handleDelete (idx) {
-    console.log(this, idx)
     const { cart, deleteLine } = this.props
     deleteLine(cart.lineItems[idx])
   }

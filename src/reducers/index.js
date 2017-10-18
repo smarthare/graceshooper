@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-// import TestsReducer from "./reducer_tests";
 import auth from './auth'
 import cart from './cart'
 import users from './users'
