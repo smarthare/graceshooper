@@ -107,7 +107,7 @@ class ProductList extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 marginbelow">
+          <div className="col-sm-12 marginbelow textAll">
             <h6>Select a category (below) or enter search term (above)</h6>
           </div>
           <div className="col-sm-2 panel panel-default">

@@ -8,15 +8,9 @@
 .nomarginTop {
   margin-top: 0px; }
 
-.nomarginBot {
-  margin-bottom: 0px; }
-
 .nopad {
   padding-top: 0px;
   padding-bottom: 0px; }
-
-.margintop {
-  margin-top: 20px; }
 
 .margintopmore {
   margin-top: 30px; }
@@ -84,9 +78,6 @@
 .backWhite {
   background-color: #fff; }
 
-.backGreyBlue {
-  background-color: #ebebf5; }
-
 .backGrey {
   background-color: #D0D7D9; }
 
@@ -104,33 +95,6 @@
 .textBlk {
   color: #000;
   font-weight: normal; }
-
-.colWidth100 {
-  width: 100%; }
-
-.colWidth95 {
-  width: 95%; }
-
-.colWidth55 {
-  width: 55%; }
-
-.colWidth60 {
-  width: 60%; }
-
-.colWidth20 {
-  width: 20%; }
-
-.colWidth25 {
-  width: 25%; }
-
-.colWidth175p {
-  width: 175px; }
-
-.colWidth150p {
-  width: 150px; }
-
-.center {
-  text-align: center; }
 
 .liststyling {
   list-style-type: square;
@@ -158,5 +122,82 @@
   width: 90%;
   margin: 0 5%; }
 
-.panelHeight {
-  height: 320px; }
+/*****  Media Queries  *****/
+@media all {
+  .backGreyBlue {
+    background-color: #ebebf5; }
+  .center {
+    text-align: center; }
+  .colWidth100 {
+    width: 100%; }
+  .colWidth95 {
+    width: 95%; }
+  .colWidth60 {
+    width: 60%; }
+  .colWidth55 {
+    width: 55%; }
+  .colWidth25 {
+    width: 25%; }
+  .colWidth20 {
+    width: 20%; }
+  .contentHidden {
+    visibility: hidden; }
+  .contentVisible {
+    visibility: visible; }
+  .marginBelowSM {
+    margin-bottom: 10px; }
+  .marginTop {
+    margin-top: 20px; }
+  .noMarginBot {
+    margin-bottom: 0px; } }
+
+@media (max-width: 767px) {
+  /* smartphones, iPhone, portrait 480x320 phones */
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  /*       .visible-xs-*      */
+  .colWidth {
+    width: 50%; }
+  .contentRender {
+    visibility: hidden; }
+  .indentMedia1 {
+    margin-left: 15px; }
+  .indentMedia2 {
+    margin-left: 15px; }
+  .mediaPlace {
+    text-align: center; }
+  .panelHeight {
+    height: 320px; }
+  .textAll {
+    color: Blue;
+    font-weight: bold; } }
+
+@media (min-width: 768px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  /*     (less than 992px)    */
+  /*       .visible-sm-*      */
+  .panelHeight {
+    height: 320px; }
+  .textAll {
+    color: Red;
+    font-weight: bold; } }
+
+@media (min-width: 992px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  /*    (less than 1200px)   */
+  /*      .visible-md-*      */
+  .panelHeight {
+    height: 320px; }
+  .textAll {
+    color: Black;
+    font-weight: bold; } }
+
+@media (min-width: 1200px) {
+  /* big landscape tablets, laptops, and desktops */
+  /* hi-res laptops and desktops */
+  /*      .visible-lg-*      */
+  .panelHeight {
+    height: 320px; }
+  .textAll {
+    color: Green;
+    font-weight: bold; } }
