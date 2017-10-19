@@ -3,6 +3,7 @@ import Order from "./Order";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import store, { fetchOrders, fetchCart } from "../store";
+import { mapOrderToProduct } from '../util/mapper'
 import { updateUser } from "../reducers/users";
 
 // to do: figure out why refresh doesn't work
@@ -59,7 +60,7 @@ class User extends Component {
   }
 
   render() {
-    const { orders } = this.props;
+    const { orders, products } = this.props;
     const { user } = this.state;
     const { handleChange, handleSubmit } = this;
     // loading state
@@ -116,7 +117,10 @@ class User extends Component {
               </div>
               <div className="panel-body">
                 <div>
-                  {orders && orders.map(order => <Order key={order.id} {...order} />)}
+                  {orders && orders
+                    .map(order => mapOrderToProduct(order, products))
+                    .map(order => (<Order key={order.id} {...order} />))
+                  }
                 </div>
               </div>
             </div>
@@ -131,7 +135,8 @@ const mapStateToProps = state => {
   return {
     // Simplify store info
     currentUser: state.currentUser,
-    orders: state.orders
+    orders: state.orders,
+    products: state.products
   };
 };
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { $, subCalc } from '../util/helper'
+import { mapOrderToProduct } from '../util/mapper'
 import { deleteLnFromCart } from '../store'
 
 // Link to single product from cart line does not work yet
@@ -74,7 +75,9 @@ class Cart extends Component {
   }
 }
 
-const mapState = state => ({ cart: state.cart })
+const mapState = state => ({
+  cart: mapOrderToProduct(state.cart, state.products)
+})
 const mapDispatch = ({ deleteLine: deleteLnFromCart })
 
 export default connect(mapState, mapDispatch)(Cart)

@@ -14,6 +14,3 @@ export const longDate = dateStr => {
     year = date.getUTCFullYear()
   return `${month} ${day}, ${year}`
 }
-export const mapProduct = (line, products) => {
-  line.product = line
-}
