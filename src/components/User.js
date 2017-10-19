@@ -5,9 +5,7 @@ import { connect } from "react-redux";
 import store, { fetchOrders, fetchCart } from "../store";
 import { mapOrderToProduct } from '../util/mapper'
 import { updateUser } from "../reducers/users";
-
-// to do: figure out why refresh doesn't work
-// success message
+import { fetchUserSession } from "../reducers/auth";
 
 class User extends Component {
   constructor(props) {
@@ -54,9 +52,10 @@ class User extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    store
-      .dispatch(this.props.updateUser(this.state.user))
-      .then(() => this.setState({ showSuccess: true }));
+    store.dispatch(this.props.updateUser(this.state.user)).then(() => {
+      store.dispatch(fetchUserSession());
+      this.setState({ showSuccess: true });
+    });
   }
 
   render() {
@@ -80,33 +79,37 @@ class User extends Component {
               <div className="panel-body">
                 <img src={user.imgUrl} />
                 <form onSubmit={handleSubmit} value={user.id}>
-                  {
-                    ['name', 'email', 'phone', 'Address', 'City', 'State', 'ZIP']
-                    .map(attr => {
-                      return (
-                        <div className="form-group" key={attr}>
-                          <label>{`${attr[0].toUpperCase()}${attr.slice(1)}`}</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name={attr}
-                            value={user[attr]}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      )
-                    })
-                  }
+                  {[
+                    "name",
+                    "email",
+                    "phone",
+                    "Address",
+                    "City",
+                    "State",
+                    "ZIP"
+                  ].map(attr => {
+                    return (
+                      <div className="form-group" key={attr}>
+                        <label>{`${attr[0].toUpperCase()}${attr.slice(
+                          1
+                        )}`}</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name={attr}
+                          value={user[attr]}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    );
+                  })}
                   <div className="form-group">
-                    <button type="submit" className="btn btn-primary btn-block" >
+                    <button type="submit" className="btn btn-primary btn-block">
                       Update
                     </button>
                   </div>
                 </form>
-                {
-                  this.state.showSuccess && (
-                  <strong>Change successful!</strong>
-                )}
+                {this.state.showSuccess && <strong>Change successful!</strong>}
               </div>
             </div>
           </div>

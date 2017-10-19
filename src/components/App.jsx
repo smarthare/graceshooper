@@ -11,6 +11,7 @@ import Account from "./User";
 
 import store, {
   fetchCategories,
+  fetchUsers,
   fetchProducts,
   fetchReviews,
   fetchUserSession
@@ -21,6 +22,7 @@ export default class App extends Component {
     store.dispatch(fetchCategories());
     store.dispatch(fetchProducts());
     store.dispatch(fetchUserSession())
+    store.dispatch(fetchUsers());
     store.dispatch(fetchReviews());
   }
 
