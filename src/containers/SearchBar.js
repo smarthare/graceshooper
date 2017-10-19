@@ -75,8 +75,8 @@ class SearchBar extends Component {
       <div>
         <div className="row">
           <div className="col-sm-12 panel panel-default nomarginBot backGreyBlue">
-            <h2 className="col-sm-3 margintopmore marginbelowsm"><Link to={`/category/0`}>Grace Shopper</Link></h2>
-            <div className="col-sm-9 margintopmore marginbelowsm h4">
+            <h3 className="col-sm-3 margintopmore marginbelowsm"><Link to={`/category/0`}>Grace Shopper</Link></h3>
+            <div className="col-sm-9 margintopmore marginbelowsm">
               <form onSubmit={this.handleSubmit}>
                 <select
                   onChange={this.handleInput}

@@ -58,35 +58,36 @@ class ProductList extends Component {
         /*************************************/
         // create a star rating output
         [reviewNum, reviewAvg, renderImg] = this.props.reviewWork(product.id);
-        renderReviews = (<div className="col-sm-6">
-            <img src={ renderImg } className="responsive-image2 moverightsm" />
-            <h6 className="tabtoright">( { reviewNum } reviews ) </h6>
+        renderReviews = (<div>
+            <img src={ renderImg } className="responsive-image2" />
+            <h6 className="marginbelow">( { reviewNum } reviews ) </h6>
           </div>);
         /*************************************/
         return (
-            <div className="col-sm-4 col-md-3 panel panel-default panelHeight" key={ product.id }>
+            <div className="col-sm-4 col-md-4 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
                 <div className="col-sm-6 marginBelowLg margintopsm">
                   <img src={ image } className="responsive-image" />
                 </div>
-                <div className="col-sm-6 margintopsm">
-                  <h6>{ product.title }</h6>
-                  <h6><strong>Quantity Available:</strong> { product.inventory }</h6>
-                  <h6><strong>Price: </strong>{ price }</h6>
-                </div>
-                { renderReviews }
               </Link>
-              <div className="col-sm-6">
-                <h6><form name={ product.id } onSubmit={this.handleSubmit}>
-                  <div className="col-sm-12 moverightsm colWidth100">
-                    <button className="btn btn-primary">
-                      <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
-                      &ensp;Add
-                    </button>
-                    <div className="margintopsm moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
-                  </div>
-                </form></h6>
-              </div>
+                <div className="col-sm-6 margintopsm">
+                  <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
+                    <h6>{ product.title }</h6>
+                    <h6><strong>Qty Available:</strong></h6>
+                    <h6>{ product.inventory }</h6>
+                    <h6><strong>Price: </strong>{ price }</h6>
+                    { renderReviews }
+                    </Link>
+                    <h6><form name={ product.id } onSubmit={this.handleSubmit}>
+                    <div className="colWidth100">
+                      <button className="btn btn-primary">
+                        <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
+                        &ensp;Add
+                      </button>
+                      <div className="margintopsm moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
+                    </div>
+                  </form></h6>
+                </div>
             </div>)
       }
     })
