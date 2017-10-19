@@ -56,7 +56,34 @@ class Home extends Component {
     return [reviewNum, reviewAvg, renderImg, reviewsArr];
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount () {
+    if (!this.props.users.length) return;
+    console.log('>>>>> Did Mount Props: >>>>>', this.props)
+    console.log('>>>>> Did Mount State: >>>>>', this.state)
+    const categoryId = (this.props.router.match.params.id) ? this.props.router.match.params.id * 1 : 0;
+    const term = (this.props.router.match.params.term) ? this.props.router.match.params.term : '';
+    const products = this.props.products;
+    /*********************************************/
+    // checking to see if someone clicked a link and changed the url
+    /*********************************************/
+    // did someone click a specific product? ...yes?: get that instance:
+    const productId = (this.props.router.location.search) ? this.props.router.location.search.slice(9) * 1 : 0;
+    let selectedProduct = {};
+    if (productId) {
+      if (!products.length) return;
+      const selectedProductArr = products.filter(product => {
+        return productId === product.id;
+      })
+      selectedProduct = selectedProductArr[0];
+      /*********************************************/
+      // update state......
+      this.setState({ categoryId, term, selectedProduct, filter: true });
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    console.log('>>>>> will get Props: >>>>>', this.props)
+    console.log('>>>>> Will Get State: >>>>>', this.state)
     const pathnameLast = this.state.pathname;
     const pathname = nextProps.router.location.pathname;
     const categoryId = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0;
