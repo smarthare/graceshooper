@@ -58,8 +58,6 @@ class Home extends Component {
 
   componentDidMount () {
     if (!this.props.users.length) return;
-    console.log('>>>>> Did Mount Props: >>>>>', this.props)
-    console.log('>>>>> Did Mount State: >>>>>', this.state)
     const categoryId = (this.props.router.match.params.id) ? this.props.router.match.params.id * 1 : 0;
     const term = (this.props.router.match.params.term) ? this.props.router.match.params.term : '';
     const products = this.props.products;
@@ -82,8 +80,6 @@ class Home extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('>>>>> will get Props: >>>>>', this.props)
-    console.log('>>>>> Will Get State: >>>>>', this.state)
     const pathnameLast = this.state.pathname;
     const pathname = nextProps.router.location.pathname;
     const categoryId = (nextProps.router.match.params.id) ? nextProps.router.match.params.id * 1 : 0;
