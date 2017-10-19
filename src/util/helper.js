@@ -1,6 +1,6 @@
 export const $ = num => '$' + parseFloat(Math.round(num * 100) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 export const subCalc = lineItems => {
-  return lineItems.reduce((sum, ln) => {
+  return lineItems && lineItems.reduce((sum, ln) => {
     sum += ln.quantity * (ln.price || ln.product.price)
     return sum
   }, 0)

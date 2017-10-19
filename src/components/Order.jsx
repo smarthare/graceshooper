@@ -1,18 +1,18 @@
 import React from 'react'
 import { $, subCalc, longDate } from '../util/helper'
 
-export default props => {
+export default order => {
   return (
     <div className='panel panel-info'>
       <div className='panel panel-heading'>
-        {`Order Placed: ${longDate(props.createdAt)}
-        Total Price: ${$(subCalc(props.lineItems))}`}
+        {`Order Placed: ${longDate(order.createdAt)}
+        Total Price: ${$(subCalc(order.lineItems))}`}
       </div>
       <div className='panel panel-body'>
         <div className='col-sm-9'>
-          {props.status} At {longDate(props.updatedAt)}
+          {order.status} At {longDate(order.updatedAt)}
           {
-            props.lineItems.map(ln => {
+            order.lineItems && order.lineItems.map(ln => {
               return (
                 <div key={ln.id}>{ln.product.title}</div>
               )
