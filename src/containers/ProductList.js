@@ -60,13 +60,13 @@ class ProductList extends Component {
         [reviewNum, reviewAvg, renderImg] = this.props.reviewWork(product.id);
         renderReviews = (<div>
             <img src={ renderImg } className="responsive-image2" />
-            <h6 className="marginB">( { reviewNum } reviews ) </h6>
+            <h5 className="marginB">( { reviewNum } reviews ) </h5>
           </div>);
         /*************************************/
         return (
-            <div className="col-xs-12 col-sm-4 col-md-4 panel panel-default panelHeight" key={ product.id }>
+            <div className="col-xs-12 col-sm-6 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                <div className="col-xs-4 col-sm-6 marginBLG marginTSM">
+                <div className="col-xs-4 col-sm-5 marginBLG marginTSM">
                   <img src={ image } className="responsive-image" />
                 </div>
               </Link>
