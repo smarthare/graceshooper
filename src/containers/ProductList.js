@@ -64,13 +64,13 @@ class ProductList extends Component {
           </div>);
         /*************************************/
         return (
-            <div className="col-xs-12 col-sm-6 panel panel-default panelHeight" key={ product.id }>
+            <div className="col-xs-12 col-sm-6 col-md-4 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                <div className="col-xs-4 col-sm-5 marginBLG marginTSM">
+                <div className="col-xs-4 col-sm-5 col-md-5 marginBLG marginTSM">
                   <img src={ image } className="responsive-image" />
                 </div>
               </Link>
-                <div className="col-xs-7 col-sm-7 marginTSM">
+                <div className="col-xs-7 col-sm-7 col-md-7 marginTSM">
                   <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
                     <h5>{ product.title }</h5>
                     <h5><strong>Qty Available:</strong></h5>
@@ -110,25 +110,25 @@ class ProductList extends Component {
           <div className="col-sm-12 marginB textAll">
             <h5>Select a category (below) or enter search term (above)</h5>
           </div>
-          <div className="col-sm-2 noPadLR panel panel-default">
-            <div className="col-sm-12 marginB panel-heading backBlack noPadLR padTBSMM">
+          <div className="col-xs-12 col-sm-2 col-md-2 noPadLR panel panel-default">
+            <div className="col-xs-12 col-sm-12 col-md-12 marginB panel-heading backBlack noPadLR padTBSMM">
               <h5 className="center">CATEGORIES</h5>
             </div>
-            <div className="col-sm-12 marginB">
+            <div className="col-xs-12 col-sm-12 col-md-12 marginB">
               {
                 categories.map(category => {
                   return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
-                    className="col-sm-12">
+                    className="col-xs-12 col-sm-12 col-md-12">
                     <h5>{ category.name }</h5></div></Link>)
                 })
               }
             </div>
           </div>
-          <div className="col-xs-12 col-sm-10 panel panel-default noPadLR">
-            <div className="col-xs-12 col-sm-12 marginB panel-heading backBlack noPadLR padTBSMM">
+          <div className="col-xs-12 col-sm-10 col-md-10 panel panel-default noPadLR">
+            <div className="col-xs-12 col-sm-12 col-md-12 marginB panel-heading backBlack noPadLR padTBSMM">
               <h5 className="center">PRODUCTS - ( { categoryName } )</h5>
             </div>
-            <div className="col-xs-12 col-sm-12 marginB">
+            <div className="col-xs-12 col-sm-12 col-md-12 marginB">
               { renderProducts }
             </div>
           </div>
