@@ -8,11 +8,14 @@
     "start": "node server",
     "seed": "node seed.js",
     "test": "mocha ./tests --recursive --watch --compilers js:babel-register",
-    "test:model": "mocha ./tests/models.test --watch --compilers js:babel-register",
-    "test:auth": "mocha ./tests/auth.test --watch --compilers js:babel-register",
+    "test:model":
+      "mocha ./tests/models.test --watch --compilers js:babel-register",
+    "test:auth":
+      "mocha ./tests/auth.test --watch --compilers js:babel-register",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "build:css": "node-sass -w -r public/css/scss -o public/css",
-    "start:dev": "npm run webpack -- -w & nodemon --ignore src/ --ignore dist/ server"
+    "start:dev":
+      "npm run webpack -- -w & nodemon --ignore src/ --ignore dist/ server"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
     "faker": "^4.1.0",
     "history": "^4.7.2",
     "http": "0.0.0",
+    "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "morgan": "^1.9.0",
     "node-sass": "^4.5.3",
@@ -46,11 +50,13 @@
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-tag-input": "^4.7.2",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
+    "select2": "^4.0.4",
     "sequelize": "^4.13.5",
     "socket.io": "^2.0.3",
     "webpack": "^3.6.0"

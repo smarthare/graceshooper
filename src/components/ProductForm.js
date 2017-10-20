@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import store from "../store";
 import { updateProduct, addProduct } from "../reducers/reducer_products";
 import _ from "lodash";
+import { WithContext as ReactTags } from "react-tag-input";
 
 const emptyProduct = {
   title: "",
@@ -10,101 +11,123 @@ const emptyProduct = {
   price: "",
   inventory: "",
   imageUrls: [],
-  categories: {}
+  categories: []
 };
 
 class ProductForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: props.product
+      product: props.product,
+      tags: props.product.categories.map(category => {
+        return { id: category.id, text: category.name };
+      }),
+      showSuccess: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTagDelete = this.handleTagDelete.bind(this);
+    this.handleTagAddition = this.handleTagAddition.bind(this);
+    this.handleTagDrag = this.handleTagDrag.bind(this);
   }
 
   handleChange(e) {
     const change = {};
     change[e.target.name] = e.target.value;
     this.setState({ product: { ...this.state.product, ...change } });
+    this.setState({ showSuccess: false });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const product = this.state.product;
+    const { product, tags } = this.state;
     const { updateProduct, addProduct } = this.props;
-    const thunk = this.props.isAddProduct
-      ? addProduct(product)
-      : updateProduct(product);
-    store.dispatch(thunk);
+    //this calls add product/update product - doesn't need dispatch because of how we mapped to props
+    this.props.isAddProduct
+      ? addProduct(product, tags)
+      : updateProduct(product, tags);
+
+    //sets success so we display message
+    this.setState({ showSuccess: true });
+
+    //empties product out
     if (this.props.isAddProduct) {
       this.setState({ product: emptyProduct });
     }
   }
+
+  handleTagDelete(i) {
+    const { tags } = this.state;
+    tags.splice(i, 1);
+    this.setState({ tags });
+  }
+
+  handleTagAddition(tag) {
+    const { tags } = this.state;
+    const tagId = this.props.categories.find(category => category.name === tag)
+      .id;
+    this.setState({ tags: [...tags, { id: tagId, text: tag }] });
+  }
+
+  handleTagDrag(tag, currPos, newPos) {
+    const { tags } = this.state;
+    tags.splice(currPos, 1);
+    tags.splice(newPos, 0, tag);
+    this.setState({ tags });
+  }
+
   //TODO deal with categories & images
   render() {
-    const { product } = this.state;
-    const { categories, isAddProduct } = this.props;
-    const { handleSubmit, handleChange, handleAddUrl } = this;
+    const {
+      handleSubmit,
+      handleChange,
+      handleAddUrl,
+      handleTagAddition,
+      handleTagDelete,
+      handleTagDrag,
+      state,
+      props
+    } = this;
+    const { product, tags, showSuccess } = state;
+    const { categories, isAddProduct } = props;
     return (
       <div className="col-sm-2">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <h4>{isAddProduct ? "Add a Product" : `Edit Product`}</h4>
+            <h4>{isAddProduct ? "ADD A PRODUCT" : `EDIT PRODUCT`}</h4>
           </div>
           <div className="panel-body">
             <form onSubmit={handleSubmit} value={product.id}>
+              {[
+                { name: "title", type: "text" },
+                { name: "description", type: "text" },
+                { name: "price", type: "number" },
+                { name: "inventory", type: "number" }
+              ].map(attr => {
+                const name = attr.name;
+                return (
+                  <div className="form-group" key={name}>
+                    <label>{name.toUpperCase()}</label>
+                    <input
+                      type={attr.type}
+                      className="form-control"
+                      name={name}
+                      value={product[name]}
+                      onChange={handleChange}
+                    />
+                  </div>
+                );
+              })}
               <div className="form-group">
-                <label>Title</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="title"
-                  value={product.title}
-                  onChange={handleChange}
+                <label>CATEGORIES:&nbsp;</label>
+                <ReactTags
+                  suggestions={categories.map(category => category.name)}
+                  tags={tags}
+                  handleDelete={handleTagDelete}
+                  handleAddition={handleTagAddition}
+                  handleDrag={handleTagDrag}
                 />
               </div>
-              <div className="form-group">
-                <label>Description</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="description"
-                  value={product.description}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Price</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="price"
-                  value={product.price}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Inventory</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="inventory"
-                  value={product.inventory}
-                  onChange={handleChange}
-                />
-              </div>
-              {/*<div className="form-group">
-                <label>Category:&nbsp;</label>
-                <select name="categiries" onChange={handleChange} value={""}>
-                  <option value="">(select a category)</option>
-                  {categories.map(category => (
-                    <option value={category.id} key={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-              </div>*/}
               <div className="form-group">
                 <button
                   type="submit"
@@ -125,6 +148,17 @@ class ProductForm extends React.Component {
                 />
               </div>*/}
             </form>
+            {showSuccess && (
+              <div>
+                <strong>
+                  {this.props.isAddProduct ? (
+                    "Product Added!"
+                  ) : (
+                    "Product Updated!"
+                  )}
+                </strong>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -139,8 +173,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return { updateProduct, addProduct };
-};
+//map dipatch to props this way to not need dispatch in code
+
+const mapDispatchToProps = { updateProduct, addProduct };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductForm);

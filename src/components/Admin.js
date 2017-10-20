@@ -11,21 +11,15 @@ export default function Admin(props) {
     <div>
       <h1>Admin</h1>
       <ul className="nav nav-tabs">
-        <li>
-          <NavLink to="/admin/categories" activeClassName="selected">
-            CATEGORIES
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/admin/users" activeClassName="selected">
-            USERS
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/admin/products" activeClassName="selected">
-            PRODUCTS
-          </NavLink>
-        </li>
+        {["categories", "users", "products", "reviews"].map(title => {
+          return (
+            <li key={title}>
+              <NavLink to={`/admin/${title}`} activeClassName="selected">
+                {title.toUpperCase()}
+              </NavLink>
+            </li>
+          );
+        })}
       </ul>
       <div>
         <Route path="/admin/categories" component={Categories} />

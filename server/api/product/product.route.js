@@ -15,23 +15,32 @@ router
       .catch(next);
   })
   .post("/", (req, res, next) => {
-    const { product } = req.body;
-    Product.create(
-      {
-        title: product.title,
-        description: product.description,
-        price: parseInt(product.price),
-        inventory: parseInt(product.inventory)
-      },
-      { include: [Category] }
-    )
+    const { product, categories } = req.body;
+    Promise.all(categories.map(category => Category.findById(category.id)))
+      .then(cats => {
+        return Product.create(
+          {
+            title: product.title,
+            description: product.description,
+            price: parseInt(product.price),
+            inventory: parseInt(product.inventory)
+          },
+          { include: [Category] }
+        ).then(product => product.setCategories(cats));
+      })
       .then(product => res.send(product))
       .catch(next);
   })
   .put("/:id", (req, res, next) => {
+    const { product, categories } = req.body;
     Product.findById(req.params.id, { include: [Category] })
-      .then(product => product.update(req.body))
-      .then(product => res.send(product))
+      .then(prod => prod.update(product))
+      .then(p => {
+        return Promise.all(
+          categories.map(category => Category.findById(category.id))
+        ).then(cats => p.setCategories(cats));
+      })
+      .then(result => res.send(result))
       .catch(next);
   })
   .delete("/:id", (req, res, next) => {

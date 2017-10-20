@@ -35,21 +35,24 @@ export function deleteProduct(id) {
   };
 }
 
-export function updateProduct(product) {
+export function updateProduct(product, categories) {
   return function thunk(dispatch) {
     return axios
       .put(`/api/products/${product.id}`, {
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        inventory: product.inventory
+        product: {
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          inventory: product.inventory
+        },
+        categories
       })
       .then(() => fetchAllProducts(dispatch))
       .catch(err => console.error(err));
   };
 }
 
-export function addProduct(product) {
+export function addProduct(product, categories) {
   return function thunk(dispatch) {
     return axios
       .post("/api/products", {
@@ -58,7 +61,8 @@ export function addProduct(product) {
           description: product.description,
           price: product.price,
           inventory: product.inventory
-        }
+        },
+        categories
       })
       .then(() => fetchAllProducts(dispatch))
       .catch(err => console.error(err));
