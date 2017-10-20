@@ -36,7 +36,7 @@ export const auth = (credentials, history, formName) => dispatch => {
       dispatch(setCurrUser(user))
       history.push('/account/')
     })
-    .catch(result => { throw result.response.data.error })
+    .catch(console.log)
 }
 
 export const fetchUserSession = () => dispatch => {

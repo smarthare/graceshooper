@@ -14,3 +14,13 @@ export const longDate = dateStr => {
     year = date.getUTCFullYear()
   return `${month} ${day}, ${year}`
 }
+
+export const validateAddress = user => {
+  let result = true
+  ;['Address', 'State', 'City', 'ZIP']
+  .forEach(prop => {
+    if (!user[prop] || user[prop].length < 1) result = false
+  })
+
+  return result
+}
