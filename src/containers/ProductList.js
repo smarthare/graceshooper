@@ -60,33 +60,33 @@ class ProductList extends Component {
         [reviewNum, reviewAvg, renderImg] = this.props.reviewWork(product.id);
         renderReviews = (<div>
             <img src={ renderImg } className="responsive-image2" />
-            <h6 className="marginbelow">( { reviewNum } reviews ) </h6>
+            <h5 className="marginB">( { reviewNum } reviews ) </h5>
           </div>);
         /*************************************/
         return (
-            <div className="col-sm-4 col-md-4 panel panel-default panelHeight" key={ product.id }>
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                <div className="col-sm-6 marginBelowLg margintopsm">
+                <div className="col-xs-4 col-sm-5 col-md-5 col-lg-5 marginBLG marginTSM">
                   <img src={ image } className="responsive-image" />
                 </div>
               </Link>
-                <div className="col-sm-6 margintopsm">
+                <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 marginTSM">
                   <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                    <h6>{ product.title }</h6>
-                    <h6><strong>Qty Available:</strong></h6>
-                    <h6>{ product.inventory }</h6>
-                    <h6><strong>Price: </strong>{ price }</h6>
+                    <h5>{ product.title }</h5>
+                    <h5><strong>Qty Available:</strong></h5>
+                    <h5>{ product.inventory }</h5>
+                    <h5><strong>Price: </strong>{ price }</h5>
                     { renderReviews }
                     </Link>
-                    <h6><form name={ product.id } onSubmit={this.handleSubmit}>
-                    <div className="colWidth100">
+                    <h5><form name={ product.id } onSubmit={this.handleSubmit}>
+                    <div className="">
                       <button className="btn btn-primary">
                         <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                         &ensp;Add
                       </button>
-                      <div className="margintopsm moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
+                      <div className="marginTSM textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
                     </div>
-                  </form></h6>
+                  </form></h5>
                 </div>
             </div>)
       }
@@ -99,36 +99,36 @@ class ProductList extends Component {
       const resultArr = categories.filter(category => {
         return category.id === categoryId;
       })
-      categoryName = resultArr[0].name;
+      categoryName = resultArr[0].name.toUpperCase();
     } else {
-      categoryName = 'all Categories';
+      categoryName = 'ALL CATEGORIES';
     }
     /*********************************************/
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 marginbelow">
-            <h6>Select a category (below) or enter search term (above)</h6>
+          <div className="col-sm-12 marginB textAll">
+            <h5>Select a category (below) or enter search term (above)</h5>
           </div>
-          <div className="col-sm-2 panel panel-default">
-            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
-              <h6 className="center">CATEGORIES</h6>
+          <div className="col-xs-12 col-sm-2 col-md-2 col-lg-2 noPadLR panel panel-default">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB panel-heading backBlack noPadLR padTBSMM">
+              <h5 className="center">CATEGORIES</h5>
             </div>
-            <div className="col-sm-12 marginbelow">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB">
               {
                 categories.map(category => {
                   return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
-                    className="col-sm-12">
-                    <h6>{ category.name }</h6></div></Link>)
+                    className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h5>{ category.name }</h5></div></Link>)
                 })
               }
             </div>
           </div>
-          <div className="col-sm-10 panel panel-default">
-            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
-              <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
+          <div className="col-xs-12 col-sm-10 col-md-10 panel panel-default noPadLR">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB panel-heading backBlack noPadLR padTBSMM">
+              <h5 className="center">PRODUCTS - ( { categoryName } )</h5>
             </div>
-            <div className="col-sm-12 marginbelow">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB">
               { renderProducts }
             </div>
           </div>
