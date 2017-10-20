@@ -74,3 +74,10 @@ export const submitCart = () => dispatch => {
     .then(() => dispatch(clearCart()))
     .catch(console.log)
 }
+
+export const mergeCart = lineItems => dispatch => {
+  if (!lineItems) return
+  return Promise.all(lineItems.map(({ productId, quantity }) => {
+    return dispatch(addProductToCart(productId, quantity))
+  }))
+}
