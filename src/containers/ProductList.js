@@ -60,17 +60,17 @@ class ProductList extends Component {
         [reviewNum, reviewAvg, renderImg] = this.props.reviewWork(product.id);
         renderReviews = (<div>
             <img src={ renderImg } className="responsive-image2" />
-            <h6 className="marginbelow">( { reviewNum } reviews ) </h6>
+            <h6 className="marginB">( { reviewNum } reviews ) </h6>
           </div>);
         /*************************************/
         return (
             <div className="col-sm-4 col-md-4 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                <div className="col-sm-6 marginBelowLg margintopsm">
+                <div className="col-sm-6 marginBLG marginTSM">
                   <img src={ image } className="responsive-image" />
                 </div>
               </Link>
-                <div className="col-sm-6 margintopsm">
+                <div className="col-sm-6 marginTSM">
                   <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
                     <h6>{ product.title }</h6>
                     <h6><strong>Qty Available:</strong></h6>
@@ -84,7 +84,7 @@ class ProductList extends Component {
                         <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                         &ensp;Add
                       </button>
-                      <div className="margintopsm moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
+                      <div className="marginTSM moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
                     </div>
                   </form></h6>
                 </div>
@@ -99,22 +99,22 @@ class ProductList extends Component {
       const resultArr = categories.filter(category => {
         return category.id === categoryId;
       })
-      categoryName = resultArr[0].name;
+      categoryName = resultArr[0].name.toUpperCase();
     } else {
-      categoryName = 'all Categories';
+      categoryName = 'ALL CATEGORIES';
     }
     /*********************************************/
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 marginbelow textAll">
+          <div className="col-sm-12 marginB textAll">
             <h6>Select a category (below) or enter search term (above)</h6>
           </div>
-          <div className="col-sm-2 panel panel-default">
-            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
-              <h6 className="center">CATEGORIES</h6>
+          <div className="col-sm-2 noPadLR panel panel-default">
+            <div className="col-sm-12 marginB panel-heading backBlack noPadLR padTBSMM">
+              <h5 className="center">CATEGORIES</h5>
             </div>
-            <div className="col-sm-12 marginbelow">
+            <div className="col-sm-12 marginB">
               {
                 categories.map(category => {
                   return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
@@ -124,11 +124,11 @@ class ProductList extends Component {
               }
             </div>
           </div>
-          <div className="col-sm-10 panel panel-default">
-            <div className="col-sm-12 marginbelow panel-body backGreyBlue">
-              <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
+          <div className="col-sm-10 panel panel-default noPadLR">
+            <div className="col-sm-12 marginB panel-heading backBlack noPadLR padTBSMM">
+              <h5 className="center">PRODUCTS - ( { categoryName } )</h5>
             </div>
-            <div className="col-sm-12 marginbelow">
+            <div className="col-sm-12 marginB">
               { renderProducts }
             </div>
           </div>

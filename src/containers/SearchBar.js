@@ -69,9 +69,9 @@ class SearchBar extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 col-md-12 panel panel-default noMarginBot backBlack">
-            <h3 className="col-sm-4 col-md-3 indentMedia1 marginBelowSM noPadLR textWhite"><Link to={`/category/0`} className="textWhite">Grace Shopper</Link></h3>
-            <div className="col-sm-7 col-md-8  indentMedia2 marginBelowSM marginTop noPadLR">
+          <div className="col-sm-12 col-md-12 panel panel-default noMarginB backBlack">
+            <h3 className="col-sm-4 col-md-3 indentMedia1 marginBSM noPadLR textWhite"><Link to={`/category/0`} className="textWhite">Grace Shopper</Link></h3>
+            <div className="col-sm-7 col-md-8  indentMedia2 marginBSM marginT noPadLR">
               <form onSubmit={this.handleSubmit}>
                 <select
                   onChange={this.handleInput}
@@ -90,7 +90,7 @@ class SearchBar extends Component {
                 </button>
               </form>
             </div>
-              <div className="col-sm-12 marginBelowSM noPadLR">
+              <div className="col-sm-12 marginBSM noPadLR">
                 <Link to="/"><div className="col-sm-2 mediaPlace textWhite">Home</div></Link>
                 { renderAdmin }
                 { renderAccount }

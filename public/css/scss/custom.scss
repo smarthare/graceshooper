@@ -1,32 +1,6 @@
 .mainnav {
   margin: 20px 0px; }
 
-.nomarginTopBot {
-  margin-top: 0px;
-  margin-bottom: 0px; }
-
-.nomarginTop {
-  margin-top: 0px; }
-
-.margintopmore {
-  margin-top: 30px; }
-
-.margintopsm {
-  margin-top: 10px; }
-
-.marginbelow {
-  margin-bottom: 20px; }
-
-.marginBelowLg {
-  margin-bottom: 75px; }
-
-.marginbelowsm {
-  margin-bottom: 10px; }
-
-.marginLandR {
-  margin-left: 10px;
-  margin-right: 10px; }
-
 .moveup {
   margin-top: -35px; }
 
@@ -148,13 +122,36 @@
   .contentVisible {
     visibility: visible; }
 
-  .marginBelowSM {
+  .marginB {
+    margin-bottom: 20px; }
+  
+  .marginBLG {
+    margin-bottom: 75px; }
+
+  .marginBSM {
     margin-bottom: 10px; }
 
-  .marginTop {
-    margin-top: 20px; }
+  .marginLR {
+    margin-left: 10px;
+    margin-right: 10px; }
 
-  .noMarginBot {
+  .marginT {
+    margin-top: 20px; }
+  
+  .marginTLG {
+    margin-top: 30px; }
+  
+  .marginTSM {
+    margin-top: 10px; }
+
+  .noMarginB {
+    margin-bottom: 0px; }
+
+  .noMarginT {
+    margin-top: 0px; }
+
+  .noMarginTB {
+    margin-top: 0px;
     margin-bottom: 0px; }
 
   .noPadLR {
@@ -164,6 +161,14 @@
   .noPadTB {
     padding-top: 0px;
     padding-bottom: 0px; }
+
+  .padTBSM {
+    padding-top: 5px;
+    padding-bottom: 5px; }
+
+  .padTBSMM {
+    padding-top: 1px;
+    padding-bottom: 1px; }
 
   .textBlack {
     color: #000;
