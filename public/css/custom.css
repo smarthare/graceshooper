@@ -8,10 +8,6 @@
 .nomarginTop {
   margin-top: 0px; }
 
-.nopad {
-  padding-top: 0px;
-  padding-bottom: 0px; }
-
 .margintopmore {
   margin-top: 30px; }
 
@@ -75,27 +71,6 @@
   margin-left: auto;
   margin-right: auto; }
 
-.backWhite {
-  background-color: #fff; }
-
-.backGrey {
-  background-color: #D0D7D9; }
-
-.backRed {
-  background-color: red; }
-
-.textBlue {
-  color: Blue;
-  font-weight: bold; }
-
-.textRed {
-  color: #DF0D0D;
-  font-weight: bold; }
-
-.textBlk {
-  color: #000;
-  font-weight: normal; }
-
 .liststyling {
   list-style-type: square;
   margin-top: 2px; }
@@ -124,8 +99,16 @@
 
 /*****  Media Queries  *****/
 @media all {
+  .backBlack {
+    background-color: black; }
+  .backGrey {
+    background-color: #D0D7D9; }
   .backGreyBlue {
     background-color: #ebebf5; }
+  .backRed {
+    background-color: red; }
+  .backWhite {
+    background-color: #fff; }
   .center {
     text-align: center; }
   .colWidth100 {
@@ -149,7 +132,25 @@
   .marginTop {
     margin-top: 20px; }
   .noMarginBot {
-    margin-bottom: 0px; } }
+    margin-bottom: 0px; }
+  .noPadLR {
+    padding-left: 0px;
+    padding-right: 0px; }
+  .noPadTB {
+    padding-top: 0px;
+    padding-bottom: 0px; }
+  .textBlack {
+    color: #000;
+    font-weight: normal; }
+  .textBlue {
+    color: Blue;
+    font-weight: normal; }
+  .textRed {
+    color: #DF0D0D;
+    font-weight: normal; }
+  .textWhite {
+    color: white;
+    font-weight: normal; } }
 
 @media (max-width: 767px) {
   /* smartphones, iPhone, portrait 480x320 phones */
@@ -218,6 +219,14 @@
   /*      .visible-lg-*      */
   .colWidth {
     width: 70%; }
+  .contentRender {
+    visibility: hidden; }
+  .indentMedia1 {
+    margin-left: 15px; }
+  .indentMedia2 {
+    margin-left: 0px; }
+  .mediaPlace {
+    text-align: left; }
   .panelHeight {
     height: 320px; }
   .textAll {
