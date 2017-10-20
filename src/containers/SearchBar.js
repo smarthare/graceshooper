@@ -55,13 +55,13 @@ class SearchBar extends Component {
     });
     let renderAccount, renderAuth, renderAdmin;
     if (currentUser.id) {
-      renderAccount = <Link to="/account"><div className="col-sm-2 center">Account</div></Link>
-      renderAdmin = (currentUser.isAdmin) ? <Link to="/admin"><div className="col-sm-2 center">Admin Portal</div></Link> : null;
-      renderAuth = <div onClick={onLogOut} className="col-sm-2 center">Log Out</div>
+      renderAccount = <Link to="/account"><div className="col-sm-2 mediaPlace">Account</div></Link>
+      renderAdmin = (currentUser.isAdmin) ? <Link to="/admin"><div className="col-sm-2 mediaPlace">Admin Portal</div></Link> : null;
+      renderAuth = <div onClick={onLogOut} className="col-sm-2 mediaPlace">Log Out</div>
     } else {
       renderAuth = (<div>
-          <Link to="/signin"><div className="col-sm-2 center">Login</div></Link>
-          <Link to="/signup"><div className="col-sm-2 center">Sign Up</div></Link>
+          <Link to="/signin"><div className="col-sm-2 mediaPlace">Login</div></Link>
+          <Link to="/signup"><div className="col-sm-2 mediaPlace">Sign Up</div></Link>
         </div>
       )
     }
@@ -69,9 +69,9 @@ class SearchBar extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 panel panel-default noMarginBot backGreyBlue">
-            <h3 className="col-sm-4 indentMedia1 marginBelowSM"><Link to={`/category/0`}>Grace Shopper</Link></h3>
-            <div className="col-sm-8  indentMedia2 marginBelowSM marginTop">
+          <div className="col-sm-12 col-md-12 panel panel-default noMarginBot backGreyBlue">
+            <h3 className="col-sm-4 col-md-3 indentMedia1 marginBelowSM"><Link to={`/category/0`}>Grace Shopper</Link></h3>
+            <div className="col-sm-7 col-md-8  indentMedia2 marginBelowSM marginTop">
               <form onSubmit={this.handleSubmit}>
                 <select
                   onChange={this.handleInput}
@@ -91,11 +91,11 @@ class SearchBar extends Component {
               </form>
             </div>
               <div className="col-sm-12 marginBelowSM">
+                <Link to="/"><div className="col-sm-2 mediaPlace">Home</div></Link>
                 { renderAdmin }
-                <Link to="/"><div className="col-sm-2 center">Home</div></Link>
                 { renderAccount }
                 { renderAuth }
-                <Link to="/cart"><div className="col-sm-2 center">Cart ({cart.lineItems.length})</div></Link>
+                <Link to="/cart"><div className="col-sm-2 mediaPlace">Cart ({cart.lineItems.length})</div></Link>
               </div>
           </div>
         </div>

@@ -164,7 +164,7 @@
   .indentMedia2 {
     margin-left: 15px; }
   .mediaPlace {
-    text-align: center; }
+    text-align: left; }
   .panelHeight {
     height: 320px; }
   .textAll {
@@ -175,6 +175,16 @@
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
   /*     (less than 992px)    */
   /*       .visible-sm-*      */
+  .colWidth {
+    width: 50%; }
+  .contentRender {
+    visibility: hidden; }
+  .indentMedia1 {
+    margin-left: 15px; }
+  .indentMedia2 {
+    margin-left: 0px; }
+  .mediaPlace {
+    text-align: left; }
   .panelHeight {
     height: 320px; }
   .textAll {
@@ -186,6 +196,16 @@
   /* tablet, landscape iPad, lo-res laptops ands desktops */
   /*    (less than 1200px)   */
   /*      .visible-md-*      */
+  .colWidth {
+    width: 70%; }
+  .contentRender {
+    visibility: hidden; }
+  .indentMedia1 {
+    margin-left: 15px; }
+  .indentMedia2 {
+    margin-left: 0px; }
+  .mediaPlace {
+    text-align: left; }
   .panelHeight {
     height: 320px; }
   .textAll {
@@ -196,6 +216,8 @@
   /* big landscape tablets, laptops, and desktops */
   /* hi-res laptops and desktops */
   /*      .visible-lg-*      */
+  .colWidth {
+    width: 70%; }
   .panelHeight {
     height: 320px; }
   .textAll {
