@@ -70,23 +70,23 @@ class ProductList extends Component {
                   <img src={ image } className="responsive-image" />
                 </div>
               </Link>
-                <div className="col-sm-6 marginTSM">
+                <div className="col-xs-7 col-sm-7 marginTSM">
                   <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                    <h6>{ product.title }</h6>
-                    <h6><strong>Qty Available:</strong></h6>
-                    <h6>{ product.inventory }</h6>
-                    <h6><strong>Price: </strong>{ price }</h6>
+                    <h5>{ product.title }</h5>
+                    <h5><strong>Qty Available:</strong></h5>
+                    <h5>{ product.inventory }</h5>
+                    <h5><strong>Price: </strong>{ price }</h5>
                     { renderReviews }
                     </Link>
-                    <h6><form name={ product.id } onSubmit={this.handleSubmit}>
-                    <div className="colWidth100">
+                    <h5><form name={ product.id } onSubmit={this.handleSubmit}>
+                    <div className="">
                       <button className="btn btn-primary">
                         <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                         &ensp;Add
                       </button>
-                      <div className="marginTSM moverightsm textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
+                      <div className="marginTSM textBlue">{ (this.state.productId === product.id) ? this.state.msg : null }</div>
                     </div>
-                  </form></h6>
+                  </form></h5>
                 </div>
             </div>)
       }
@@ -124,11 +124,11 @@ class ProductList extends Component {
               }
             </div>
           </div>
-          <div className="col-sm-10 panel panel-default noPadLR">
-            <div className="col-sm-12 marginB panel-heading backBlack noPadLR padTBSMM">
+          <div className="col-xs-12 col-sm-10 panel panel-default noPadLR">
+            <div className="col-xs-12 col-sm-12 marginB panel-heading backBlack noPadLR padTBSMM">
               <h5 className="center">PRODUCTS - ( { categoryName } )</h5>
             </div>
-            <div className="col-sm-12 marginB">
+            <div className="col-xs-12 col-sm-12 marginB">
               { renderProducts }
             </div>
           </div>
