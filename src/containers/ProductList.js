@@ -64,9 +64,9 @@ class ProductList extends Component {
           </div>);
         /*************************************/
         return (
-            <div className="col-sm-4 col-md-4 panel panel-default panelHeight" key={ product.id }>
+            <div className="col-xs-12 col-sm-4 col-md-4 panel panel-default panelHeight" key={ product.id }>
               <Link to={ `/category/${ categoryId }/?product=${ product.id }` } key={ product.id }>
-                <div className="col-sm-6 marginBLG marginTSM">
+                <div className="col-xs-4 col-sm-6 marginBLG marginTSM">
                   <img src={ image } className="responsive-image" />
                 </div>
               </Link>

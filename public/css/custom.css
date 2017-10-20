@@ -56,14 +56,6 @@
 .setWidth {
   width: 85%; }
 
-.responsive-image {
-  height: auto;
-  width: 100%; }
-
-.responsive-image2 {
-  height: auto;
-  width: 70%; }
-
 .border {
   border: 1px; }
 
@@ -101,6 +93,12 @@
     visibility: hidden; }
   .contentVisible {
     visibility: visible; }
+  .responsive-image {
+    height: auto;
+    width: 100%; }
+  .responsive-image2 {
+    height: auto;
+    width: 70%; }
   .marginB {
     margin-bottom: 20px; }
   .marginBLG {
@@ -156,6 +154,12 @@
     width: 50%; }
   .contentRender {
     visibility: hidden; }
+  .responsive-image {
+    height: auto;
+    width: 100%; }
+  .responsive-image2 {
+    height: auto;
+    width: 70%; }
   .indentMedia1 {
     margin-left: 15px; }
   .indentMedia2 {
