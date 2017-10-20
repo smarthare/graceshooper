@@ -170,6 +170,10 @@
     padding-top: 1px;
     padding-bottom: 1px; }
 
+  .textAll {
+    color: Black;
+    font-weight: normal; }
+
   .textBlack {
     color: #000;
     font-weight: normal; }
@@ -221,10 +225,6 @@
     width: 40%;
   }
 
-  .textAll {
-    color: Blue;
-    font-weight: bold; }
-
 }
 
 @media(min-width:768px){
@@ -259,10 +259,6 @@
     height: auto;
     width: 40%;
   }
-
-  .textAll {
-    color: Red;
-    font-weight: bold; }
 
 }
 
@@ -300,10 +296,6 @@
     width: 40%;
   }
 
-  .textAll {
-    color: Black;
-    font-weight: bold; }
-
 }
 
 @media(min-width:1200px){
@@ -338,9 +330,5 @@
     height: auto;
     width: 40%;
   }
-
-  .textAll {
-    color: Green;
-    font-weight: bold; }
 
 }
