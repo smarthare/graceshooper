@@ -55,13 +55,13 @@ class SearchBar extends Component {
     });
     let renderAccount, renderAuth, renderAdmin;
     if (currentUser.id) {
-      renderAccount = <Link to="/account"><div className="col-sm-2 mediaPlace textWhite">Account</div></Link>
-      renderAdmin = (currentUser.isAdmin) ? <Link to="/admin"><div className="col-sm-2 mediaPlace textWhite">Admin Portal</div></Link> : null;
-      renderAuth = <div onClick={onLogOut} className="col-sm-2 mediaPlace textWhite">Log Out</div>
+      renderAccount = <Link to="/account"><div className="col-sm-2 mediaPlace textWhite h5">Account</div></Link>
+      renderAdmin = (currentUser.isAdmin) ? <Link to="/admin"><div className="col-sm-2 mediaPlace textWhite h5">Admin Portal</div></Link> : null;
+      renderAuth = <div onClick={onLogOut} className="col-sm-2 mediaPlace textWhite h5">Log Out</div>
     } else {
       renderAuth = (<div>
-          <Link to="/signin"><div className="col-sm-2 mediaPlace textWhite">Login</div></Link>
-          <Link to="/signup"><div className="col-sm-2 mediaPlace textWhite">Sign Up</div></Link>
+          <Link to="/signin"><div className="col-sm-2 mediaPlace textWhite h5">Login</div></Link>
+          <Link to="/signup"><div className="col-sm-2 mediaPlace textWhite h5">Sign Up</div></Link>
         </div>
       )
     }
@@ -91,11 +91,11 @@ class SearchBar extends Component {
               </form>
             </div>
               <div className="col-sm-12 marginBSM noPadLR">
-                <Link to="/"><div className="col-sm-2 mediaPlace textWhite">Home</div></Link>
+                <Link to="/"><div className="col-sm-2 mediaPlace textWhite h5">Home</div></Link>
                 { renderAdmin }
                 { renderAccount }
                 { renderAuth }
-                <Link to="/cart"><div className="col-sm-2 mediaPlace textWhite">Cart ({cart.lineItems.length})</div></Link>
+                <Link to="/cart"><div className="col-sm-2 mediaPlace textWhite h5">Cart ({cart.lineItems.length})</div></Link>
               </div>
           </div>
         </div>

@@ -108,7 +108,7 @@ class ProductList extends Component {
       <div>
         <div className="row">
           <div className="col-sm-12 marginB textAll">
-            <h6>Select a category (below) or enter search term (above)</h6>
+            <h5>Select a category (below) or enter search term (above)</h5>
           </div>
           <div className="col-sm-2 noPadLR panel panel-default">
             <div className="col-sm-12 marginB panel-heading backBlack noPadLR padTBSMM">
@@ -119,7 +119,7 @@ class ProductList extends Component {
                 categories.map(category => {
                   return (<Link to={ `/category/${ category.id }` } key={ category.id }><div
                     className="col-sm-12">
-                    <h6>{ category.name }</h6></div></Link>)
+                    <h5>{ category.name }</h5></div></Link>)
                 })
               }
             </div>
