@@ -40,6 +40,7 @@ export const auth = (credentials, history, formName) => dispatch => {
 }
 
 export const fetchUserSession = () => (dispatch, getState) => {
+  if (getState().currentUser.id) return
   return axios.get('/api/auth')
     .then(result => result.data)
     .then(user => dispatch(setCurrUser(user)))
