@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from "react-redux"
 import { $, subCalc, longDate } from '../util/helper'
 
-export default order => {
+const Order = order => {
   return (
     <div className='panel panel-info'>
       <div className='panel panel-heading'>
@@ -28,3 +29,8 @@ export default order => {
     </div>
   )
 }
+
+const mapState = stat => ({})
+const mapDispatch = {}
+
+export default connect(mapState, mapDispatch)(Order)

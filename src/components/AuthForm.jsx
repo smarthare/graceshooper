@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { auth } from '../store'
+import { auth, fetchOrders, fetchCart, mergeCart } from '../store'
 
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props
@@ -33,7 +33,8 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.currentUser.error
+    error: state.currentUser.error,
+    cart: state.cart
   }
 }
 
@@ -41,7 +42,8 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.currentUser.error
+    error: state.currentUser.error,
+    cart: state.cart
   }
 }
 
@@ -54,6 +56,9 @@ const mapDispatch = (dispatch, ownProps) => ({
       password: evt.target.password.value
     }
     dispatch(auth(credentials, ownProps.history, formName))
+    .then(() => dispatch(mergeCart()))
+    .then(() => dispatch(fetchOrders()))
+    .then(() => dispatch(fetchCart()))
   }
 })
 
