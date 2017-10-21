@@ -43,7 +43,8 @@ export function updateProduct(product, categories) {
           title: product.title,
           description: product.description,
           price: product.price,
-          inventory: product.inventory
+          inventory: product.inventory,
+          imgUrls: product.imgUrls
         },
         categories
       })
@@ -60,7 +61,8 @@ export function addProduct(product, categories) {
           title: product.title,
           description: product.description,
           price: product.price,
-          inventory: product.inventory
+          inventory: product.inventory,
+          imgUrls: product.imgUrls
         },
         categories
       })

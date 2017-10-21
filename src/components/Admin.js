@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
 import store from "../store";
+import AdminHome from "./AdminHome";
 import Categories from "./Categories";
 import Users from "./Users";
 import ProductDisplay from "./ProductDisplay";
@@ -22,6 +22,7 @@ export default function Admin(props) {
         })}
       </ul>
       <div>
+        <Route exact path="/admin" component={AdminHome} />
         <Route path="/admin/categories" component={Categories} />
         <Route path="/admin/users" component={Users} />
         <Route path="/admin/products" component={ProductDisplay} />
