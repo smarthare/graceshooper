@@ -39,7 +39,7 @@ export const auth = (credentials, history, formName) => dispatch => {
     .catch(err => dispatch(setCurrUser({err})))
 }
 
-export const fetchUserSession = () => dispatch => {
+export const fetchUserSession = () => (dispatch, getState) => {
   return axios.get('/api/auth')
     .then(result => result.data)
     .then(user => dispatch(setCurrUser(user)))

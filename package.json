@@ -8,14 +8,11 @@
     "start": "node server",
     "seed": "node seed.js",
     "test": "mocha ./tests --recursive --watch --compilers js:babel-register",
-    "test:model":
-      "mocha ./tests/models.test --watch --compilers js:babel-register",
-    "test:auth":
-      "mocha ./tests/auth.test --watch --compilers js:babel-register",
+    "test:model": "mocha ./tests/models.test --watch --compilers js:babel-register",
+    "test:auth": "mocha ./tests/auth.test --watch --compilers js:babel-register",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "build:css": "node-sass -w -r public/css/scss -o public/css",
-    "start:dev":
-      "npm run webpack -- -w & nodemon --ignore src/ --ignore dist/ server"
+    "start:dev": "npm run webpack -- -w & nodemon --ignore src/ --ignore dist/ server"
   },
   "repository": {
     "type": "git",

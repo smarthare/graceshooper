@@ -114,26 +114,26 @@ class ProductDetail extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 marginB">
-            <h6>Select a category (below) or enter search term (above)</h6>
+          <div className="col-sm-12 marginB textAll">
+            <h5>Select a category (below) or enter search term (above)</h5>
           </div>
-          <div className="col-sm-2 panel panel-default">
-            <div className="col-sm-12 marginB panel-body backGreyBlue">
-              <h6 className="center">CATEGORIES</h6>
+          <div className="col-xs-12 col-sm-2 col-md-2 col-lg-2 noPadLR panel panel-default">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB panel-heading backBlack noPadLR padTBSMM">
+              <h5 className="center">CATEGORIES</h5>
             </div>
             <div className="col-sm-12 marginB">
               {
                 categories.map(category => {
                   return (<Link to={`/category/${category.id}`} key={category.id}><div
                     className="col-sm-12">
-                    <h6>{ category.name }</h6></div></Link>)
+                    <h5>{ category.name }</h5></div></Link>)
                 })
               }
             </div>
           </div>
-          <div className="col-sm-10 panel panel-default">
-            <div className="col-sm-12 marginB panel-body backGreyBlue">
-              <h6 className="center">PRODUCTS - ( { categoryName } )</h6>
+          <div className="col-xs-12 col-sm-10 col-md-10 panel panel-default noPadLR">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB panel-heading backBlack noPadLR padTBSMM">
+              <h5 className="center">PRODUCTS - ( { categoryName } )</h5>
             </div>
             <div className="col-sm-12 center marginB">
               <strong>{ selectedProduct.title }</strong>

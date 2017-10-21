@@ -39,7 +39,7 @@ class Cart extends Component {
                 {cart.lineItems.map((line, idx) => (
                   <li className='list-group-item clearfix' key={line.productId}>
                     <div className='col-xs-3 col-sm-2'>
-                      <img src={line.product.imgUrls[0]} className='responsive-image' />
+                      <img src={`../../assets/images/${line.product.imgUrls[0]}`} className='responsive-image' />
                     </div>
                     <div className='col-sm-5'>
                       <Link to={`/category/0/?product=${line.productId}`}>
