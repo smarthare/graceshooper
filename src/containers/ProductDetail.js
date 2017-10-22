@@ -119,7 +119,7 @@ class ProductDetail extends Component {
           </div>
           <div className="col-xs-12 col-sm-2 col-md-2 col-lg-2 noPadLR panel panel-default">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB panel-heading backBlack noPadLR padTBSMM">
-              <h6 className="center">CATEGORIES</h6>
+              <h5 className="center">CATEGORIES</h5>
             </div>
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB">
               {
@@ -163,7 +163,7 @@ class ProductDetail extends Component {
                   </div>
                   <button id="content" className="btn btn-primary marginB marginT" >
                     <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
-                    &ensp;Add to Cart
+                    &ensp;Add
                   </button>
                   <div className="marginB marginT center textBlue">{ this.state.msg }</div>
                 </div>

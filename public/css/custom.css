@@ -170,7 +170,7 @@
     width: 100%; }
   .responsive-image2 {
     height: auto;
-    width: 40%; } }
+    width: 20%; } }
 
 @media (min-width: 768px) {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
@@ -193,7 +193,7 @@
     width: 100%; }
   .responsive-image2 {
     height: auto;
-    width: 40%; } }
+    width: 100%; } }
 
 @media (min-width: 992px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
@@ -217,7 +217,7 @@
     width: 100%; }
   .responsive-image2 {
     height: auto;
-    width: 40%; } }
+    width: 80%; } }
 
 @media (min-width: 1200px) {
   /* big landscape tablets, laptops, and desktops */
@@ -240,4 +240,4 @@
     width: 100%; }
   .responsive-image2 {
     height: auto;
-    width: 40%; } }
+    width: 65%; } }
