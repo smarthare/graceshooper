@@ -53,17 +53,16 @@ export const fetchCart = () => dispatch => {
     .catch(err => console.log('error fetching cart for user', err))
 }
 
-export const addProductToCart = (productId, quantity) => dispatch => {
-  // Not addressing guest here. Potentially need to rewrite the order model
-  // It might makes more sense to directly add lineItem if possible
+export const addProductToCart = (productId, quantity) => (dispatch, getState) => {
+  if (!getState().currentUser.id) return dispatch(addLineToCart({ productId, quantity }))
   return axios.post('/api/orders/lineItems', { productId, quantity })
     .then(result => result.data)
     .then(lineItem => dispatch(addLineToCart(lineItem)))
     .catch(console.log)
 }
 
-export const deleteLnFromCart = (lineItem) => dispatch => {
-  if (!lineItem.id) return dispatch(removeLineFromCart(lineItem))
+export const deleteLnFromCart = (lineItem) => (dispatch, getState) => {
+  if (!getState().currentUser.id) return dispatch(removeLineFromCart(lineItem))
   return axios.delete(`/api/orders/lineItems/${lineItem.id}`)
     .then(() => dispatch(removeLineFromCart(lineItem)))
     .catch(console.log)

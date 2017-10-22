@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { auth, fetchOrders, fetchCart, mergeCart } from '../store'
+import { auth, fetchCart, mergeCart } from '../store'
 
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props
@@ -57,7 +57,6 @@ const mapDispatch = (dispatch, ownProps) => ({
     }
     dispatch(auth(credentials, ownProps.history, formName))
     .then(() => dispatch(mergeCart()))
-    .then(() => dispatch(fetchOrders()))
     .then(() => dispatch(fetchCart()))
   }
 })

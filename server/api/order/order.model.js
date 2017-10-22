@@ -21,9 +21,7 @@ const Order = conn.define('order', {
 Order.getCartByUserId = function (userId) {
   return Order.findOne({
     where: {status: 'Created', userId},
-    include: [{ model: LineItem,
-      include: [{ model: Product }]
-    }]
+    include: [{ model: LineItem }]
   })
   .then(cart => cart || Order.create({userId}))
 }
@@ -32,9 +30,7 @@ Order.getOrdersByUserId = function (userId) {
   return Order.findAll({
     order: [['id', 'DESC']],
     where: {status: {$ne: 'Created'}, userId},
-    include: [{ model: LineItem,
-      include: [{ model: Product }]
-    }]
+    include: [{ model: LineItem }]
   })
 }
 
@@ -46,7 +42,7 @@ Order.prototype.addProdToCart = function (productId, quantity = 1) {
     lineItem.quantity += 1 * quantity
     return lineItem.save()
   }
-  return LineItem.create({ orderId: this.id, productId, quantity }, { include: [ Product ] })
+  return LineItem.create({ orderId: this.id, productId, quantity })
 }
 
 Order.prototype.destroyLineItem = function (lineId) {
