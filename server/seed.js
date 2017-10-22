@@ -3,11 +3,12 @@
 
 const faker = require('faker'),
   Promise = require('bluebird'),
-  db = require('./server/db'),
+  db = require('./db'),
   models = db.models,
-  numProducts = 15,
-  numUsers = 15,
-  Categories = ['Cool Stuff', 'Electronics', 'Clothing', 'Accessories']
+  // numProducts = 15,
+  // Categories = ['Cool Stuff', 'Electronics', 'Clothing', 'Accessories'],
+  numUsers = 5
+
 
 function doTimes (n, fn) {
   var results = []
@@ -23,33 +24,33 @@ function randUser (n) {
     email: faker.internet.email(),
     isAdmin: false,
     phone: faker.phone.phoneNumber(),
-    shipAddress: faker.address.streetAddress(),
-    shipCity: faker.address.city(),
-    shipState: faker.address.state(),
-    shipZip: faker.address.zipCode()
+    Address: faker.address.streetAddress(),
+    City: faker.address.city(),
+    State: faker.address.state(),
+    ZIP: faker.address.zipCode()
   })
 }
 
-function randProduct (n) {
-  return Promise.map(
-    Array(...Array(faker.random.number(2) + 1)).map(
-      (cv, i, arr) => arr.length - i
-    ),
-    catId => models.Category.findById(catId)
-  ).then(categories => {
-    return models.Product
-      .create({
-        title: `${faker.commerce.productName()} Model ${faker.random.number(
-          2999
-        )}`,
-        description: faker.company.bs(),
-        price: faker.commerce.price(),
-        inventory: 1000 + faker.random.number(19999),
-        imgUrls: [faker.image.cats()]
-      })
-      .then(product => product.setCategories(categories))
-  })
-}
+// function randProduct (n) {
+//   return Promise.map(
+//     Array(...Array(faker.random.number(2) + 1)).map(
+//       (cv, i, arr) => arr.length - i
+//     ),
+//     catId => models.Category.findById(catId)
+//   ).then(categories => {
+//     return models.Product
+//       .create({
+//         title: `${faker.commerce.productName()} Model ${faker.random.number(
+//           2999
+//         )}`,
+//         description: faker.company.bs(),
+//         price: faker.commerce.price(),
+//         inventory: 1000 + faker.random.number(19999),
+//         imgUrls: [faker.image.cats()]
+//       })
+//       .then(product => product.setCategories(categories))
+//   })
+// }
 
 function randCart (n) {
   let userId = n + 1
@@ -57,8 +58,8 @@ function randCart (n) {
     .then(cart => {
       return Promise.map(
         Array(...Array(faker.random.number(3) + 1))
-        .map(elem => faker.random.number(numProducts - 1) + 1),
-        productId => cart.addProdToCart(productId, faker.random.number(10) + 1)
+        .map(elem => faker.random.number(10) + 1),
+        productId => cart.addProdToCart(productId, faker.random.number(2) + 1)
       )
     })
     .then(() => models.Order.getCartByUserId(userId))
@@ -101,12 +102,12 @@ function generateUsers () {
 }
 
 const
-  generateProducts = () => doTimes(numProducts, randProduct),
-  generateCategories = () => Categories.map(cat => models.Category.build({ name: cat })),
+  // generateProducts = () => doTimes(numProducts, randProduct),
+  // generateCategories = () => Categories.map(cat => models.Category.build({ name: cat })),
   generateOrders = () => doTimes(numUsers + 3, randCart),
   createUsers = () => Promise.map(generateUsers(), user => user.save()),
-  createCategories = () => Promise.map(generateCategories(), category => category.save()),
-  createProducts = () => Promise.all(generateProducts()),
+  // createCategories = () => Promise.map(generateCategories(), category => category.save()),
+  // createProducts = () => Promise.all(generateProducts()),
   createCarts = () => Promise.all(generateOrders()),
   createOrders = () => Promise.map(generateOrders(), cart => cart.submit())
 
@@ -128,7 +129,7 @@ const guitars = () => {
             'This simple, elegant semi-hollow features 57 Classic and Super 57 Classic pickups with matched bobbin windings for vintage humbucker tone with enhanced highs. Appointments include a great-feeling C neck profile with torrified maple fretboard, an improved truss rod, rolled neck binding, low-profile frets, Grover tuners and locking stopbar tailpiece for better sustain. Includes hardshell case.',
           title: 'Gibson ES-339 Studio Semi-Hollow Guitar Ginger Burst',
           price: 1799.0,
-          inventory: 3,
+          inventory: 10,
           imgUrls: [
             'Gibson_2016_ES-339_1.png',
             'Gibson_2016_ES-339_2.png',
@@ -142,7 +143,7 @@ const guitars = () => {
             'This simple, elegant semi-hollow features 57 Classic and Super 57 Classic pickups with matched bobbin windings for vintage humbucker tone with enhanced highs. Appointments include a great-feeling C neck profile with torrified maple fretboard, an improved truss rod, rolled neck binding, low-profile frets, Grover tuners and locking stopbar tailpiece for better sustain. Includes hardshell case.',
           title: 'Gibson 2016 ES-335 Studio Semi-Hollow Electric Guitar Faded Cherry',
           price: 1799.0,
-          inventory: 1,
+          inventory: 5,
           imgUrls: [
             'Gibson_2016_ES-335_1.png',
             'Gibson_2016_ES-335_2.png',
@@ -158,7 +159,7 @@ const guitars = () => {
             'The L-4 was developed as a louder, bolder update of Gibson popular L-1 and L-3 designs, advertised as a grand concert size model with 20 frets, one more than its predecessors. Over time the humbuckers proved the most versatile and practical, and thus today graceful mahogany L-4 CES model reached maturity.',
           title: 'Gibson L-4 CES Mahogany Hollowbody Electric Guitar Wine Red',
           price: 6499.0,
-          inventory: 1,
+          inventory: 5,
           imgUrls: [
             'Gibson_L-4_CES_M_1.png',
             'Gibson_L-4_CES_M_2.png',
@@ -206,7 +207,7 @@ const guitars = () => {
           title:
             'Korg New Kronos 88-Key Piano, Synthesizer & Music Workstation',
           price: 3699.0,
-          inventory: 3,
+          inventory: 5,
           imgUrls: [
             'Korg_New_Kronos_88_1.png',
             'Korg_New_Kronos_88_2.png',
@@ -247,7 +248,7 @@ const guitars = () => {
           description: 'This ingenious blend of tradition and innovation is perfectly executed by the team at Gibson Memphis. Combining characteristics of a Les Paul and ES-335 it yields surprisingly powerful tones and a wonderful playing experience, courtesy of PAF-style MHS Alnico II (lead) and MHS Alnico III (rhythm) pickups, rounded C neck profile, historic details and more. Other features include F-hole emblem engraved truss rod cover, redesigned neck dimensions, bone nut, rolled neck binding, low-profile frets, Kluson tuners and an ABR-1 bridge with stopbar tailpiece.  Includes hardshell case.',
           title: 'Gibson ES-Les Paul Semi-Hollow Body Electric Guitar Transparent Amber',
           price: 3284.0,
-          inventory: 2,
+          inventory: 5,
           imgUrls: [
             'Gibson_ES-Les_Paul_Semi-Hollow_Body_1.png',
             'Gibson_ES-Les_Paul_Semi-Hollow_Body_2.png',
@@ -261,7 +262,7 @@ const guitars = () => {
           description: '',
           title: 'Gibson 2016 ES-335 Semi-Hollow Electric Guitar Faded Light Burst',
           price: 0,
-          inventory: 0,
+          inventory: 5,
           imgUrls: [
             'Gibson_2016_ES-335_Semi-Hollow_Electric_1.png',
             'Gibson_2016_ES-335_Semi-Hollow_Electric_2.png',
@@ -275,7 +276,7 @@ const guitars = () => {
           description: 'Part of Martins successful Road Series, the 000RS1A is a great solid-wood Martin at an affordable price. Constructed with sapele and equipped with Fishman Sonitone electronics, this stage-ready Auditorium model produces the perfect blend of volume and balance. Hardshell case included.',
           title: 'Martin Road Series 000RS1 Auditorium Acoustic-Electric Guitar Natural',
           price: 759.0,
-          inventory: 2,
+          inventory: 5,
           imgUrls: [
             'Martin_Road_Series_000RS1_Auditorium_1.png',
             'Martin_Road_Series_000RS1_Auditorium_2.png',
@@ -288,7 +289,7 @@ const guitars = () => {
           description: 'Travel-friendly and affordable, the FP-50 brings you top-class piano performance along with many other great features to enhance your playing enjoyment. At your fingers is the authentic tone and touch of an acoustic grand, plus a large selection of versatile sounds for performing in a variety of situations. The intelligent rhythm feature makes it simple to create incredible music, providing dynamic, sophisticated accompaniments that automatically follow your performances in real time. And with its compact, stylish design and built-in speaker system, the FP-50 is always ready to go wherever you want to play.',
           title: 'Roland FP-50 Digital Piano Black',
           price: 1299.0,
-          inventory: 3,
+          inventory: 5,
           imgUrls: [
             'Roland_FP-50_Digital_Piano_Black_1.png'
           ]
@@ -297,7 +298,7 @@ const guitars = () => {
           description: 'Cordoba has chosen to honor four master luthiers whose work has shaped the history of the nylon string guitar over the past 150 years, inspiring generations of guitar builders. Each Master Series model is a replica of an iconic guitar representing significant moments in the careers of Antonio de Torres, Hermann Hauser I, Miguel Rodriguez, and Manuel Reyes. Handmade with premium materials in Cordobas California Workshop, Cordoba has partnered with Kenny Hill to examine the original guitars, poring over nuances and specifications to get inside the mind of each maker. From Torres signature 7-fan bracing and unique small body design, to Hausers famed 1937 model used by Andres Segovia, the Master Series allows todays players to get their hands on a slice of guitar history at a fraction of the cost. The Torres Classical Guitar features a solid Engelmann spruce, solid Indian rosewood back and sides, and Spanish cedar neck with an ebony fingerboard. Other appointments include an Indian rosewood binding and bridge, a rope design wood top purfling with 3-ply back and sides purfling (maple/ebony/maple), and an all-natural mosaic rope and herringbone marquetry rosette. It also comes with gold Gotoh tuners with ebony buttons and a hardshell Cordoba humidified archtop case.',
           title: 'Cordoba Torres Classical Guitar Natural',
           price: 3499.0,
-          inventory: 1,
+          inventory: 5,
           imgUrls: [
             'Cordoba_Torres_Classical_Guitar_Natural_1.png',
             'Cordoba_Torres_Classical_Guitar_Natural_2.png',
@@ -327,7 +328,7 @@ const guitars = () => {
           description: 'Nice sunburst on bound maple top, dark cherry finish on mahogany body and neck, bound rosewood fretboard, trapezoid inlays, 22 frets, 2 humbucking pickups, 4 pull pots change pickup phase and tap coils, stop tailpiece, ABR-1 tune-o-matic bridge, Grover Rotomatic tuners, gold hardware, J.P.s signature appears on original pickguard (included in case pocket), 1-11/16" nut, 24-3/4" scale, OHSC (J.P.s signature appears on the interior cape), EC, consignment (SN:92725452)',
           title: 'Gibson Jimmy Page Les Paul (1995)',
           price: 4250.0,
-          inventory: 1,
+          inventory: 5,
           imgUrls: [
             'Gibson_Jimmy_Page_Les_Paul_1995_1.jpg',
             'Gibson_Jimmy_Page_Les_Paul_1995_6.jpg',
@@ -342,7 +343,7 @@ const guitars = () => {
           description: 'Affordable travel fiddle makes it possible to play anywhere, worry-free. Design inspired by the 17th century Pochette, or Dance Masters Violin, sized to fit in a coat pocket. Hardwood neck, solid Adirondack Red Spruce top, flaxwood polymer/wood composite injection molded fingerboard, glass reinforced injection-molded thermoplastic body. Hard maple bridge, acrylic tailpiece and chin/shoulder rest (with 3-way height and angle adjustment). Grover 2B friction pegs with fine tuner on High E. ~23" long x ~4" wide. Includes pickup.',
           title: 'Magic Fluke Company Cricket Violin with Pickup',
           price: 458,
-          inventory: 3,
+          inventory: 5,
           imgUrls: [
             'Magic_Fluke_Company_Cricket_Violin_1.jpg',
             'Magic_Fluke_Company_Cricket_Violin_2.jpg',
@@ -356,7 +357,7 @@ const guitars = () => {
           description: 'Williams redefines affordable elegance with the best-in-class Symphony Grand digital piano. This micro-grand style, 88-key, graded hammer-action instrument offers realistic sound and feel, complemented by a luxurious ebony gloss finish. The newly designed keybed provides an authentic response and playability. The Williams Custom Sound Library the Symphony Grand uses is designed around a wide collection of high-resolution instruments taken from a famed Italian grand piano, as well as vintage electric pianos and organs.',
           title: 'Williams Symphony Grand Digital Piano with Bench',
           price: 1499.0,
-          inventory: 2,
+          inventory: 5,
           imgUrls: [
             'Williams_Symphony_Grand_Digital_Piano_1.png',
             'Williams_Symphony_Grand_Digital_Piano_2.png',
@@ -440,25 +441,58 @@ const guitars = () => {
         models.Review.create({ title: 'oh yeah that sweet tone you can only get with a Gibson', body: 'Yes, I would recommend this to a friend', rating: 5, productId: products[1].id, userId: 3 }),
         models.Review.create({ title: 'Disappointment', body: 'I can not believe that Gibson let that guitar out of the factory. The neck buzzed all the way to the top and I was not sure that adjustment would help. There were three major blemishes in the finish that could not be easily fixed.  Ordered an Ibanez which is back ordered.', rating: 1, productId: products[1].id, userId: 4 }),
         models.Review.create({ title: 'Its a reality', body: 'Gibson stepped it up a notch.', rating: 5, productId: products[1].id, userId: 5 }),
-        models.Review.create({ title: 'a glorious instrument!!!', body: 'More than a guitar, this instrument is an heirloom quality work of art, that youll treasure forever. The sound is rich and toneful like no other guitar. Im a Gibson fanatic, and this is as good as it gets. I love all my Gibsons, but this model is the ultimate. I love the wine red color the best, although the natural, and sunbursts are gorgeous too.', rating: 5, productId: products[2].id, userId: 7 }),
-        models.Review.create({ title: 'I would buy this beautiful guitar again!', body: 'Purchase was handled professionally, and follow-up was excellent', rating: 5, productId: products[2].id, userId: 8 })        
+        models.Review.create({ title: 'a glorious instrument!!!', body: 'More than a guitar, this instrument is an heirloom quality work of art, that youll treasure forever. The sound is rich and toneful like no other guitar. Im a Gibson fanatic, and this is as good as it gets. I love all my Gibsons, but this model is the ultimate. I love the wine red color the best, although the natural, and sunbursts are gorgeous too.', rating: 5, productId: products[2].id, userId: 1 }),
+        models.Review.create({ title: 'I would buy this beautiful guitar again!', body: 'Purchase was handled professionally, and follow-up was excellent', rating: 5, productId: products[2].id, userId: 2 })
       ])
     })
 }
 
-const reviews = () => {
-  return Promise.all([
-    models.Review.create({ title: 'I', body: 'excellent', rating: 5, productId: products[2].id, userId: 8 }),
-  ])
+const gundams = () => {
+  let cat
+  return models.Category.create({ name: 'Gundam Model Kits' })
+    .then(_cat => {
+      cat = _cat
+      return Promise.all([
+        models.Product.create({
+          description: 'New MS Adovansudo joint appearance in the play [X100 series frame] in the adoption of new mobile gimmick',
+          title: 'Aile Strike Gundam 1/144, Real Grade',
+          price: 15,
+          inventory: 100,
+          imgUrls: ['alie_strike.jpg']
+        }),
+        models.Product.create({
+          description: 'Big success story late! Equipped with a state-of-the-art back pack, the final decisive battle specification of Gundam G- self is finally here!',
+          title: 'Gundam G-Self with Perfect Pack 1/144, High Grade',
+          price: 25,
+          inventory: 100,
+          imgUrls: ['gself.jpg']
+        }),
+        models.Product.create({
+          description: 'Zeta Gundam 1/144, Real Grade',
+          title: 'Zetq Gundam 1/144, Real Grade',
+          price: 25,
+          inventory: 100,
+          imgUrls: ['zeta.jpg']
+        })
+      ])
+    })
+    .then(products => cat.addProducts(products))
 }
+
+// const reviews = () => {
+//   return Promise.all([
+//     models.Review.create({ title: 'I', body: 'excellent', rating: 5, productId: products[2].id, userId: 8 }),
+//   ])
+// }
 
 const seed = () =>
   createUsers()
-    .then(() => createCategories())
-    .then(() => createProducts())
+    // .then(() => createCategories())
+    // .then(() => createProducts())
+    .then(() => guitars())
+    .then(() => gundams())
     .then(() => createCarts())
     .then(() => createOrders())
-    .then(() => guitars())
     // .then(() => reviews())
     .catch(console.log)
 

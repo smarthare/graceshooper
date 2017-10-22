@@ -5,7 +5,7 @@ const
   bodyParser = require('body-parser'),
   morgan = require('morgan'),
   db = require('./db'),
-  seed = require('../seed'),
+  seed = require('./seed'),
   port = process.env.PORT || 2020,
   session = require('express-session')
 

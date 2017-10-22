@@ -36,10 +36,11 @@ export const auth = (credentials, history, formName) => dispatch => {
       dispatch(setCurrUser(user))
       history.push('/account/')
     })
-    .catch(result => { throw result.response.data.error })
+    .catch(err => dispatch(setCurrUser({err})))
 }
 
-export const fetchUserSession = () => dispatch => {
+export const fetchUserSession = () => (dispatch, getState) => {
+  if (getState().currentUser.id) return
   return axios.get('/api/auth')
     .then(result => result.data)
     .then(user => dispatch(setCurrUser(user)))

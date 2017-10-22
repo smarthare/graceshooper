@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import Order from "./Order";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import store, { fetchOrders, fetchCart } from "../store";
+import store, { updateUser, fetchUserSession } from "../store";
 import { mapOrderToProduct } from '../util/mapper'
-import { updateUser } from "../reducers/users";
-import { fetchUserSession } from "../reducers/auth";
 
 class User extends Component {
   constructor(props) {
@@ -18,13 +15,6 @@ class User extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    // This is the landing page of a user login/signup
-    // Fetch user order/cart here
-    store.dispatch(fetchOrders());
-    store.dispatch(fetchCart());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,14 +49,12 @@ class User extends Component {
   }
 
   render() {
-    const { orders, products } = this.props;
+    const { orders } = this.props;
     const { user } = this.state;
     const { handleChange, handleSubmit } = this;
     // loading state
     if (!user) return <h1>Loading...</h1>;
 
-    // Simply User Info Form Fields
-    // Map to Order Components
     return (
       <div>
         <h1>User Information</h1>
@@ -119,12 +107,9 @@ class User extends Component {
                 <h2>Order History</h2>
               </div>
               <div className="panel-body">
-                <div>
-                  {orders && orders
-                    .map(order => mapOrderToProduct(order, products))
-                    .map(order => (<Order key={order.id} {...order} />))
-                  }
-                </div>
+                { orders &&
+                  orders.map(order => (<Order {...order} key={order.id} />))
+                }
               </div>
             </div>
           </div>
@@ -136,15 +121,11 @@ class User extends Component {
 
 const mapStateToProps = state => {
   return {
-    // Simplify store info
     currentUser: state.currentUser,
-    orders: state.orders,
-    products: state.products
+    orders: state.orders.map(order => mapOrderToProduct(order, state.products))
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return { updateUser };
-};
+const mapDispatchToProps = { updateUser }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

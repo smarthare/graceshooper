@@ -32,4 +32,6 @@ router
     .catch(next)
   })
 
+  // .use('/google', require('./google'))
+
 module.exports = router

@@ -37,15 +37,15 @@ class Cart extends Component {
               </div>
               <ul className='list-group table-rows'>
                 {cart.lineItems.map((line, idx) => (
-                  <li className='list-group-item clearfix' key={idx}>
+                  <li className='list-group-item clearfix' key={line.productId}>
                     <div className='col-xs-3 col-sm-2'>
-                      <img src={line.product.imgUrls[0]} className='responsive-image' />
+                      <img src={`../../assets/images/${line.product.imgUrls[0]}`} className='responsive-image' />
                     </div>
                     <div className='col-sm-5'>
-                      <Link to={`/category/0/?product=${line.productId}`} key={line.productId}>
+                      <Link to={`/category/0/?product=${line.productId}`}>
                         <div>{line.product.title}</div>
                       </Link>
-                      <div>{line.product.inventory > line.quantity ? 'In Stock' : 'Out of Stock'}</div>
+                      <div>{line.product.inventory < line.quantity ? 'Out of Stock' : 'In Stock'}</div>
                       <button className='btn btn-danger' onClick={this.handleDelete.bind(this, idx)}>Delete</button>
                     </div>
                     <div className='col-sm-2'>{$(line.product.price)}</div>
