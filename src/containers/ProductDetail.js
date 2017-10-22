@@ -35,12 +35,12 @@ class ProductDetail extends Component {
       const reviewer = this.props.users.filter(user => user.id === review.userId)[0].name;
       const date = review.updatedAt.slice(0, 10);
       return (<div key={ review.id }>
-          <div className="col-sm-12"><strong>Date Updated: </strong> { date }</div>
-          <div className="col-sm-12"><strong>Reviewer: </strong> { reviewer }</div>
-          <div className="col-sm-12"><strong>Rating: </strong>{ review.rating }</div>
-          <div className="col-sm-12 marginB"><strong>Title: </strong>{ review.title }</div>
-          <div className="col-sm-12 marginB"><strong>Review: </strong>{ review.body }</div>
-          <div className="col-sm-12"><hr /></div>
+          <div className="col-xs-12"><strong>Date Updated: </strong> { date }</div>
+          <div className="col-xs-12"><strong>Reviewer: </strong> { reviewer }</div>
+          <div className="col-xs-12"><strong>Rating: </strong>{ review.rating }</div>
+          <div className="col-xs-12 marginB"><strong>Title: </strong>{ review.title }</div>
+          <div className="col-xs-12 marginB"><strong>Review: </strong>{ review.body }</div>
+          <div className="col-xs-12"><hr /></div>
         </div>
       )
     })
@@ -62,7 +62,7 @@ class ProductDetail extends Component {
       // create render for the multiple extra images
       if (imagesExtra.length) {
         renderProducts = (
-          <div className="col-sm-3 panel panel-default marginBSM">
+          <div className="col-xs-5 col-sm-3 panel panel-default marginBSM">
             {
               imagesExtra.map(img => {
                 return (<div className="col-sm-12 marginBSM" key={img}>
@@ -72,7 +72,7 @@ class ProductDetail extends Component {
             }
           </div>);
       } else {
-        renderProducts = <div className="col-sm-1 border panel panel-default" />;
+        renderProducts = <div className="col-xs-1 border panel panel-default" />;
       }
       /*************************************/
       // create a star rating output
@@ -86,19 +86,19 @@ class ProductDetail extends Component {
       renderAllRevs = this.reviewsList(reviewsArr);
       /*************************************/
       // create render for the main image
-      renderProducts2 = <div className="col-sm-9"><img src={imagesMain} className="responsive-image" /></div>;
+      renderProducts2 = <div className="col-xs-7 col-sm-9"><img src={imagesMain} className="responsive-image" /></div>;
     }
     /*********************************************/
     // Label Products section:
     let categoryName;
-    categoryName = (selectedProduct.title) ? 'Single Product Selected - ' : '';
+    categoryName = (selectedProduct.title) ? 'SINGLE PRODUCT SELECTED - ' : '';
     if (categoryId) {
       const resultArr = categories.filter(category => {
         return category.id === categoryId;
       })
-      categoryName = categoryName + resultArr[0].name;
+      categoryName = categoryName + resultArr[0].name.toUpperCase();
     } else {
-      categoryName = categoryName + 'all Categories';
+      categoryName = categoryName + 'ALL CATEGORIES';
     }
     /*********************************************/
     // Create Qty options in "add to Cart" section:
@@ -114,18 +114,18 @@ class ProductDetail extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-12 marginB textAll">
-            <h5>Select a category (below) or enter search term (above)</h5>
+          <div className="col-xs-12 marginB textAll">
+            <h6>Select a category (below) or enter search term (above)</h6>
           </div>
           <div className="col-xs-12 col-sm-2 col-md-2 col-lg-2 noPadLR panel panel-default">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB panel-heading backBlack noPadLR padTBSMM">
               <h5 className="center">CATEGORIES</h5>
             </div>
-            <div className="col-sm-12 marginB">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB">
               {
                 categories.map(category => {
                   return (<Link to={`/category/${category.id}`} key={category.id}><div
-                    className="col-sm-12">
+                    className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <h5>{ category.name }</h5></div></Link>)
                 })
               }
@@ -135,25 +135,25 @@ class ProductDetail extends Component {
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 marginB panel-heading backBlack noPadLR padTBSMM">
               <h5 className="center">PRODUCTS - ( { categoryName } )</h5>
             </div>
-            <div className="col-sm-12 center marginB">
+            <div className="col-xs-12 center marginB">
               <strong>{ selectedProduct.title }</strong>
             </div>
-            <div className="col-sm-12 marginB">
+            <div className="col-xs-12 marginB">
               { selectedProduct.description } - ( Product #: { selectedProduct.id } )
             </div>
-            <div className="col-sm-9 marginB">
+            <div className="col-xs-12 col-sm-9 marginB">
               { renderProducts2 }
               { renderProducts }
             </div>
             <form onSubmit={this.handleSubmit}>
-              <div className="col-sm-3 marginB marginT panel panel-default backGreyBlue">
-                <div className="col-sm-12 panel-body">
-                  <div className="col-sm-12 center"><strong>Stock Qty: </strong></div>
-                  <div className="col-sm-12 marginB center">{ selectedProduct.inventory }</div>
-                  <div className="col-sm-12 center"><strong>Unit Price: </strong></div>
-                  <div className="col-sm-12 marginB center">{ price }</div>
-                  <div className="col-sm-12 marginB center"><a href="#reviews">{ renderReviews }</a></div>
-                  <div className="col-sm-12 marginB center"><strong>Qty to Order: </strong>
+              <div className="col-xs-12 col-sm-3 center marginB marginT panel panel-default backWhite">
+                <div className="col-xs-12 panel-body">
+                  <div className="col-xs-12 center"><strong>Stock Qty: </strong></div>
+                  <div className="col-xs-12 marginB center">{ selectedProduct.inventory }</div>
+                  <div className="col-xs-12 center"><strong>Unit Price: </strong></div>
+                  <div className="col-xs-12 marginB center">{ price }</div>
+                  <div className="col-xs-12 marginB center"><a href="#reviews">{ renderReviews }</a></div>
+                  <div className="col-xs-12 marginB center"><strong>Qty to Order: </strong>
                     <select
                       name="selectQty"
                       value={this.state.selectQty}
@@ -161,28 +161,28 @@ class ProductDetail extends Component {
                       { renderOptions }
                     </select>
                   </div>
-                  <button id="content" className="btn btn-primary marginB marginT" >
+                  <button id="content" className="btn btn-primary marginB marginT center" >
                     <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
-                    &ensp;Add to Cart
+                    &ensp;Add
                   </button>
                   <div className="marginB marginT center textBlue">{ this.state.msg }</div>
                 </div>
               </div>
             </form>
-            <div id="reviews" className="col-sm-12 marginB">
-              <div className="col-sm-12">
+            <div id="reviews" className="col-xs-12 marginB">
+              <div className="col-xs-12">
                 <hr />
               </div>
-              <div className="col-sm-3">
+              <div className="col-xs-3">
                 <h5>Reviews Summary:</h5>
               </div>
-              <div className="col-sm-9">
+              <div className="col-xs-9">
                 <h5>Overall:</h5> { reviewAvg } out of 5 stars
               </div>
-              <div className="col-sm-12">
+              <div className="col-xs-12">
                 <hr />
               </div>
-              <div className="col-sm-12">
+              <div className="col-xs-12">
                 { renderAllRevs }
               </div>
             </div>
