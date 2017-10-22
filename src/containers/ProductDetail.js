@@ -146,7 +146,7 @@ class ProductDetail extends Component {
               { renderProducts }
             </div>
             <form onSubmit={this.handleSubmit}>
-              <div className="col-xs-12 col-sm-3 marginB marginT panel panel-default backWhite">
+              <div className="col-xs-12 col-sm-3 center marginB marginT panel panel-default backWhite">
                 <div className="col-xs-12 panel-body">
                   <div className="col-xs-12 center"><strong>Stock Qty: </strong></div>
                   <div className="col-xs-12 marginB center">{ selectedProduct.inventory }</div>
@@ -161,7 +161,7 @@ class ProductDetail extends Component {
                       { renderOptions }
                     </select>
                   </div>
-                  <button id="content" className="btn btn-primary marginB marginT" >
+                  <button id="content" className="btn btn-primary marginB marginT center" >
                     <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true" />
                     &ensp;Add
                   </button>
