@@ -18,7 +18,6 @@ router
     const { product, categories } = req.body;
     Promise.all(categories.map(category => Category.findById(category.id)))
       .then(cats => {
-        console.log(product);
         return Product.create(
           {
             title: product.title,
