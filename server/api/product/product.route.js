@@ -23,8 +23,8 @@ router
             title: product.title,
             description: product.description,
             price: parseInt(product.price),
-            inventory: parseInt(product.inventory),
-            imgUrls: [product.imgUrls]
+            inventory: parseInt(product.inventory)
+            // imgUrls: [product.imgUrls]
           },
           { include: [Category] }
         ).then(product => product.setCategories(cats));
