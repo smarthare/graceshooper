@@ -101,7 +101,7 @@ class ProductForm extends React.Component {
               {[
                 { name: "title", type: "text" },
                 { name: "description", type: "text" },
-                { name: "imgUrls", type: "text" },
+                // { name: "imgUrls", type: "text" },
                 { name: "price", type: "number" },
                 { name: "inventory", type: "number" }
               ].map(attr => {
