@@ -17,12 +17,19 @@ const AuthForm = props => {
               <label htmlFor='password'><small>Password</small></label>
               <input className='form-control' name='password' type='password' />
             </div>
-            <div>
-              <button className='btn btn-primary' type='submit'>{displayName}</button>
+            <div className='row'>
+              <div className='col-xs-6'>
+                <button className='btn btn-primary' type='submit'>{displayName}</button>
+              </div>
+              <div className='col-xs-6'>
+                <a href='/api/auth/google'>
+                  <img src={`../../assets/images/gsignin.png`} style={{width: 'auto', height: 44}}/>
+                </a>
+              </div>
             </div>
             {error && error.response && <div> {error.response.data} </div>}
           </form>
-          <a href='/auth/google'>{displayName} with Google</a>
+
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@ export const auth = (credentials, history, formName) => dispatch => {
 }
 
 export const fetchUserSession = () => (dispatch, getState) => {
-  return axios.get('/api/auth')
+  return axios.get('/api/auth/me')
     .then(result => result.data)
     .then(user => dispatch(setCurrUser(user)))
     .catch(() => console.log('not logged in'))
