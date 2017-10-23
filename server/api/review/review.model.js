@@ -10,7 +10,7 @@ const Review = conn.define('review', {
     type: conn.Sequelize.TEXT,
     allowNull: false,
     validate: {
-      len: [40, 4000]
+      len: [20, 4000]
     }
   },
   rating: {
