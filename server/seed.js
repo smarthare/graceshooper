@@ -469,7 +469,7 @@ const gundams = () => {
         }),
         models.Product.create({
           description: 'Zeta Gundam 1/144, Real Grade',
-          title: 'Zetq Gundam 1/144, Real Grade',
+          title: 'Zeta Gundam 1/144, Real Grade',
           price: 25,
           inventory: 100,
           imgUrls: ['zeta.jpg']

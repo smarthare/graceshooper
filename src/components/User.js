@@ -17,6 +17,7 @@ class User extends Component {
   }
 
   componentDidMount () {
+    store.dispatch(fetchUserSession())
     store.dispatch(fetchOrders())
   }
 
