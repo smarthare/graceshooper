@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Order from "./Order";
 import { connect } from "react-redux";
 import store, { updateUser, fetchUserSession, fetchOrders } from "../store";
-import { mapOrderToProduct } from '../util/mapper'
 
 class User extends Component {
   constructor(props) {
@@ -119,7 +118,7 @@ class User extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    orders: state.orders.map(order => mapOrderToProduct(order, state.products))
+    orders: state.orders
   };
 };
 
