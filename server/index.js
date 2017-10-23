@@ -3,7 +3,6 @@ const
   app = express(),
   path = require('path'),
   bodyParser = require('body-parser'),
-  compression = require('compression'),
   morgan = require('morgan'),
   db = require('./db'),
   seed = require('./seed'),
@@ -14,7 +13,7 @@ const
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-  db.models.user.findById(id)
+  db.models.User.findById(id)
     .then(user => done(null, user))
     .catch(done))
 
@@ -24,6 +23,12 @@ app.use('/assets', express.static(path.join(__dirname, '../assets')))
 app.use('/dist', express.static(path.join(__dirname, '../dist')))
 app.use('/public', express.static(path.join(__dirname, '../public')))
 app.use('/vendor', express.static(path.join(__dirname, '../node_modules')))
+
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz'
+  res.set('Content-Encoding', 'gzip')
+  next()
+})
 
 app.use(
   session({
@@ -35,7 +40,6 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(compression())
 app.use(morgan('dev'))
 
 app.use('/api', require('./api/api.router'))

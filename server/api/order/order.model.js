@@ -2,7 +2,8 @@ const
   conn = require('../../conn'),
   Product = require('../product/product.model'),
   Category = require('../category/category.model.js'),
-  LineItem = require('./lineItem.model')
+  LineItem = require('./lineItem.model'),
+  Op = require('sequelize').Op
 
 const Order = conn.define('order', {
   // Status should have four options: Created, Processing, Cancelled, Completed.
@@ -28,8 +29,8 @@ Order.getCartByUserId = function (userId) {
 
 Order.getOrdersByUserId = function (userId) {
   return Order.findAll({
-    order: [['id', 'DESC']],
-    where: {status: {$ne: 'Created'}, userId},
+    order: [['createdAt', 'DESC']],
+    where: {status: {[Op.ne]: 'Created'}, userId},
     include: [{ model: LineItem }]
   })
 }

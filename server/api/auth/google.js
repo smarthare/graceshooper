@@ -30,7 +30,7 @@ router
   .get('/', passport.authenticate('google', {scope: 'email'}))
 
   .get('/callback', passport.authenticate('google', {
-    successRedirect: '/',
+    successRedirect: '/account',
     failureRedirect: '/login'
   }))
 
