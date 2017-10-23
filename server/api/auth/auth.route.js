@@ -4,7 +4,9 @@ const
 
 router
   .get('/me', (req, res, next) => {
-    // console.log('session', req.session)
+    if (req.session.passport) {
+      req.session.userId = req.session.passport.user
+    }
     User.findBySessionId(req.session.userId)
     .then(user => res.send(user))
     .catch(next)

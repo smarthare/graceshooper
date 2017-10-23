@@ -13,7 +13,6 @@ const
       googleId = profile.id,
       name = profile.displayName,
       email = profile.emails[0].value
-    console.log(profile)
 
     User.find({where: {googleId}})
       .then(user => user

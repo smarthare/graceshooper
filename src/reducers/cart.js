@@ -75,7 +75,6 @@ export const submitCart = () => dispatch => {
 }
 
 export const mergeCart = (lineItems) => (dispatch, getState) => {
-  console.log(lineItems)
   lineItems = lineItems || getState().cart.lineItems
   if (!lineItems) return
   return Promise.all(lineItems.map(({ productId, quantity }) => {
