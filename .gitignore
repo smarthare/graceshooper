@@ -1,4 +1,5 @@
 # Compiled JS
+secrets.js
 dist/
 bundle.js
 bundle.js.map
