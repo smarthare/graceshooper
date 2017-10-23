@@ -40,7 +40,9 @@ export const fetchOrders = () => dispatch => {
     .catch(err => console.error(err))
 }
 
-export const cancalOrder = id => dispatch => {
+export const cancalOrder = id => (dispatch, getState) => {
+  const status = getState().orders.find(el => el.id === id).status
+  if (status !== 'Processing') return
   return axios
     .put(`/api/orders/${id}`, {status: 'Cancelled'})
     .then(() => dispatch(cancelUserOrder(id)))

@@ -6,6 +6,10 @@ import { cancalOrder } from '../store'
 
 const Order = props => {
   const { order, cancalOrder } = props
+  if (order.lineItems.some(ln => !ln.product)) return (
+    <div>Loading...</div>
+  )
+
   return (
     <div className='panel panel-info'>
       <div className='panel panel-heading'>
