@@ -2,13 +2,12 @@ import React from 'react'
 import { connect } from "react-redux"
 import { $, subCalc, longDate } from '../util/helper'
 import { mapOrderToProduct } from '../util/mapper'
-import { cancalOrder } from '../store'
+import { cancalOrder, mergeCart } from '../store'
 
 const Order = props => {
-  const { order, cancalOrder } = props
-  if (order.lineItems.some(ln => !ln.product)) return (
-    <div>Loading...</div>
-  )
+  const { order, mergeCart, cancalOrder } = props
+  if (!order.lineItems) return (<div>No Order History</div>)
+  if (order.lineItems.some(ln => !ln.product)) return (<div>Loading...</div>)
 
   return (
     <div className='panel panel-info'>
@@ -19,7 +18,7 @@ const Order = props => {
       </div>
       <div className='panel panel-body'>
         <div className='col-sm-9'>
-          {order.status} At {longDate(order.updatedAt)}
+          <strong>{order.status} At {longDate(order.updatedAt)}</strong>
           {
             order.lineItems && order.lineItems.map(ln => {
               return (
@@ -29,13 +28,18 @@ const Order = props => {
           }
         </div>
         <div className='col-sm-3'>
-          <button className='btn btn-primary btn-block'>Buy It Again</button>
+          <button
+            className='btn btn-primary btn-block'
+            onClick={mergeCart.bind(this, order.lineItems)}
+          >
+            Buy It Again
+          </button>
           <button className='btn btn-info btn-block'>Write A Review</button>
           <button
             className='btn btn-warning btn-block'
             onClick={cancalOrder.bind(this, order.id)}
           >
-          Cancel Order
+            Cancel Order
           </button>
         </div>
       </div>
@@ -49,6 +53,6 @@ const mapState = (state, ownProps) => {
   }
 }
 
-const mapDispatch = { cancalOrder }
+const mapDispatch = { mergeCart, cancalOrder }
 
 export default connect(mapState, mapDispatch)(Order)
