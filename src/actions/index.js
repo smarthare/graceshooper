@@ -24,7 +24,6 @@ export function fetchProductsForCat(id, searchTerm) {
     return axios.get(`/api/categories/${ id }`)
       .then(res => res.data)
       .then(category => {
-        console.log('>>>>>>>>>>>>>>payload', category)
         return { type: PRODUCTS_FOR_CATEGORY, payload: category };
       })
   } else if (!id && !searchTerm) {

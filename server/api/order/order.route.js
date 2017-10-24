@@ -22,19 +22,8 @@ router
   })
 
   .put("/:id", (req, res, next) => {
-    // Update an order's status to something other than 'Created'
-    Order.findById(req.params.Id)
-      .then(order => res.update(req.body))
-      .catch(next);
-  })
-
-  .post("/", (req, res, next) => {
-    // To create a cart from request body
-    // i.e. when a guest signup
-    // Placeholding - creating an order from store can be more
-    //   complicated than using req.body. Might need to first
-    //   add all lineItems one by one
-    Order.create(req.body)
+    Order.findById(req.params.id)
+      .then(order => order.update(req.body))
       .then(order => res.send(order))
       .catch(next);
   })

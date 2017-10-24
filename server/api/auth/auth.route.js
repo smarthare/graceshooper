@@ -3,7 +3,10 @@ const
   User = require('../user/user.model')
 
 router
-  .get('/', (req, res, next) => {
+  .get('/me', (req, res, next) => {
+    if (req.session.passport) {
+      req.session.userId = req.session.passport.user
+    }
     User.findBySessionId(req.session.userId)
     .then(user => res.send(user))
     .catch(next)
@@ -32,6 +35,6 @@ router
     .catch(next)
   })
 
-  // .use('/google', require('./google'))
+  .use('/google', require('./google'))
 
 module.exports = router

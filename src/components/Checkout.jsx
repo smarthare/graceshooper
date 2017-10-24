@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { $, subCalc, validateAddress } from '../util/helper'
-import { submitCart, updateUser, fetchUserSession } from '../store'
+import { submitCart, updateUser, fetchOrders } from '../store'
 
 class Checkout extends Component {
   constructor (props) {
@@ -23,9 +23,9 @@ class Checkout extends Component {
   }
 
   handleSubmit (e) {
-    const { updateUser, fetchUserSession } = this.props
+    const { updateUser, fetchOrders } = this.props
     e.preventDefault()
-    updateUser(this.state.user).then(() => fetchUserSession())
+    updateUser(this.state.user).then(() => fetchOrders())
   }
 
   render () {
@@ -115,6 +115,6 @@ class Checkout extends Component {
 }
 
 const mapState = state => ({ cart: state.cart, user: state.currentUser })
-const mapDispatch = ({ updateUser, fetchUserSession, submitCart })
+const mapDispatch = ({ updateUser, fetchOrders, submitCart })
 
 export default connect(mapState, mapDispatch)(Checkout)

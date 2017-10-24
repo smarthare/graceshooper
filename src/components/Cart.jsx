@@ -19,9 +19,10 @@ class Cart extends Component {
 
   render () {
     const
-      { cart } = this.props,
+      { cart, currentUser } = this.props,
       subtotal = subCalc(cart.lineItems),
-      count = cart.lineItems.length
+      count = cart.lineItems.length,
+      readyToCheckOut = currentUser.id && count > 0
 
     return (
       <div className='container'>
@@ -62,12 +63,36 @@ class Cart extends Component {
           </div>
 
           <div className='col-sm-4 panel panel-default backTan'>
-            <h4>Subtotal: {$(subtotal)}</h4>
-            <Link to={`/checkout`}>
-              <button className='btn btn-primary' type='submit' disabled={count === 0}>
-                Proceed to Checkout
-              </button>
-            </Link>
+            <div className='panel-heading'>
+              <h4>Subtotal: {$(subtotal)}</h4>
+            </div>
+            <div className='panel-body'>
+              <Link to={`/checkout`}>
+                <button className='btn btn-primary' type='submit' disabled={!readyToCheckOut}>
+                  Proceed to Checkout
+                </button>
+              </Link>
+
+              { !currentUser.id && count > 0 &&
+                (
+
+                <div>
+                  <hr />
+                  <h4>Sorry! Only registered user can checkout.</h4>
+                  <Link to={`/signin`}>
+                    <button className='btn btn-info'>
+                      Already has an account? Log In
+                    </button>
+                  </Link>
+                  <Link to={`/signup`}>
+                    <button className='btn btn-default'>
+                      Sign up for a new account
+                    </button>
+                  </Link>
+                </div>
+                )
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -76,7 +101,8 @@ class Cart extends Component {
 }
 
 const mapState = state => ({
-  cart: mapOrderToProduct(state.cart, state.products)
+  cart: mapOrderToProduct(state.cart, state.products),
+  currentUser: state.currentUser
 })
 const mapDispatch = ({ deleteLine: deleteLnFromCart })
 

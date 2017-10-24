@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import Order from "./Order";
 import { connect } from "react-redux";
-import store, { updateUser, fetchUserSession } from "../store";
-import { mapOrderToProduct } from '../util/mapper'
+import store, { updateUser, fetchUserSession, fetchOrders } from "../store";
 
 class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: props.currentUser,
-      orders: props.orders,
       showSuccess: false
     };
 
@@ -17,17 +15,15 @@ class User extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount () {
+    store.dispatch(fetchUserSession())
+    store.dispatch(fetchOrders())
+  }
+
   componentWillReceiveProps(nextProps) {
     // Compare to currentUser updated in the store
     if (nextProps.currentUser !== this.props.currentUser) {
-      this.setState({
-        user: nextProps.currentUser
-      });
-    }
-    if (nextProps.orders !== this.props.orders) {
-      this.setState({
-        orders: nextProps.orders
-      });
+      this.setState({ user: nextProps.currentUser });
     }
   }
 
@@ -122,7 +118,7 @@ class User extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    orders: state.orders.map(order => mapOrderToProduct(order, state.products))
+    orders: state.orders
   };
 };
 

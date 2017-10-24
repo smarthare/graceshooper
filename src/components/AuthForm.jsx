@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { auth, fetchOrders, fetchCart, mergeCart } from '../store'
+import { auth, fetchCart, mergeCart } from '../store'
 
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props
@@ -17,12 +17,19 @@ const AuthForm = props => {
               <label htmlFor='password'><small>Password</small></label>
               <input className='form-control' name='password' type='password' />
             </div>
-            <div>
-              <button className='btn btn-primary' type='submit'>{displayName}</button>
+            <div className='row'>
+              <div className='col-xs-6'>
+                <button className='btn btn-primary' type='submit'>{displayName}</button>
+              </div>
+              <div className='col-xs-6'>
+                <a href='/api/auth/google'>
+                  <img src={`../../assets/images/gsignin.png`} style={{width: 'auto', height: 44}}/>
+                </a>
+              </div>
             </div>
             {error && error.response && <div> {error.response.data} </div>}
           </form>
-          <a href='/auth/google'>{displayName} with Google</a>
+
         </div>
       </div>
     </div>
@@ -57,7 +64,6 @@ const mapDispatch = (dispatch, ownProps) => ({
     }
     dispatch(auth(credentials, ownProps.history, formName))
     .then(() => dispatch(mergeCart()))
-    .then(() => dispatch(fetchOrders()))
     .then(() => dispatch(fetchCart()))
   }
 })

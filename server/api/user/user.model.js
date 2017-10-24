@@ -10,7 +10,9 @@ const User = conn.define('user', {
     defaultValue: `User${Math.floor(Math.random() * 99999)}`,
     validate: { notEmpty: true }
   },
+  salt: conn.Sequelize.STRING,
   password: conn.Sequelize.STRING,
+  googleId: conn.Sequelize.STRING,
   imgUrl: {
     type: conn.Sequelize.STRING,
     defaultValue: 'default-photo.jpg'
