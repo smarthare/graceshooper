@@ -28,7 +28,6 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.18.2",
-    "compression": "^1.7.1",
     "express": "^4.16.1",
     "faker": "^4.1.0",
     "lodash": "^4.17.4",
