@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux"
+import { Link } from 'react-router-dom'
 import { $, subCalc, longDate } from '../util/helper'
 import { mapOrderToProduct } from '../util/mapper'
 import { cancalOrder, mergeCart } from '../store'
@@ -34,7 +35,11 @@ const Order = props => {
           >
             Buy It Again
           </button>
-          <button className='btn btn-info btn-block'>Write A Review</button>
+          <Link to={`/review/${order.id}`}>
+            <button className='btn btn-info btn-block'>
+              Write A Review
+            </button>
+          </Link>
           <button
             className='btn btn-warning btn-block'
             onClick={cancalOrder.bind(this, order.id)}

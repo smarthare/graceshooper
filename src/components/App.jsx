@@ -6,6 +6,7 @@ import SearchBar from "../containers/SearchBar";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
 import Home from "../containers/Home";
+import ReviewForm from "./ReviewForm";
 import { Login, Signup } from "./AuthForm";
 import Account from "./User";
 
@@ -56,13 +57,16 @@ export default class App extends Component {
               <Route path="/signup" component={Signup} />
               <Route path="/checkout" component={Checkout} />
               <Route
+                path="/review/:orderId"
+                render={router => <ReviewForm router={router} />}
+              />
+              <Route
                 path="/category/:id/:term"
                 render={router => <Home router={router} />}
               />
               <Route
                 path="/category/:id"
                 render={router => <Home router={router} />}
-              />
               />
             </Switch>
           </div>
