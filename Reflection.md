@@ -4,3 +4,5 @@
 - Editing pictures for products/users
 - Resetting user passwords
 - Confirmation screen after an order is submitted
+- Emails to Users on order confirmation/shipment
+- Review Form
